@@ -3,9 +3,9 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter/material.dart';
 import 'package:infinito/app/app_widget.dart';
 import 'package:infinito/app/modules/home/home_module.dart';
-import 'package:infinito/app/shared/auth/auth_controller.dart';
-import 'package:infinito/app/shared/auth/auth_repository.dart';
-import 'package:infinito/app/shared/auth/auth_repository_interface.dart';
+import 'package:infinito/app/shared/auth_firebase/auth_controller.dart';
+import 'package:infinito/app/shared/auth_firebase/auth_firebase.dart';
+import 'package:infinito/app/shared/auth_firebase/auth_firebase_interface.dart';
 import 'package:infinito/app/shared/repositories/localstorage/local_storage_interface.dart';
 import 'package:infinito/app/shared/repositories/localstorage/local_storage_share.dart';
 import 'package:infinito/app/shared/splash/splash_page.dart';
@@ -18,7 +18,7 @@ class AppModule extends MainModule {
         Bind((i) => AppController()),
         //  Bind((i) => LocalStorageHive()),
         Bind<ILocalStorage>((i) => LocalStorageShared()),
-        Bind<IAuthRepository>((i) => AuthRepository()),
+        Bind<IAuthFirebase>((i) => AuthFirebase()),
         Bind((i) => AuthController()),
       ];
 

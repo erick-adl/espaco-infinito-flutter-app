@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
-abstract class IAuthRepository {
+abstract class IAuthFirebase {
   Future<FirebaseUser> getUser();
   Future<FirebaseUser> getGoogleLogin();
   Future getFacebookLogin();

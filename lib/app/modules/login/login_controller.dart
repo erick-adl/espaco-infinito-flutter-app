@@ -1,5 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:infinito/app/shared/auth/auth_controller.dart';
+import 'package:infinito/app/shared/auth_firebase/auth_controller.dart';
 
 import 'package:mobx/mobx.dart';
 
