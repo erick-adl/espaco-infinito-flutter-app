@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1021715328717",
+    "firebase_url": "https://infinito-8c4e2.firebaseio.com",
+    "project_id": "infinito-8c4e2",
+    "storage_bucket": "infinito-8c4e2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1021715328717:android:4aeaf181698a1a49478384",
+        "android_client_info": {
+          "package_name": "com.erick.infinito"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1021715328717-ii3ick61i9c8jf0t8h58bnhn1bh3kppu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.erick.infinito",
+            "certificate_hash": "42381c3720d78fbb85ea812bc9706285140f64af"
+          }
+        },
+        {
+          "client_id": "1021715328717-081hpjjk9a9eimpcsg9opk7nm35knaaq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQg9ci7QsHQ--U5RYpG56t03K1Ku5qXm4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1021715328717-081hpjjk9a9eimpcsg9opk7nm35knaaq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
