@@ -26,13 +26,19 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
               context: context,
               children: <Widget>[
                 CustomTextFieldWidget(
-                    context: context,
-                    textHint: "Email",
-                    iconDecoration: Icon(Icons.email)),
+                  context: context,
+                  textHint: "Email",
+                  iconDecoration: Icon(Icons.email),
+                  onChanged: (_) {},
+                  obscureText: false,
+                ),
                 CustomTextFieldWidget(
-                    context: context,
-                    textHint: "Senha",
-                    iconDecoration: Icon(Icons.vpn_key)),
+                  context: context,
+                  textHint: "Senha",
+                  iconDecoration: Icon(Icons.vpn_key),
+                  onChanged: (_) {},
+                  obscureText: true,
+                ),
                 Align(
                   alignment: Alignment.bottomRight,
                   child: Padding(
@@ -49,9 +55,11 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                     ),
                   ),
                 ),
-                CustomButton(context: context, text: "Entrar"),
+                CustomButton(context: context, text: "Entrar", fun: () {}),
                 CustomButton(
-                    context: context, text: "Entre com sua conta Google"),
+                    context: context,
+                    text: "Entre com sua conta Google",
+                    fun: () {}),
                 Align(
                   alignment: Alignment.center,
                   child: Padding(

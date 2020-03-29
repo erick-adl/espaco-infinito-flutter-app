@@ -30,12 +30,18 @@ class _ForgotPasswordPageState
               context: context,
               children: <Widget>[
                 CustomTextFieldWidget(
-                    context: context,
-                    textHint: "Email",
-                    iconDecoration: Icon(Icons.email)),
+                  context: context,
+                  textHint: "Email",
+                  iconDecoration: Icon(
+                    Icons.email,
+                  ),
+                  onChanged: (_) {},
+                  obscureText: false,
+                ),
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0),
-                  child: CustomButton(context: context, text: "Recuperar"),
+                  child: CustomButton(
+                      context: context, text: "Recuperar", fun: () {}),
                 ),
               ],
             ),
