@@ -1,0 +1,5 @@
+lib/app/signup/signup_module.dart
+lib/app/signup/signup_page.dart
+test/app/signup/signup_page_test.dart
+lib/app/signup/signup_controller.dart
+test/app/signup/signup_controller_test.dart
