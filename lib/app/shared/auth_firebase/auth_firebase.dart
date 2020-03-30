@@ -8,9 +8,19 @@ class AuthFirebase implements IAuthFirebase {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
-  Future getEmailPasswordLogin() {
-    // TODO: implement getEmailPasswordLogin
-    throw UnimplementedError();
+  Future<FirebaseUser> getEmailPasswordLogin(
+      {String email, String password}) async {
+    try {
+      AuthResult result = await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      if (result.user == null) return null;
+      final FirebaseUser user = result.user;
+      return user;
+    } catch (e) {
+      throw e;
+    }
   }
 
   @override
@@ -53,5 +63,21 @@ class AuthFirebase implements IAuthFirebase {
   @override
   Future getLogout() {
     return _auth.signOut();
+  }
+
+  @override
+  Future<FirebaseUser> createUserWithEmailPassword(
+      {String email, String password}) async {
+    try {
+      AuthResult result = await _auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      if (result.user == null) return null;
+      final FirebaseUser user = result.user;
+      return user;
+    } catch (e) {
+      throw e;
+    }
   }
 }

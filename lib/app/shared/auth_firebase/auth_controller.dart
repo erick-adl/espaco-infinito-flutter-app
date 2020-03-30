@@ -33,6 +33,26 @@ abstract class _AuthControllerBase with Store {
     user = await _authRepository.getGoogleLogin();
   }
 
+  @action
+  Future loginWithEmailPassword({String email, String password}) async {
+    try {
+      user = await _authRepository.getEmailPasswordLogin(
+          email: email, password: password);
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  @action
+  Future createUserWithEmailAndPassword({String email, String password}) async {
+    try {
+      user = await _authRepository.createUserWithEmailPassword(
+          email: email, password: password);
+    } catch (e) {
+      throw e;
+    }
+  }
+
   Future logout() {
     return _authRepository.getLogout();
   }

@@ -1,4 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:infinito/app/shared/auth_firebase/auth_controller.dart';
 import 'package:mobx/mobx.dart';
 
 part 'signup_controller.g.dart';
@@ -6,6 +7,8 @@ part 'signup_controller.g.dart';
 class SignupController = _SignupControllerBase with _$SignupController;
 
 abstract class _SignupControllerBase with Store {
+  AuthController _authController = Modular.get();
+
   @observable
   String name = "";
   @observable
@@ -31,8 +34,8 @@ abstract class _SignupControllerBase with Store {
   changeErrorText(String value) => errorText = value;
 
   @action
-  void isValidForm() {
-    errorText = formCheck();
+  Future<void> isValidForm() async {
+    errorText = await formCheck();
 
     if (errorText == null) {
       clean();
@@ -49,24 +52,31 @@ abstract class _SignupControllerBase with Store {
     changePasswordCheck("");
   }
 
-  String formCheck() {
-    if (name.isEmpty ||
-        email.isEmpty ||
-        password.isEmpty ||
-        passwordCheck.isEmpty) {
-      return "Preencha todos os compos";
-    } else if (name.length < 7 ||
-        email.length < 7 ||
-        password.length < 7 ||
-        passwordCheck.length < 7)
-      return "Nenhum campo deve ser inferior a 7";
-    else if (!email.contains("@") ||
-        !email.contains("com") ||
-        !email.contains("."))
-      return "Formato de email incorreto";
-    else if (password != passwordCheck)
-      return "Senhas diferentes";
-    else
+  Future<String> formCheck() async {
+    try {
+      if (name.isEmpty ||
+          email.isEmpty ||
+          password.isEmpty ||
+          passwordCheck.isEmpty) {
+        return "Preencha todos os compos";
+      } else if (name.length < 7 ||
+          email.length < 7 ||
+          password.length < 7 ||
+          passwordCheck.length < 7)
+        return "Nenhum campo deve ser inferior a 7";
+      else if (!email.contains("@") ||
+          !email.contains("com") ||
+          !email.contains("."))
+        return "Formato de email incorreto";
+      else if (password != passwordCheck) return "Senhas diferentes";
+
+      var user = await _authController.createUserWithEmailAndPassword(
+          email: email.trim(), password: passwordCheck.trim());
+      if (user != null) return "Usuario já possui cadastro";
+
       return null;
+    } catch (e) {
+      if (e.code == "ERROR_INVALID_EMAIL") return "Email já possui cadastro";
+    }
   }
 }

@@ -37,6 +37,7 @@ class _ForgotPasswordPageState
                   ),
                   onChanged: (_) {},
                   obscureText: false,
+                  textInputType: TextInputType.emailAddress,
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0),

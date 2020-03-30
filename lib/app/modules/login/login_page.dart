@@ -31,6 +31,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                   iconDecoration: Icon(Icons.email),
                   onChanged: (_) {},
                   obscureText: false,
+                  textInputType: TextInputType.emailAddress,
                 ),
                 CustomTextFieldWidget(
                   context: context,
@@ -38,6 +39,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                   iconDecoration: Icon(Icons.vpn_key),
                   onChanged: (_) {},
                   obscureText: true,
+                  textInputType: TextInputType.text,
                 ),
                 Align(
                   alignment: Alignment.bottomRight,

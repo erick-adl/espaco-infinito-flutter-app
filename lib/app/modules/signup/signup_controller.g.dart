@@ -111,6 +111,13 @@ mixin _$SignupController on _SignupControllerBase, Store {
     }, _$successTextAtom, name: '${_$successTextAtom.name}_set');
   }
 
+  final _$isValidFormAsyncAction = AsyncAction('isValidForm');
+
+  @override
+  Future<void> isValidForm() {
+    return _$isValidFormAsyncAction.run(() => super.isValidForm());
+  }
+
   final _$_SignupControllerBaseActionController =
       ActionController(name: '_SignupControllerBase');
 
@@ -159,16 +166,6 @@ mixin _$SignupController on _SignupControllerBase, Store {
     final _$actionInfo = _$_SignupControllerBaseActionController.startAction();
     try {
       return super.changeErrorText(value);
-    } finally {
-      _$_SignupControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void isValidForm() {
-    final _$actionInfo = _$_SignupControllerBaseActionController.startAction();
-    try {
-      return super.isValidForm();
     } finally {
       _$_SignupControllerBaseActionController.endAction(_$actionInfo);
     }

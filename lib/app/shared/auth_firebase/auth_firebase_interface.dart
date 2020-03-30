@@ -4,7 +4,9 @@ abstract class IAuthFirebase {
   Future<FirebaseUser> getUser();
   Future<FirebaseUser> getGoogleLogin();
   Future getFacebookLogin();
-  Future getEmailPasswordLogin();
+  Future<FirebaseUser> getEmailPasswordLogin({String email, String password});
+  Future<FirebaseUser> createUserWithEmailPassword(
+      {String email, String password});
   Future<String> getToken();
   Future getLogout();
 }
