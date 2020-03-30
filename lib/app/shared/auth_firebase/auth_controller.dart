@@ -44,10 +44,11 @@ abstract class _AuthControllerBase with Store {
   }
 
   @action
-  Future createUserWithEmailAndPassword({String email, String password}) async {
+  Future createUserWithEmailAndPassword(
+      {String name, String email, String password}) async {
     try {
       user = await _authRepository.createUserWithEmailPassword(
-          email: email, password: password);
+          name: name, email: email, password: password);
     } catch (e) {
       throw e;
     }

@@ -21,17 +21,22 @@ class DrawerMenuWidget extends StatelessWidget {
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.only(right: 10.0),
-                      child: CircleAvatar(
-                          radius: 40,
-                          backgroundImage: NetworkImage(
-                              _authController.user.photoUrl ?? null)),
+                      child: _authController.user.photoUrl == null
+                          ? Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Icon(Icons.add_a_photo),
+                            )
+                          : CircleAvatar(
+                              radius: 40,
+                              backgroundImage:
+                                  NetworkImage(_authController.user.photoUrl)),
                     ),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text("Olá! Seja bem vindo!"),
-                        Text(_authController.user.email)
+                        Text(_authController.user.displayName)
                       ],
                     ),
                   ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:infinito/app/shared/widgets/color_loader.dart';
 import 'package:infinito/app/shared/widgets/custom_button.widget.dart';
 import 'package:infinito/app/shared/widgets/custom_form.widget.dart';
 import 'package:infinito/app/shared/widgets/custom_textfield.widget.dart';
@@ -73,13 +74,18 @@ class _SignupPageState extends ModularState<SignupPage, SignupController> {
                           ),
                           Observer(
                             builder: (BuildContext context) {
-                              return Padding(
-                                padding: const EdgeInsets.only(top: 8.0),
-                                child: CustomButton(
-                                    context: context,
-                                    text: "Cadastrar",
-                                    fun: controller.isValidForm),
-                              );
+                              return controller.loading == true
+                                  ? Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: ColorLoader(),
+                                    )
+                                  : Padding(
+                                      padding: const EdgeInsets.only(top: 8.0),
+                                      child: CustomButton(
+                                          context: context,
+                                          text: "Cadastrar",
+                                          fun: controller.isValidForm),
+                                    );
                             },
                           )
                         ],

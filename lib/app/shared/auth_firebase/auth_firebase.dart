@@ -67,7 +67,7 @@ class AuthFirebase implements IAuthFirebase {
 
   @override
   Future<FirebaseUser> createUserWithEmailPassword(
-      {String email, String password}) async {
+      {String name, String email, String password}) async {
     try {
       AuthResult result = await _auth.createUserWithEmailAndPassword(
         email: email,
@@ -75,6 +75,13 @@ class AuthFirebase implements IAuthFirebase {
       );
       if (result.user == null) return null;
       final FirebaseUser user = result.user;
+      await _auth.currentUser().then((val) {
+        UserUpdateInfo updateUser = UserUpdateInfo();
+        updateUser.displayName = name;
+        // updateUser.photoUrl = picURL;
+        val.updateProfile(updateUser);
+      });
+      _auth.signOut();
       return user;
     } catch (e) {
       throw e;

@@ -111,6 +111,23 @@ mixin _$SignupController on _SignupControllerBase, Store {
     }, _$successTextAtom, name: '${_$successTextAtom.name}_set');
   }
 
+  final _$loadingAtom = Atom(name: '_SignupControllerBase.loading');
+
+  @override
+  bool get loading {
+    _$loadingAtom.context.enforceReadPolicy(_$loadingAtom);
+    _$loadingAtom.reportObserved();
+    return super.loading;
+  }
+
+  @override
+  set loading(bool value) {
+    _$loadingAtom.context.conditionallyRunInAction(() {
+      super.loading = value;
+      _$loadingAtom.reportChanged();
+    }, _$loadingAtom, name: '${_$loadingAtom.name}_set');
+  }
+
   final _$isValidFormAsyncAction = AsyncAction('isValidForm');
 
   @override
@@ -174,7 +191,7 @@ mixin _$SignupController on _SignupControllerBase, Store {
   @override
   String toString() {
     final string =
-        'name: ${name.toString()},email: ${email.toString()},password: ${password.toString()},passwordCheck: ${passwordCheck.toString()},errorText: ${errorText.toString()},successText: ${successText.toString()}';
+        'name: ${name.toString()},email: ${email.toString()},password: ${password.toString()},passwordCheck: ${passwordCheck.toString()},errorText: ${errorText.toString()},successText: ${successText.toString()},loading: ${loading.toString()}';
     return '{$string}';
   }
 }

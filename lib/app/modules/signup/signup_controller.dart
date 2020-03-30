@@ -21,6 +21,8 @@ abstract class _SignupControllerBase with Store {
   String errorText = "";
   @observable
   String successText = "";
+  @observable
+  bool loading = false;
 
   @action
   changeName(String value) => name = value;
@@ -54,6 +56,7 @@ abstract class _SignupControllerBase with Store {
 
   Future<String> formCheck() async {
     try {
+      loading = true;
       if (name.isEmpty ||
           email.isEmpty ||
           password.isEmpty ||
@@ -71,11 +74,12 @@ abstract class _SignupControllerBase with Store {
       else if (password != passwordCheck) return "Senhas diferentes";
 
       var user = await _authController.createUserWithEmailAndPassword(
-          email: email.trim(), password: passwordCheck.trim());
+          name: name, email: email.trim(), password: passwordCheck.trim());
       if (user != null) return "Usuario já possui cadastro";
-
+      loading = false;
       return null;
     } catch (e) {
+      loading = false;
       if (e.code == "ERROR_INVALID_EMAIL") return "Email já possui cadastro";
     }
   }
