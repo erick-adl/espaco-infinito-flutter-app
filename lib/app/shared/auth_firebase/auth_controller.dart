@@ -53,8 +53,9 @@ abstract class _AuthControllerBase with Store {
     }
   }
 
-  Future logout() {
-    return _authRepository.getLogout();
+  void logout() {
+    _authRepository.getLogout();
+    Modular.to.pushReplacementNamed('/login');
   }
 }
 

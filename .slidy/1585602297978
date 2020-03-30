@@ -1,0 +1,5 @@
+lib/app/modules/drawer_menu/drawer_menu_module.dart
+lib/app/modules/drawer_menu/drawer_menu_page.dart
+test/app/modules/drawer_menu/drawer_menu_page_test.dart
+lib/app/modules/drawer_menu/drawer_menu_controller.dart
+test/app/modules/drawer_menu/drawer_menu_controller_test.dart
