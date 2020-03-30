@@ -20,7 +20,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
         title: Text(widget.title),
         actions: <Widget>[
           IconButton(
-              icon: Icon(Icons.exit_to_app), onPressed: _authController.logout),
+              icon: Icon(Icons.exit_to_app), onPressed: controller.logoutApp),
         ],
       ),
       body: Column(

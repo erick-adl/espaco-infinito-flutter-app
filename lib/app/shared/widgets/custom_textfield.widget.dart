@@ -22,7 +22,7 @@ class CustomTextFieldWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.fromLTRB(16, 4, 16, 5),
+      padding: EdgeInsets.fromLTRB(16, 0, 16, 5),
       margin: EdgeInsets.only(top: 15),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(50)),
