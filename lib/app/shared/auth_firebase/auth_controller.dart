@@ -8,7 +8,7 @@ part 'auth_controller.g.dart';
 class AuthController = _AuthControllerBase with _$AuthController;
 
 abstract class _AuthControllerBase with Store {
-  final IAuthFirebase _authRepository = Modular.get();
+  final IAuthFirebase _authFirebase = Modular.get();
 
   @observable
   AuthStatus status = AuthStatus.loading;
@@ -23,20 +23,20 @@ abstract class _AuthControllerBase with Store {
   }
 
   _AuthControllerBase() {
-    _authRepository.getUser().then(setUser).catchError((e) {
+    _authFirebase.getUser().then(setUser).catchError((e) {
       print('ERRORRRRRR');
     });
   }
 
   @action
   Future loginWithGoogle() async {
-    user = await _authRepository.getGoogleLogin();
+    user = await _authFirebase.getGoogleLogin();
   }
 
   @action
   Future loginWithEmailPassword({String email, String password}) async {
     try {
-      user = await _authRepository.getEmailPasswordLogin(
+      user = await _authFirebase.getEmailPasswordLogin(
           email: email, password: password);
     } catch (e) {
       throw e;
@@ -47,7 +47,7 @@ abstract class _AuthControllerBase with Store {
   Future createUserWithEmailAndPassword(
       {String name, String email, String password}) async {
     try {
-      user = await _authRepository.createUserWithEmailPassword(
+      await _authFirebase.createUserWithEmailPassword(
           name: name, email: email, password: password);
     } catch (e) {
       throw e;
@@ -55,7 +55,7 @@ abstract class _AuthControllerBase with Store {
   }
 
   void logout() {
-    _authRepository.getLogout();
+    _authFirebase.getLogout();
     Modular.to.pushReplacementNamed('/login');
   }
 }

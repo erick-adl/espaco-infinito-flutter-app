@@ -81,7 +81,7 @@ class AuthFirebase implements IAuthFirebase {
         // updateUser.photoUrl = picURL;
         val.updateProfile(updateUser);
       });
-      _auth.signOut();
+
       return user;
     } catch (e) {
       throw e;
