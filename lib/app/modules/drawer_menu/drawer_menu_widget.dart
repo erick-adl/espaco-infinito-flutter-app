@@ -13,8 +13,11 @@ class DrawerMenuWidget extends StatelessWidget {
           Container(
               padding: EdgeInsets.all(10),
               decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      colors: [Colors.orangeAccent, Colors.orange])),
+                gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [Color(0xfff45d27), Color(0xfff5851f)]),
+              ),
               child: Observer(builder: (_) {
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.start,

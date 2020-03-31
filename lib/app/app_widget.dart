@@ -13,7 +13,7 @@ class AppWidget extends StatelessWidget {
         theme: ThemeData(
           // Define the default brightness and colors.
           brightness: Brightness.light,
-          primaryColor: Color.fromARGB(255, 245, 133, 31),
+          primaryColor: Color(0xfff45d27),
 
           accentColor: Colors.cyan[600],
 
