@@ -6,17 +6,19 @@ class CustomButton extends StatelessWidget {
       @required this.text,
       this.context,
       @required this.fun,
-      this.color})
+      this.colors,
+      this.textColor})
       : super(key: key);
 
   final BuildContext context;
   final String text;
   final void Function() fun;
-  final Color color;
+  final List<Color> colors;
+  final Color textColor;
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(8, 10, 8, 0),
+      padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
       child: GestureDetector(
         onTap: fun,
         child: Container(
@@ -27,13 +29,16 @@ class CustomButton extends StatelessWidget {
             gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [Color(0xffffffff), Color(0xfff5851f)]),
+                colors: this.colors == null
+                    ? [Color(0xfff45d27), Color(0xfff5851f)]
+                    : colors),
           ),
           child: Center(
             child: Text(
               this.text.toUpperCase(),
-              style:
-                  TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  color: this.textColor == null ? Colors.white : textColor,
+                  fontWeight: FontWeight.bold),
             ),
           ),
         ),

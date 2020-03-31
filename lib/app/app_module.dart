@@ -2,8 +2,10 @@ import 'package:infinito/app/app_controller.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter/material.dart';
 import 'package:infinito/app/app_widget.dart';
+import 'package:infinito/app/modules/contact/contact_module.dart';
 import 'package:infinito/app/modules/forgot_password/forgot_password_module.dart';
 import 'package:infinito/app/modules/home/home_module.dart';
+import 'package:infinito/app/modules/terapias/terapias_module.dart';
 import 'package:infinito/app/shared/auth_firebase/auth_controller.dart';
 import 'package:infinito/app/shared/auth_firebase/auth_firebase.dart';
 import 'package:infinito/app/shared/auth_firebase/auth_firebase_interface.dart';
@@ -32,6 +34,8 @@ class AppModule extends MainModule {
         Router('/home', module: HomeModule()),
         Router('/signup', module: SignupModule()),
         Router('/forgot', module: ForgotPasswordModule()),
+        Router('/terapias', module: TerapiasModule()),
+        Router('/contact', module: ContactModule()),
       ];
 
   @override

@@ -1,0 +1,5 @@
+lib/app/modules/terapias/terapias_module.dart
+lib/app/modules/terapias/terapias_page.dart
+test/app/modules/terapias/terapias_page_test.dart
+lib/app/modules/terapias/terapias_controller.dart
+test/app/modules/terapias/terapias_controller_test.dart

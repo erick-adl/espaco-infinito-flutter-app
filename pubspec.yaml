@@ -27,6 +27,11 @@ dependencies:
   firebase_auth: ^0.15.4
   google_sign_in: ^4.1.1
   cloud_firestore: ^0.13.4+2
+  cached_network_image:
+  url_launcher: 
+  flutter_email_sender: ^3.0.1
+
+
 
   flutter:
     sdk: flutter

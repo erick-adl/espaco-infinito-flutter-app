@@ -46,13 +46,21 @@ class DrawerMenuWidget extends StatelessWidget {
                 );
               })),
           CustomListTile(
-              icon: Icons.home, text: "Pagina inicial", onTap: () {}),
+              icon: Icons.home,
+              text: "Pagina inicial",
+              onTap: () => Modular.to.pushReplacementNamed("/home")),
           CustomListTile(icon: Icons.person, text: "Perfil", onTap: () {}),
           CustomListTile(
-              icon: Icons.local_florist, text: "Terapias", onTap: () {}),
+              icon: Icons.local_florist,
+              text: "Terapias",
+              onTap: () => Modular.to.pushReplacementNamed("/terapias")),
+          CustomListTile(
+              icon: Icons.turned_in_not, text: "Produtos", onTap: () {}),
           CustomListTile(icon: Icons.timer, text: "agenda", onTap: () {}),
           CustomListTile(
-              icon: Icons.local_florist, text: "Sobre", onTap: () {}),
+              icon: Icons.local_florist,
+              text: "Contato",
+              onTap: () => Modular.to.pushReplacementNamed("/contact")),
           CustomListTile(
               icon: Icons.subdirectory_arrow_left,
               text: "Log out",

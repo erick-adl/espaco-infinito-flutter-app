@@ -75,7 +75,9 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                       fontWeight: FontWeight.bold),
                 ),
               ),
-              CustomButton(text: "Conheça nossas terapias", fun: null),
+              CustomButton(
+                  text: "Conheça nossas terapias",
+                  fun: () => Modular.to.pushReplacementNamed("/terapias")),
               CustomButton(text: "Conheça nossos produtos", fun: null),
               CustomButton(text: "Agende sua visita", fun: null),
             ],
