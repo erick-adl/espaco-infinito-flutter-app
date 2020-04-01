@@ -49,7 +49,7 @@ abstract class _ContactControllerBase with Store {
       final Email email = Email(
         body: message,
         subject: 'Contato via app',
-        recipients: ['blabla@gmail.com'],
+        recipients: ['erick.adlima@gmail.com'],
         isHTML: false,
       );
       try {

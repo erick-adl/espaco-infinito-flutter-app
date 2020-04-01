@@ -30,6 +30,7 @@ dependencies:
   cached_network_image:
   url_launcher: 
   flutter_email_sender: ^3.0.1
+  flare_flutter:
 
 
 
@@ -61,6 +62,7 @@ flutter:
     - assets/
     - assets/images/background.png
     - assets/images/
+    - assets/logo_infinito_animado.flr
 
  
   fonts:

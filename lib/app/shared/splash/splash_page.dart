@@ -1,4 +1,8 @@
+import 'package:flare_flutter/flare_actor.dart';
+import 'package:flare_flutter/flare_cache_builder.dart';
+import 'package:flare_flutter/provider/asset_flare.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:infinito/app/shared/auth_firebase/auth_controller.dart';
 
@@ -20,11 +24,13 @@ class _SplashPageState extends State<SplashPage> {
     super.initState();
     disposer = autorun((_) {
       final auth = Modular.get<AuthController>();
-      if (auth.status == AuthStatus.login) {
-        Modular.to.pushReplacementNamed('/home');
-      } else if (auth.status == AuthStatus.logoff) {
-        Modular.to.pushReplacementNamed('/login');
-      }
+      Future.delayed(Duration(seconds: 3), () {
+        if (auth.status == AuthStatus.login) {
+          Modular.to.pushReplacementNamed('/home');
+        } else {
+          Modular.to.pushReplacementNamed('/login');
+        }
+      });
     });
   }
 
@@ -37,9 +43,20 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: CircularProgressIndicator(),
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Color(0xfff45d27), Color(0xfff5851f)]),
+      ),
+      child: Center(
+        child: FlareActor("assets/flare.flr",
+            alignment: Alignment.center,
+            fit: BoxFit.contain,
+            animation: "idle"),
       ),
     );
   }
