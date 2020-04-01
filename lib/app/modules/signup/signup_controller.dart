@@ -40,11 +40,13 @@ abstract class _SignupControllerBase with Store {
     errorText = await formCheck();
 
     if (errorText == null) {
+      loading = false;
       clean();
       successText = "Cadastro realizado com sucesso!";
       Future.delayed(Duration(seconds: 4))
           .then((onValue) => Modular.to.pushReplacementNamed('/login/'));
     }
+    loading = false;
   }
 
   void clean() {

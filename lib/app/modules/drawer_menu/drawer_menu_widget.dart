@@ -49,14 +49,28 @@ class DrawerMenuWidget extends StatelessWidget {
               icon: Icons.home,
               text: "Pagina inicial",
               onTap: () => Modular.to.pushReplacementNamed("/home")),
-          CustomListTile(icon: Icons.person, text: "Perfil", onTap: () {}),
+          CustomListTile(
+            icon: Icons.person,
+            text: "Perfil",
+            onTap: () {},
+            textColor: Colors.black26,
+          ),
           CustomListTile(
               icon: Icons.local_florist,
               text: "Terapias",
               onTap: () => Modular.to.pushReplacementNamed("/terapias")),
           CustomListTile(
-              icon: Icons.turned_in_not, text: "Produtos", onTap: () {}),
-          CustomListTile(icon: Icons.timer, text: "agenda", onTap: () {}),
+            icon: Icons.turned_in_not,
+            text: "Produtos",
+            onTap: () {},
+            textColor: Colors.black26,
+          ),
+          CustomListTile(
+            icon: Icons.timer,
+            text: "agenda",
+            onTap: () {},
+            textColor: Colors.black26,
+          ),
           CustomListTile(
               icon: Icons.local_florist,
               text: "Contato",
@@ -75,9 +89,14 @@ class CustomListTile extends StatelessWidget {
   final IconData icon;
   final String text;
   final Function onTap;
+  final Color textColor;
 
   const CustomListTile(
-      {Key key, @required this.icon, @required this.text, @required this.onTap})
+      {Key key,
+      @required this.icon,
+      @required this.text,
+      @required this.onTap,
+      this.textColor})
       : super(key: key);
 
   @override
@@ -99,10 +118,17 @@ class CustomListTile extends StatelessWidget {
             children: <Widget>[
               Row(
                 children: <Widget>[
-                  Icon(icon),
+                  Icon(
+                    icon,
+                    color: textColor == null ? Colors.black : textColor,
+                  ),
                   Padding(
                     padding: EdgeInsets.all(8),
-                    child: Text(text),
+                    child: Text(
+                      text,
+                      style: TextStyle(
+                          color: textColor == null ? Colors.black : textColor),
+                    ),
                   ),
                 ],
               ),

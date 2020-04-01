@@ -76,10 +76,32 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                 ),
               ),
               CustomButton(
-                  text: "Conheça nossas terapias",
-                  fun: () => Modular.to.pushReplacementNamed("/terapias")),
-              CustomButton(text: "Conheça nossos produtos", fun: null),
-              CustomButton(text: "Agende sua visita", fun: null),
+                text: "Conheça nossas terapias",
+                fun: () => Modular.to.pushReplacementNamed("/terapias"),
+                textColor: Colors.black,
+                colors: [
+                  Colors.white,
+                  Colors.orange,
+                ],
+              ),
+              CustomButton(
+                text: "Conheça nossos produtos",
+                fun: null,
+                textColor: Colors.black,
+                colors: [
+                  Colors.white,
+                  Colors.orange,
+                ],
+              ),
+              CustomButton(
+                text: "Agende sua visita",
+                fun: null,
+                textColor: Colors.black,
+                colors: [
+                  Colors.white,
+                  Colors.orange,
+                ],
+              ),
             ],
           ),
         ),

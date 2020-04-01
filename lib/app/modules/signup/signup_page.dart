@@ -87,6 +87,13 @@ class _SignupPageState extends ModularState<SignupPage, SignupController> {
                                           fun: controller.isValidForm),
                                     );
                             },
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8.0),
+                            child: CustomButton(
+                                context: context,
+                                text: "Voltar",
+                                fun: () => Modular.to.pop()),
                           )
                         ],
                       )

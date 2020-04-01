@@ -52,7 +52,7 @@ class TerapiasTileWidget extends StatelessWidget {
                     Expanded(
                       flex: 1,
                       child: Container(
-                        margin: EdgeInsets.symmetric(vertical: 8),
+                        margin: EdgeInsets.symmetric(vertical: 9),
                         child: Text(
                           document["resumo"],
                           style: Theme.of(context).textTheme.body1,
@@ -105,7 +105,7 @@ class TerapiasTileWidget extends StatelessWidget {
                 margin: EdgeInsets.all(8),
                 child: Text(
                   document["nome"],
-                  style: Theme.of(context).textTheme.headline,
+                  style: Theme.of(context).textTheme.body2,
                 ),
               ),
               Container(
