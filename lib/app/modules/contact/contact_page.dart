@@ -10,7 +10,7 @@ import 'contact_controller.dart';
 
 class ContactPage extends StatefulWidget {
   final String title;
-  const ContactPage({Key key, this.title = "Contact"}) : super(key: key);
+  const ContactPage({Key key, this.title = "Contato"}) : super(key: key);
 
   @override
   _ContactPageState createState() => _ContactPageState();
@@ -22,7 +22,9 @@ class _ContactPageState extends ModularState<ContactPage, ContactController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
       drawer: DrawerMenuWidget(),
       body: Container(
         width: MediaQuery.of(context).size.width,

@@ -21,7 +21,9 @@ class _TerapiasPageState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          title: Text(widget.title),
+        ),
         drawer: DrawerMenuWidget(),
         body: StreamBuilder<QuerySnapshot>(
           stream: Firestore.instance.collection('terapias').snapshots(),

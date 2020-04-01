@@ -30,8 +30,7 @@ class TerapiasTileWidget extends StatelessWidget {
                       BorderRadius.horizontal(left: Radius.circular(30)),
                   image: DecorationImage(
                       fit: BoxFit.fill,
-                      image: new CachedNetworkImageProvider(
-                          document["url_foto"],
+                      image: new CachedNetworkImageProvider(document["foto"],
                           errorListener: () => Icon(Icons.error)))),
               width: 130,
             ),
@@ -99,7 +98,7 @@ class TerapiasTileWidget extends StatelessWidget {
                     borderRadius:
                         BorderRadius.vertical(top: Radius.circular(25)),
                     image: DecorationImage(
-                        image: NetworkImage(document["url_foto"]),
+                        image: NetworkImage(document["foto"]),
                         fit: BoxFit.cover)),
               ),
               Container(
