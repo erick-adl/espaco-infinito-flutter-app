@@ -31,6 +31,8 @@ dependencies:
   url_launcher: 
   flutter_email_sender: ^3.0.1
   flare_flutter:
+  font_awesome_flutter: ^8.0.1
+
 
 
 
@@ -80,6 +82,18 @@ flutter:
     - family: icomoon
       fonts:
         - asset: assets/fonts/IcoMoon.ttf
+    
+    - family: WorkSansSemiBold
+      fonts:
+        - asset: assets/fonts/WorkSans-SemiBold.ttf
+  
+    - family: WorkSansBold
+      fonts:
+        - asset: assets/fonts/WorkSans-Bold.ttf
+  
+    - family: WorkSansMedium
+      fonts:
+        - asset: assets/fonts/WorkSans-Medium.ttf
 
 
 
