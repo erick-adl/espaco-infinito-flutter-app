@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:infinito/app/shared/style/theme.dart' as Theme;
 
 class AppWidget extends StatelessWidget {
   @override
@@ -13,7 +14,7 @@ class AppWidget extends StatelessWidget {
         theme: ThemeData(
           // Define the default brightness and colors.
           brightness: Brightness.light,
-          primaryColor: Color(0xfff45d27),
+          primaryColor: Theme.Colors.loginGradientStart,
 
           accentColor: Colors.cyan[600],
 

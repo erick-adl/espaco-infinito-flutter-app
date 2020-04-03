@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:infinito/app/modules/drawer_menu/drawer_menu_widget.dart';
+import 'package:infinito/app/shared/style/theme.dart' as Theme;
 import 'package:infinito/app/shared/widgets/color_loader.dart';
 import 'package:infinito/app/shared/widgets/custom_button.widget.dart';
 import 'package:infinito/app/shared/widgets/custom_textfield.widget.dart';
@@ -31,9 +32,13 @@ class _ContactPageState extends ModularState<ContactPage, ContactController> {
         height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
           gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [Color(0xfff45d27), Color(0xfff5851f)]),
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Theme.Colors.loginGradientStart,
+              Theme.Colors.loginGradientEnd
+            ],
+          ),
         ),
         child: SingleChildScrollView(
           child: Column(
@@ -41,11 +46,10 @@ class _ContactPageState extends ModularState<ContactPage, ContactController> {
             children: <Widget>[
               Align(
                 alignment: Alignment.center,
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 30, 0, 40),
-                  child: Image(
-                    image: AssetImage('assets/images/logo_infinito.png'),
-                  ),
+                child: Image(
+                  image: AssetImage('assets/images/logo_infinito.png'),
+                  height: 200,
+                  width: 200,
                 ),
               ),
               InkWell(
@@ -56,12 +60,12 @@ class _ContactPageState extends ModularState<ContactPage, ContactController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(30, 20, 30, 10),
+                      padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
                       child: Text(
                         "Nosso endereço fica na Av. Centenário n° 555",
                         style: TextStyle(
                             color: Colors.white,
-                            fontSize: 20,
+                            fontSize: 15,
                             fontWeight: FontWeight.bold),
                       ),
                     ),
@@ -71,7 +75,7 @@ class _ContactPageState extends ModularState<ContactPage, ContactController> {
                         "Bairro Passo das Pedras",
                         style: TextStyle(
                             color: Colors.white,
-                            fontSize: 20,
+                            fontSize: 15,
                             fontWeight: FontWeight.bold),
                       ),
                     ),
@@ -81,7 +85,7 @@ class _ContactPageState extends ModularState<ContactPage, ContactController> {
                         "Gravataí/RS – CEP 94035-240",
                         style: TextStyle(
                             color: Colors.white,
-                            fontSize: 20,
+                            fontSize: 15,
                             fontWeight: FontWeight.bold),
                       ),
                     ),
@@ -89,14 +93,14 @@ class _ContactPageState extends ModularState<ContactPage, ContactController> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(30, 40, 30, 0),
+                padding: const EdgeInsets.fromLTRB(30, 20, 30, 0),
                 child: Observer(
                   builder: (BuildContext context) {
                     return (controller.errorText == null ||
                             controller.errorText.isEmpty)
                         ? Text(
                             "Entre em contato",
-                            style: TextStyle(fontSize: 20, color: Colors.white),
+                            style: TextStyle(fontSize: 15, color: Colors.white),
                           )
                         : Text(
                             controller.errorText,
@@ -138,17 +142,44 @@ class _ContactPageState extends ModularState<ContactPage, ContactController> {
                       hintText: "Mensagem", border: InputBorder.none),
                 ),
               ),
-              Observer(builder: (_) {
-                return controller.loading
-                    ? Container(
-                        padding: EdgeInsets.all(8), child: ColorLoader())
-                    : CustomButton(
-                        text: "Enviar",
-                        textColor: Colors.black54,
-                        fun: controller.sendEmail,
-                        colors: [Colors.white, Colors.white54],
-                      );
-              }),
+              Container(
+                margin: EdgeInsets.only(top: 10.0),
+                width: MediaQuery.of(context).size.width / 1.2,
+                height: 60,
+                decoration: new BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(50)),
+                    gradient: new LinearGradient(
+                        colors: [
+                          Theme.Colors.loginGradientEnd,
+                          Theme.Colors.loginGradientStart
+                        ],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        stops: [0.0, 1.0],
+                        tileMode: TileMode.clamp),
+                    boxShadow: [
+                      BoxShadow(color: Colors.black12, blurRadius: 15)
+                    ]),
+                child: Observer(builder: (BuildContext context) {
+                  return controller.loading
+                      ? ColorLoader()
+                      : MaterialButton(
+                          highlightColor: Colors.transparent,
+                          splashColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(50))),
+                          child: Text(
+                            "Enviar",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 25.0,
+                                fontFamily: "WorkSansBold"),
+                          ),
+                          onPressed: controller.sendEmail,
+                        );
+                }),
+              )
             ],
           ),
         ),

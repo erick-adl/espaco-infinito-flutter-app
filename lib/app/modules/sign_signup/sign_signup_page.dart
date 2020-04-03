@@ -295,7 +295,7 @@ class _SignSignupPageState
                             ),
                           ),
                           onPressed: () =>
-                              showInSnackBar(PressButtonType.LOGIN),
+                              checkInputInformations(PressButtonType.LOGIN),
                         );
                 }),
               )
@@ -368,7 +368,7 @@ class _SignSignupPageState
               Padding(
                 padding: EdgeInsets.only(top: 10.0, right: 40.0),
                 child: GestureDetector(
-                  onTap: () => {},
+                  onTap: () => showInSnackBar("Em breve..."),
                   child: Container(
                     padding: const EdgeInsets.all(15.0),
                     decoration: new BoxDecoration(
@@ -385,7 +385,8 @@ class _SignSignupPageState
               Padding(
                 padding: EdgeInsets.only(top: 10.0),
                 child: GestureDetector(
-                  onTap: () => showInSnackBar(PressButtonType.LOGINGOOGLE),
+                  onTap: () =>
+                      checkInputInformations(PressButtonType.LOGINGOOGLE),
                   child: Container(
                     padding: const EdgeInsets.all(15.0),
                     decoration: new BoxDecoration(
@@ -589,7 +590,7 @@ class _SignSignupPageState
                             ),
                           ),
                           onPressed: () =>
-                              showInSnackBar(PressButtonType.REGISTER),
+                              checkInputInformations(PressButtonType.REGISTER),
                         );
                 }),
               )
@@ -628,7 +629,30 @@ class _SignSignupPageState
     });
   }
 
-  Future<void> showInSnackBar(PressButtonType pressButtonType) async {
+  Future<void> showInSnackBar(String value) async {
+    FocusScope.of(context).requestFocus(new FocusNode());
+    _scaffoldKey.currentState?.removeCurrentSnackBar();
+    _scaffoldKey.currentState.showSnackBar(new SnackBar(
+      content: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(100), topRight: Radius.circular(100)),
+        ),
+        child: new Text(
+          value,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              color: Colors.white,
+              fontSize: 16.0,
+              fontFamily: "WorkSansSemiBold"),
+        ),
+      ),
+      backgroundColor: Theme.Colors.loginGradientStart,
+      duration: Duration(seconds: 3),
+    ));
+  }
+
+  Future<void> checkInputInformations(PressButtonType pressButtonType) async {
     switch (pressButtonType) {
       case PressButtonType.LOGIN:
         await controller.loginWithEmailAndPassword();
@@ -644,26 +668,7 @@ class _SignSignupPageState
 
     if (controller.errorMessage.isEmpty) return;
 
-    FocusScope.of(context).requestFocus(new FocusNode());
-    _scaffoldKey.currentState?.removeCurrentSnackBar();
-    _scaffoldKey.currentState.showSnackBar(new SnackBar(
-      content: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(100), topRight: Radius.circular(100)),
-        ),
-        child: new Text(
-          controller.errorMessage,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-              color: Colors.white,
-              fontSize: 16.0,
-              fontFamily: "WorkSansSemiBold"),
-        ),
-      ),
-      backgroundColor: Theme.Colors.loginGradientStart,
-      duration: Duration(seconds: 3),
-    ));
+    showInSnackBar(controller.errorMessage);
   }
 }
 

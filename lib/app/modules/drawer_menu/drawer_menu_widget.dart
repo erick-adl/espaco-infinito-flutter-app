@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:infinito/app/shared/auth_firebase/auth_controller.dart';
+import 'package:infinito/app/shared/style/theme.dart' as Theme;
 
 class DrawerMenuWidget extends StatelessWidget {
   AuthController _authController = Modular.get();
@@ -14,9 +15,12 @@ class DrawerMenuWidget extends StatelessWidget {
               padding: EdgeInsets.all(10),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [Color(0xfff45d27), Color(0xfff5851f)]),
+                    begin: Alignment.bottomLeft,
+                    end: Alignment.topRight,
+                    colors: [
+                      Theme.Colors.loginGradientEnd,
+                      Theme.Colors.loginGradientStart,
+                    ]),
               ),
               child: Observer(builder: (_) {
                 return Row(

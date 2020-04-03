@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:infinito/app/modules/drawer_menu/drawer_menu_widget.dart';
 import 'package:infinito/app/shared/auth_firebase/auth_controller.dart';
+import 'package:infinito/app/shared/style/theme.dart' as Theme;
 import 'package:infinito/app/shared/widgets/custom_button.widget.dart';
 import 'home_controller.dart';
 
@@ -24,9 +25,13 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
           gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [Color(0xfff45d27), Color(0xfff5851f)]),
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Theme.Colors.loginGradientStart,
+              Theme.Colors.loginGradientEnd
+            ],
+          ),
         ),
         child: SingleChildScrollView(
           child: Column(
@@ -75,33 +80,39 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                       fontWeight: FontWeight.bold),
                 ),
               ),
-              CustomButton(
-                text: "Conheça nossas terapias",
-                fun: () => Modular.to.pushReplacementNamed("/terapias"),
-                textColor: Colors.black,
-                colors: [
-                  Colors.white,
-                  Colors.orange,
-                ],
-              ),
-              CustomButton(
-                text: "Conheça nossos produtos",
-                fun: null,
-                textColor: Colors.black,
-                colors: [
-                  Colors.white,
-                  Colors.orange,
-                ],
-              ),
-              CustomButton(
-                text: "Agende sua visita",
-                fun: null,
-                textColor: Colors.black,
-                colors: [
-                  Colors.white,
-                  Colors.orange,
-                ],
-              ),
+              Container(
+                margin: EdgeInsets.only(top: 10.0),
+                width: MediaQuery.of(context).size.width / 1.2,
+                height: 60,
+                decoration: new BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(50)),
+                    gradient: new LinearGradient(
+                        colors: [
+                          Theme.Colors.loginGradientEnd,
+                          Theme.Colors.loginGradientStart
+                        ],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        stops: [0.0, 1.0],
+                        tileMode: TileMode.clamp),
+                    boxShadow: [
+                      BoxShadow(color: Colors.black12, blurRadius: 15)
+                    ]),
+                child: MaterialButton(
+                  highlightColor: Colors.transparent,
+                  splashColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(50))),
+                  child: Text(
+                    "Conheça nossas terapias",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20.0,
+                        fontFamily: "WorkSansBold"),
+                  ),
+                  onPressed: () => Modular.to.pushReplacementNamed("/terapias"),
+                ),
+              )
             ],
           ),
         ),
