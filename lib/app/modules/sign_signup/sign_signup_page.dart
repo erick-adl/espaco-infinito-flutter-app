@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:infinito/app/modules/sign_signup/sign_signup_controller.dart';
+
 import 'package:infinito/app/shared/style/theme.dart' as Theme;
 
 import 'package:infinito/app/shared/utils/bubble_indication_painter.dart';
+import 'package:infinito/app/shared/widgets/color_loader.dart';
 
 class SignSignupPage extends StatefulWidget {
   SignSignupPage({Key key}) : super(key: key);
@@ -12,29 +17,14 @@ class SignSignupPage extends StatefulWidget {
   _SignSignupPageState createState() => new _SignSignupPageState();
 }
 
-class _SignSignupPageState extends State<SignSignupPage>
+class _SignSignupPageState
+    extends ModularState<SignSignupPage, SignSignupController>
     with SingleTickerProviderStateMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
-  final FocusNode myFocusNodeEmailLogin = FocusNode();
-  final FocusNode myFocusNodePasswordLogin = FocusNode();
-
-  final FocusNode myFocusNodePassword = FocusNode();
-  final FocusNode myFocusNodeEmail = FocusNode();
-  final FocusNode myFocusNodeName = FocusNode();
-
-  TextEditingController loginEmailController = new TextEditingController();
-  TextEditingController loginPasswordController = new TextEditingController();
 
   bool _obscureTextLogin = true;
   bool _obscureTextSignup = true;
   bool _obscureTextSignupConfirm = true;
-
-  TextEditingController signupEmailController = new TextEditingController();
-  TextEditingController signupNameController = new TextEditingController();
-  TextEditingController signupPasswordController = new TextEditingController();
-  TextEditingController signupConfirmPasswordController =
-      new TextEditingController();
 
   PageController _pageController;
 
@@ -121,9 +111,6 @@ class _SignSignupPageState extends State<SignSignupPage>
 
   @override
   void dispose() {
-    myFocusNodePassword.dispose();
-    myFocusNodeEmail.dispose();
-    myFocusNodeName.dispose();
     _pageController?.dispose();
     super.dispose();
   }
@@ -138,23 +125,6 @@ class _SignSignupPageState extends State<SignSignupPage>
     ]);
 
     _pageController = PageController();
-  }
-
-  void showInSnackBar(String value) {
-    FocusScope.of(context).requestFocus(new FocusNode());
-    _scaffoldKey.currentState?.removeCurrentSnackBar();
-    _scaffoldKey.currentState.showSnackBar(new SnackBar(
-      content: new Text(
-        value,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-            color: Colors.white,
-            fontSize: 16.0,
-            fontFamily: "WorkSansSemiBold"),
-      ),
-      backgroundColor: Colors.red,
-      duration: Duration(seconds: 3),
-    ));
   }
 
   Widget _buildMenuBar(BuildContext context) {
@@ -222,15 +192,14 @@ class _SignSignupPageState extends State<SignSignupPage>
                 ),
                 child: Container(
                   width: 300.0,
-                  height: 150.0,
+                  height: 180.0,
                   child: Column(
                     children: <Widget>[
                       Padding(
                         padding: EdgeInsets.only(
-                            top: 20.0, bottom: 10.0, left: 25.0, right: 25.0),
+                            top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
                         child: TextField(
-                          focusNode: myFocusNodeEmailLogin,
-                          controller: loginEmailController,
+                          onChanged: controller.loginChangeEmail,
                           keyboardType: TextInputType.emailAddress,
                           style: TextStyle(
                               fontFamily: "WorkSansSemiBold",
@@ -256,10 +225,9 @@ class _SignSignupPageState extends State<SignSignupPage>
                       ),
                       Padding(
                         padding: EdgeInsets.only(
-                            top: 0.0, bottom: 20.0, left: 25.0, right: 25.0),
+                            top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
                         child: TextField(
-                          focusNode: myFocusNodePasswordLogin,
-                          controller: loginPasswordController,
+                          onChanged: controller.loginChangePassword,
                           obscureText: _obscureTextLogin,
                           style: TextStyle(
                               fontFamily: "WorkSansSemiBold",
@@ -293,21 +261,9 @@ class _SignSignupPageState extends State<SignSignupPage>
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(top: 140.0),
+                margin: EdgeInsets.only(top: 170.0),
                 decoration: new BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(50)),
-                  // boxShadow: <BoxShadow>[
-                  //   BoxShadow(
-                  //     color: Theme.Colors.loginGradientStart,
-                  //     offset: Offset(1.0, 6.0),
-                  //     blurRadius: 20.0,
-                  //   ),
-                  //   BoxShadow(
-                  //     color: Theme.Colors.loginGradientEnd,
-                  //     offset: Offset(1.0, 6.0),
-                  //     blurRadius: 20.0,
-                  //   ),
-                  // ],
                   gradient: new LinearGradient(
                       colors: [
                         Theme.Colors.loginGradientEnd,
@@ -318,24 +274,31 @@ class _SignSignupPageState extends State<SignSignupPage>
                       stops: [0.0, 1.0],
                       tileMode: TileMode.clamp),
                 ),
-                child: MaterialButton(
-                    highlightColor: Colors.transparent,
-                    splashColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(50))),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 10.0, horizontal: 42.0),
-                      child: Text(
-                        "Entrar",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 25.0,
-                            fontFamily: "WorkSansBold"),
-                      ),
-                    ),
-                    onPressed: () => showInSnackBar("Login button pressed")),
-              ),
+                child: Observer(builder: (BuildContext context) {
+                  return controller.loading
+                      ? ColorLoader()
+                      : MaterialButton(
+                          highlightColor: Colors.transparent,
+                          splashColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(50))),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 42.0),
+                            child: Text(
+                              "Entrar",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 25.0,
+                                  fontFamily: "WorkSansBold"),
+                            ),
+                          ),
+                          onPressed: () =>
+                              showInSnackBar(PressButtonType.LOGIN),
+                        );
+                }),
+              )
             ],
           ),
           Padding(
@@ -405,7 +368,7 @@ class _SignSignupPageState extends State<SignSignupPage>
               Padding(
                 padding: EdgeInsets.only(top: 10.0, right: 40.0),
                 child: GestureDetector(
-                  onTap: () => showInSnackBar("Facebook button pressed"),
+                  onTap: () => {},
                   child: Container(
                     padding: const EdgeInsets.all(15.0),
                     decoration: new BoxDecoration(
@@ -422,7 +385,7 @@ class _SignSignupPageState extends State<SignSignupPage>
               Padding(
                 padding: EdgeInsets.only(top: 10.0),
                 child: GestureDetector(
-                  onTap: () => showInSnackBar("Google button pressed"),
+                  onTap: () => showInSnackBar(PressButtonType.LOGINGOOGLE),
                   child: Container(
                     padding: const EdgeInsets.all(15.0),
                     decoration: new BoxDecoration(
@@ -467,8 +430,7 @@ class _SignSignupPageState extends State<SignSignupPage>
                         padding: EdgeInsets.only(
                             top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
                         child: TextField(
-                          focusNode: myFocusNodeName,
-                          controller: signupNameController,
+                          onChanged: controller.signupChangeName,
                           keyboardType: TextInputType.text,
                           textCapitalization: TextCapitalization.words,
                           style: TextStyle(
@@ -496,8 +458,7 @@ class _SignSignupPageState extends State<SignSignupPage>
                         padding: EdgeInsets.only(
                             top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
                         child: TextField(
-                          focusNode: myFocusNodeEmail,
-                          controller: signupEmailController,
+                          onChanged: controller.signupChangeEmail,
                           keyboardType: TextInputType.emailAddress,
                           style: TextStyle(
                               fontFamily: "WorkSansSemiBold",
@@ -524,8 +485,7 @@ class _SignSignupPageState extends State<SignSignupPage>
                         padding: EdgeInsets.only(
                             top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
                         child: TextField(
-                          focusNode: myFocusNodePassword,
-                          controller: signupPasswordController,
+                          onChanged: controller.signupChangePassword,
                           obscureText: _obscureTextSignup,
                           style: TextStyle(
                               fontFamily: "WorkSansSemiBold",
@@ -562,7 +522,7 @@ class _SignSignupPageState extends State<SignSignupPage>
                         padding: EdgeInsets.only(
                             top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
                         child: TextField(
-                          controller: signupConfirmPasswordController,
+                          onChanged: controller.signupChangePasswordCheck,
                           obscureText: _obscureTextSignupConfirm,
                           style: TextStyle(
                               fontFamily: "WorkSansSemiBold",
@@ -598,18 +558,6 @@ class _SignSignupPageState extends State<SignSignupPage>
                 margin: EdgeInsets.only(top: 350.0),
                 decoration: new BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(50)),
-                  // boxShadow: <BoxShadow>[
-                  //   BoxShadow(
-                  //     color: Theme.Colors.loginGradientStart,
-                  //     offset: Offset(1.0, 6.0),
-                  //     blurRadius: 20.0,
-                  //   ),
-                  //   BoxShadow(
-                  //     color: Theme.Colors.loginGradientEnd,
-                  //     offset: Offset(1.0, 6.0),
-                  //     blurRadius: 20.0,
-                  //   ),
-                  // ],
                   gradient: new LinearGradient(
                       colors: [
                         Theme.Colors.loginGradientEnd,
@@ -620,24 +568,31 @@ class _SignSignupPageState extends State<SignSignupPage>
                       stops: [0.0, 1.0],
                       tileMode: TileMode.clamp),
                 ),
-                child: MaterialButton(
-                    highlightColor: Colors.transparent,
-                    splashColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(50))),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 10.0, horizontal: 42.0),
-                      child: Text(
-                        "Cadastre-se",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 25.0,
-                            fontFamily: "WorkSansBold"),
-                      ),
-                    ),
-                    onPressed: () => showInSnackBar("SignUp button pressed")),
-              ),
+                child: Observer(builder: (BuildContext context) {
+                  return controller.loading
+                      ? ColorLoader()
+                      : MaterialButton(
+                          highlightColor: Colors.transparent,
+                          splashColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(50))),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 42.0),
+                            child: Text(
+                              "Cadastrar",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 25.0,
+                                  fontFamily: "WorkSansBold"),
+                            ),
+                          ),
+                          onPressed: () =>
+                              showInSnackBar(PressButtonType.REGISTER),
+                        );
+                }),
+              )
             ],
           ),
         ],
@@ -672,4 +627,44 @@ class _SignSignupPageState extends State<SignSignupPage>
       _obscureTextSignupConfirm = !_obscureTextSignupConfirm;
     });
   }
+
+  Future<void> showInSnackBar(PressButtonType pressButtonType) async {
+    switch (pressButtonType) {
+      case PressButtonType.LOGIN:
+        await controller.loginWithEmailAndPassword();
+        break;
+      case PressButtonType.LOGINGOOGLE:
+        await controller.loginWithGoogle();
+        break;
+      case PressButtonType.REGISTER:
+        await controller.register();
+        break;
+      default:
+    }
+
+    if (controller.errorMessage.isEmpty) return;
+
+    FocusScope.of(context).requestFocus(new FocusNode());
+    _scaffoldKey.currentState?.removeCurrentSnackBar();
+    _scaffoldKey.currentState.showSnackBar(new SnackBar(
+      content: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(100), topRight: Radius.circular(100)),
+        ),
+        child: new Text(
+          controller.errorMessage,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              color: Colors.white,
+              fontSize: 16.0,
+              fontFamily: "WorkSansSemiBold"),
+        ),
+      ),
+      backgroundColor: Theme.Colors.loginGradientStart,
+      duration: Duration(seconds: 3),
+    ));
+  }
 }
+
+enum PressButtonType { LOGIN, LOGINGOOGLE, REGISTER }

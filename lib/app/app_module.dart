@@ -13,9 +13,7 @@ import 'package:infinito/app/shared/repositories/localstorage/local_storage_inte
 import 'package:infinito/app/shared/repositories/localstorage/local_storage_share.dart';
 import 'package:infinito/app/shared/splash/splash_page.dart';
 
-import 'modules/login/login_module.dart';
 import 'modules/sign_signup/sign_signup_module.dart';
-import 'modules/signup/signup_module.dart';
 
 class AppModule extends MainModule {
   @override
@@ -33,7 +31,7 @@ class AppModule extends MainModule {
         // Router('/login', module: LoginModule()),
         Router('/login', module: SignSignupModule()),
         Router('/home', module: HomeModule()),
-        Router('/signup', module: SignupModule()),
+
         Router('/forgot', module: ForgotPasswordModule()),
         Router('/terapias', module: TerapiasModule()),
         Router('/contact', module: ContactModule()),

@@ -39,7 +39,9 @@ class DrawerMenuWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text("Olá! Seja bem vindo!"),
-                        Text(_authController.user.displayName)
+                        Text(_authController.user.displayName == null
+                            ? ""
+                            : _authController.user.displayName)
                       ],
                     ),
                   ],
