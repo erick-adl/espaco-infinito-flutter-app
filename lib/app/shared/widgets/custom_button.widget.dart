@@ -10,7 +10,7 @@ class CustomButton extends StatelessWidget {
 
   final BuildContext context;
   final String text;
-  final Function() onPressed;
+  final void Function() onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -25,17 +25,15 @@ class CustomButton extends StatelessWidget {
       child: MaterialButton(
         color: Color(0xfff6f7ff),
         highlightColor: Colors.transparent,
-        splashColor: Colors.white,
+        splashColor: Theme.of(context).primaryColor,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(10))),
         child: Text(
           text,
-          style: TextStyle(
-              color: Theme.of(context).primaryColor,
-              fontSize: 20.0,
-              fontFamily: "WorkSansBold"),
+          style: Theme.of(context).textTheme.button,
+          overflow: TextOverflow.ellipsis,
         ),
-        onPressed: () => onPressed,
+        onPressed: onPressed,
       ),
     );
   }

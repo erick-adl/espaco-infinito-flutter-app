@@ -30,10 +30,10 @@ class AppModule extends MainModule {
         Router('/', child: (_, args) => SplashPage()),
         // Router('/login', module: LoginModule()),
         Router('/login', module: SignSignupModule()),
-        Router('/home', module: HomeModule()),
+        Router('/about', module: HomeModule()),
 
         Router('/forgot', module: ForgotPasswordModule()),
-        Router('/terapias', module: TerapiasModule()),
+        Router('/home', module: TerapiasModule()),
         Router('/contact', module: ContactModule()),
       ];
 

@@ -1,12 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-
 import 'package:infinito/app/modules/terapias/terapias_tile_widget.dart';
-
 import 'package:infinito/app/shared/widgets/color_loader.dart';
 import 'package:infinito/app/shared/widgets/custom_scaffold.dart';
-import 'package:infinito/app/shared/widgets/custon_drawer_menu_widget.dart';
 import 'terapias_controller.dart';
 
 class TerapiasPage extends StatefulWidget {
@@ -24,7 +21,6 @@ class _TerapiasPageState
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      menu: CustonDrawerMenuWidget(),
       title: widget.title,
       page: buildTerapiasPage(),
     );
@@ -32,7 +28,7 @@ class _TerapiasPageState
 
   buildTerapiasPage() {
     return Container(
-      height: MediaQuery.of(context).size.height / 1.15,
+      height: MediaQuery.of(context).size.height / 1.17,
       width: MediaQuery.of(context).size.width,
       child: StreamBuilder<QuerySnapshot>(
         stream: Firestore.instance.collection('terapias').snapshots(),

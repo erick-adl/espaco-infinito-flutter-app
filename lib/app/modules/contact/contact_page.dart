@@ -23,7 +23,6 @@ class _ContactPageState extends ModularState<ContactPage, ContactController> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      menu: CustonDrawerMenuWidget(),
       page: contactPage(),
       title: widget.title,
     );
@@ -41,8 +40,8 @@ class _ContactPageState extends ModularState<ContactPage, ContactController> {
               alignment: Alignment.center,
               child: Image(
                 image: AssetImage('assets/images/logo_infinito.png'),
-                height: 200,
-                width: 200,
+                height: 150,
+                width: 150,
               ),
             ),
             InkWell(

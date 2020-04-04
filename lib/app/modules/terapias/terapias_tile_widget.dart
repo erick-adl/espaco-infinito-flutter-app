@@ -12,7 +12,7 @@ class TerapiasTileWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.fromLTRB(16, 16, 0, 16),
+      margin: EdgeInsets.fromLTRB(0, 16, 0, 16),
       height: 180,
       decoration: BoxDecoration(boxShadow: [
         BoxShadow(blurRadius: 70, spreadRadius: -80, offset: Offset(0, 40))
@@ -20,14 +20,12 @@ class TerapiasTileWidget extends StatelessWidget {
       child: Card(
         elevation: 0,
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.horizontal(left: Radius.circular(30))),
+            borderRadius: BorderRadius.horizontal(right: Radius.circular(30))),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             Container(
               decoration: BoxDecoration(
-                  borderRadius:
-                      BorderRadius.horizontal(left: Radius.circular(30)),
                   image: DecorationImage(
                       fit: BoxFit.fill,
                       image: new CachedNetworkImageProvider(document["foto"],
@@ -45,8 +43,7 @@ class TerapiasTileWidget extends StatelessWidget {
                       margin: EdgeInsets.symmetric(vertical: 8),
                       child: Text(
                         document["nome"],
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
+                        style: Theme.of(context).textTheme.body1,
                       ),
                     ),
                     Expanded(
@@ -55,8 +52,8 @@ class TerapiasTileWidget extends StatelessWidget {
                         margin: EdgeInsets.symmetric(vertical: 9),
                         child: Text(
                           document["resumo"],
-                          style: Theme.of(context).textTheme.body1,
-                          maxLines: 4,
+                          style: Theme.of(context).textTheme.headline,
+                          maxLines: 6,
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
@@ -68,8 +65,7 @@ class TerapiasTileWidget extends StatelessWidget {
                       },
                       title: Text(
                         'Mais informações',
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
+                        style: Theme.of(context).textTheme.headline,
                       ),
                       trailing: Icon(Icons.navigate_next),
                     ),

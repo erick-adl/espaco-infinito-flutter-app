@@ -13,11 +13,11 @@ class AppWidget extends StatelessWidget {
         theme: ThemeData(
           // Define the default brightness and colors.
           brightness: Brightness.light,
-          primaryColor: Color(0xFF343442),
-          secondaryHeaderColor: Color(0xFF30313e),
+          primaryColor: Color(0xFFf9a933),
+          secondaryHeaderColor: Color(0xFFde9426),
 
-          accentColor: Color(0xfff5f8ff),
-          unselectedWidgetColor: Color(0xff7f8193),
+          accentColor: Color(0xfff3f5f6),
+          unselectedWidgetColor: Color(0xff2f4049),
 
           // Define the default font family.
           // fontFamily: 'Georgia',
@@ -25,10 +25,27 @@ class AppWidget extends StatelessWidget {
           // Define the default TextTheme. Use this to specify the default
           // text styling for headlines, titles, bodies of text, and more.
           textTheme: TextTheme(
-            headline: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
-            title: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
-            body1: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
-          ),
+              button: TextStyle(
+                  fontSize: 20.0,
+                  fontFamily: 'WorkSansBold',
+                  color: Color(0xff2f4049)),
+              title: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
+              body1: TextStyle(
+                  fontSize: 20.0,
+                  fontFamily: 'WorkSansBold',
+                  color: Color(0xff2f4049)),
+              headline: TextStyle(
+                  fontSize: 12.0,
+                  fontFamily: 'WorkSansBold',
+                  color: Color(0xff2f4049)),
+              body2: TextStyle(
+                  fontSize: 15.0,
+                  fontFamily: 'WorkSansBold',
+                  color: Color(0xfff3f5f6)),
+              display1: TextStyle(
+                  fontSize: 20.0,
+                  fontFamily: 'WorkSansBold',
+                  color: Color(0xfff3f5f6))),
         ));
   }
 }

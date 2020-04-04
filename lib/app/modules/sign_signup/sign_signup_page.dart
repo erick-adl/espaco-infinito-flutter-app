@@ -59,12 +59,49 @@ class _SignSignupPageState
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
                 Padding(
-                  padding: EdgeInsets.only(top: 40.0),
-                  child: new Image(
-                      width: 200.0,
-                      height: 140.0,
-                      fit: BoxFit.fill,
-                      image: new AssetImage('assets/images/logo_infinito.png')),
+                  padding: EdgeInsets.only(top: 40),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        decoration: BoxDecoration(
+                          gradient: new LinearGradient(
+                              colors: [
+                                Colors.white10,
+                                Colors.white,
+                              ],
+                              begin: const FractionalOffset(0.0, 0.0),
+                              end: const FractionalOffset(1.0, 1.0),
+                              stops: [0.0, 1.0],
+                              tileMode: TileMode.clamp),
+                        ),
+                        width: 100.0,
+                        height: 1.0,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 15, right: 15),
+                        child: new Image(
+                            fit: BoxFit.scaleDown,
+                            image: new AssetImage(
+                                'assets/images/logo_infinito_icon.png')),
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          gradient: new LinearGradient(
+                              colors: [
+                                Colors.white,
+                                Colors.white10,
+                              ],
+                              begin: const FractionalOffset(0.0, 0.0),
+                              end: const FractionalOffset(1.0, 1.0),
+                              stops: [0.0, 1.0],
+                              tileMode: TileMode.clamp),
+                        ),
+                        width: 100.0,
+                        height: 1.0,
+                      ),
+                    ],
+                  ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 20.0),
@@ -265,11 +302,11 @@ class _SignSignupPageState
                   builder: (BuildContext context) {
                     return controller.loading
                         ? Padding(
-                            padding: const EdgeInsets.fromLTRB(20, 180, 20, 0),
+                            padding: const EdgeInsets.fromLTRB(20, 200, 20, 0),
                             child: ColorLoader(),
                           )
                         : Padding(
-                            padding: const EdgeInsets.fromLTRB(20, 180, 20, 0),
+                            padding: const EdgeInsets.fromLTRB(20, 200, 20, 0),
                             child: CustomButton(
                                 context: context,
                                 text: "Entrar",
@@ -292,54 +329,6 @@ class _SignSignupPageState
                         fontSize: 16.0,
                         fontFamily: "WorkSansMedium"),
                   )),
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 10.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                    decoration: BoxDecoration(
-                      gradient: new LinearGradient(
-                          colors: [
-                            Colors.white10,
-                            Colors.white,
-                          ],
-                          begin: const FractionalOffset(0.0, 0.0),
-                          end: const FractionalOffset(1.0, 1.0),
-                          stops: [0.0, 1.0],
-                          tileMode: TileMode.clamp),
-                    ),
-                    width: 100.0,
-                    height: 1.0,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 15.0, right: 15.0),
-                    child: Text(
-                      "Ou",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16.0,
-                          fontFamily: "WorkSansMedium"),
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      gradient: new LinearGradient(
-                          colors: [
-                            Colors.white,
-                            Colors.white10,
-                          ],
-                          begin: const FractionalOffset(0.0, 0.0),
-                          end: const FractionalOffset(1.0, 1.0),
-                          stops: [0.0, 1.0],
-                          tileMode: TileMode.clamp),
-                    ),
-                    width: 100.0,
-                    height: 1.0,
-                  ),
-                ],
-              ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -603,13 +592,10 @@ class _SignSignupPageState
         child: new Text(
           value,
           textAlign: TextAlign.center,
-          style: TextStyle(
-              color: Colors.white,
-              fontSize: 16.0,
-              fontFamily: "WorkSansSemiBold"),
+          style: Theme.of(context).textTheme.body1,
         ),
       ),
-      backgroundColor: Theme.of(context).primaryColor,
+      backgroundColor: Theme.of(context).accentColor,
       duration: Duration(seconds: 3),
     ));
   }

@@ -39,9 +39,10 @@ class CustonDrawerMenuWidget extends StatelessWidget {
                           top: 10.0,
                         ),
                         child: Text(
-                          "Olá! Seja bem vindo!",
-                          style:
-                              TextStyle(color: Theme.of(context).accentColor),
+                          _authController.user.displayName == null
+                              ? "Olá Visitante!"
+                              : "Olá ${_authController.user.displayName.split(" ").first}!",
+                          style: Theme.of(context).textTheme.body2,
                         ),
                       ),
                       Padding(
@@ -49,11 +50,8 @@ class CustonDrawerMenuWidget extends StatelessWidget {
                           bottom: 10.0,
                         ),
                         child: Text(
-                          _authController.user.displayName == null
-                              ? ""
-                              : _authController.user.displayName,
-                          style:
-                              TextStyle(color: Theme.of(context).accentColor),
+                          _authController.user.email,
+                          style: Theme.of(context).textTheme.body2,
                         ),
                       )
                     ],
@@ -63,8 +61,8 @@ class CustonDrawerMenuWidget extends StatelessWidget {
               _customMenuTile(
                   context: context,
                   icon: Icons.home,
-                  text: "Pagina Inicial",
-                  onTap: () => Modular.to.pushReplacementNamed("/home")),
+                  text: "Quem somos",
+                  onTap: () => Modular.to.pushReplacementNamed("/about")),
               SizedBox(height: 10),
               _customMenuTile(
                   context: context,
@@ -130,12 +128,7 @@ class CustonDrawerMenuWidget extends StatelessWidget {
             padding: EdgeInsets.all(8),
             child: Text(
               text,
-              style: TextStyle(
-                fontSize: 20,
-                color: used
-                    ? Theme.of(context).accentColor
-                    : Theme.of(context).unselectedWidgetColor,
-              ),
+              style: Theme.of(context).textTheme.display1,
             ),
           )
         ],

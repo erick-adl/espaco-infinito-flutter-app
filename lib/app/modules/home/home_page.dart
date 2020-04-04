@@ -8,7 +8,7 @@ import 'home_controller.dart';
 
 class HomePage extends StatefulWidget {
   final String title;
-  const HomePage({Key key, this.title = ""}) : super(key: key);
+  const HomePage({Key key, this.title = "Quem somos"}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -24,7 +24,6 @@ class _HomePageState extends ModularState<HomePage, HomeController>
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-      menu: CustonDrawerMenuWidget(),
       page: pageHome(),
       title: widget.title,
     );
@@ -33,7 +32,7 @@ class _HomePageState extends ModularState<HomePage, HomeController>
   Widget pageHome() {
     return Container(
       width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height / 1.15,
+      height: MediaQuery.of(context).size.height / 1.2,
       color: Theme.of(context).primaryColor,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -42,8 +41,8 @@ class _HomePageState extends ModularState<HomePage, HomeController>
             alignment: Alignment.center,
             child: Image(
               image: AssetImage('assets/images/logo_infinito.png'),
-              height: 200,
-              width: 200,
+              height: 150,
+              width: 150,
             ),
           ),
           Align(

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
+import 'custon_drawer_menu_widget.dart';
+
 class CustomScaffold extends StatefulWidget {
-  final Widget menu;
   final Widget page;
   final String title;
 
-  const CustomScaffold({Key key, this.menu, this.page, this.title})
-      : super(key: key);
+  const CustomScaffold({Key key, this.page, this.title}) : super(key: key);
   @override
   _CustomScaffoldState createState() => _CustomScaffoldState();
 }
@@ -44,7 +44,7 @@ class _CustomScaffoldState extends State<CustomScaffold>
       backgroundColor: Theme.of(context).secondaryHeaderColor,
       body: Stack(
         children: <Widget>[
-          menu(context, widget.menu),
+          CustonDrawerMenuWidget(),
           buildPage(context, widget.page, widget.title)
         ],
       ),
@@ -63,7 +63,7 @@ class _CustomScaffoldState extends State<CustomScaffold>
       duration: duration,
       top: 0,
       bottom: 0,
-      left: isCollapsed ? 0 : 0.4 * screenWidth,
+      left: isCollapsed ? 0 : 0.5 * screenWidth,
       right: isCollapsed ? 0 : -0.2 * screenWidth,
       child: ScaleTransition(
         scale: _scaleAnimation,
