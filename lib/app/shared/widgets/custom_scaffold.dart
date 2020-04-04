@@ -93,8 +93,7 @@ class _CustomScaffoldState extends State<CustomScaffold>
                         });
                       },
                     ),
-                    Text(title,
-                        style: TextStyle(fontSize: 24, color: Colors.white)),
+                    Text(title, style: Theme.of(context).textTheme.display1),
                   ],
                 ),
               ),

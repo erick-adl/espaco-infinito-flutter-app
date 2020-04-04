@@ -6,6 +6,7 @@ import 'package:infinito/app/modules/contact/contact_module.dart';
 import 'package:infinito/app/modules/forgot_password/forgot_password_module.dart';
 import 'package:infinito/app/modules/home/home_module.dart';
 import 'package:infinito/app/modules/terapias/terapias_module.dart';
+import 'package:infinito/app/modules/terapias/terapias_page_details.dart';
 import 'package:infinito/app/shared/auth_firebase/auth_controller.dart';
 import 'package:infinito/app/shared/auth_firebase/auth_firebase.dart';
 import 'package:infinito/app/shared/auth_firebase/auth_firebase_interface.dart';
@@ -28,6 +29,11 @@ class AppModule extends MainModule {
   @override
   List<Router> get routers => [
         Router('/', child: (_, args) => SplashPage()),
+        Router('/terapia_details',
+            child: (_, args) => TerapiasPageDetails(
+                  document: args.data,
+                )),
+
         // Router('/login', module: LoginModule()),
         Router('/login', module: SignSignupModule()),
         Router('/about', module: HomeModule()),
