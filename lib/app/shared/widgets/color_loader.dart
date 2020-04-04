@@ -7,9 +7,9 @@ class ColorLoader extends StatefulWidget {
   final Color color3;
 
   ColorLoader(
-      {this.color1 = Colors.orange,
-      this.color2 = Colors.orangeAccent,
-      this.color3 = Colors.grey});
+      {this.color2 = const Color(0xfff5f8ff),
+      this.color3 = const Color(0xfff5f8ff),
+      this.color1 = const Color(0xfff5f8ff)});
 
   @override
   _ColorLoaderState createState() => _ColorLoaderState();

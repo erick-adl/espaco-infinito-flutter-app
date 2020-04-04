@@ -117,7 +117,10 @@ class TerapiasTileWidget extends StatelessWidget {
               ),
               Container(
                 margin: EdgeInsets.all(8),
-                child: CustomButton(text: "Venha conhecer o espaço", fun: null),
+                child: CustomButton(
+                    context: context,
+                    text: "Venha conhecer o espaço",
+                    onPressed: null),
               ),
             ],
           );

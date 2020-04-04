@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:infinito/app/shared/style/theme.dart' as Theme;
 
 class AppWidget extends StatelessWidget {
   @override
@@ -14,9 +13,11 @@ class AppWidget extends StatelessWidget {
         theme: ThemeData(
           // Define the default brightness and colors.
           brightness: Brightness.light,
-          primaryColor: Theme.Colors.loginGradientStart,
+          primaryColor: Color(0xFF343442),
+          secondaryHeaderColor: Color(0xFF30313e),
 
-          accentColor: Colors.cyan[600],
+          accentColor: Color(0xfff5f8ff),
+          unselectedWidgetColor: Color(0xff7f8193),
 
           // Define the default font family.
           // fontFamily: 'Georgia',

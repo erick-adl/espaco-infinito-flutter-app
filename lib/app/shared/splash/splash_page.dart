@@ -46,12 +46,7 @@ class _SplashPageState extends State<SplashPage> {
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Color(0xfff45d27), Color(0xfff5851f)]),
-      ),
+      color: Theme.of(context).secondaryHeaderColor,
       child: Center(
         child: FlareActor("assets/flare.flr",
             alignment: Alignment.center,

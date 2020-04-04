@@ -1,47 +1,41 @@
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
-  const CustomButton(
-      {Key key,
-      @required this.text,
-      this.context,
-      @required this.fun,
-      this.colors,
-      this.textColor})
-      : super(key: key);
+  const CustomButton({
+    Key key,
+    @required this.context,
+    @required this.text,
+    @required this.onPressed,
+  }) : super(key: key);
 
   final BuildContext context;
   final String text;
-  final void Function() fun;
-  final List<Color> colors;
-  final Color textColor;
+  final Function() onPressed;
+
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
-      child: GestureDetector(
-        onTap: fun,
-        child: Container(
-          height: 50,
-          width: MediaQuery.of(context).size.width / 1.2,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(50)),
-            gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: this.colors == null
-                    ? [Color(0xfff45d27), Color(0xfff5851f)]
-                    : colors),
-          ),
-          child: Center(
-            child: Text(
-              this.text.toUpperCase(),
-              style: TextStyle(
-                  color: this.textColor == null ? Colors.white : textColor,
-                  fontWeight: FontWeight.bold),
-            ),
-          ),
+    return Container(
+      padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
+      margin: EdgeInsets.only(top: 10.0),
+      width: MediaQuery.of(context).size.width / 1.2,
+      height: 50,
+      decoration: new BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(50)),
+          boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 15)]),
+      child: MaterialButton(
+        color: Color(0xfff6f7ff),
+        highlightColor: Colors.transparent,
+        splashColor: Colors.white,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10))),
+        child: Text(
+          text,
+          style: TextStyle(
+              color: Theme.of(context).primaryColor,
+              fontSize: 20.0,
+              fontFamily: "WorkSansBold"),
         ),
+        onPressed: () => onPressed,
       ),
     );
   }

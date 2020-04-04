@@ -42,14 +42,14 @@ class _ForgotPasswordPageState
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0),
                   child: CustomButton(
-                      context: context, text: "Recuperar", fun: () {}),
+                      context: context, text: "Recuperar", onPressed: () {}),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0),
                   child: CustomButton(
                       context: context,
                       text: "Voltar",
-                      fun: () => Modular.to.pop()),
+                      onPressed: () => Modular.to.pop()),
                 )
               ],
             ),

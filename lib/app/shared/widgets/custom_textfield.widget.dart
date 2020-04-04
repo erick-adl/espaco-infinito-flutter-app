@@ -25,7 +25,7 @@ class CustomTextFieldWidget extends StatelessWidget {
       padding: EdgeInsets.fromLTRB(16, 0, 16, 5),
       margin: EdgeInsets.only(top: 15),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(50)),
+          borderRadius: BorderRadius.all(Radius.circular(10)),
           color: Colors.white,
           boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 5)]),
       width: MediaQuery.of(context).size.width / 1.2,
