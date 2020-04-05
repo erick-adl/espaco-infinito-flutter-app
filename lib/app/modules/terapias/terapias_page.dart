@@ -38,13 +38,18 @@ class _TerapiasPageState
             case ConnectionState.waiting:
               return Center(child: new ColorLoader());
             default:
-              return new ListView(
+              return new GridView(
+                // padding: EdgeInsets.all(),
                 children:
                     snapshot.data.documents.map((DocumentSnapshot document) {
                   return new TerapiasTileWidget(
                     document: document,
                   );
                 }).toList(),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 1.1,
+                ),
               );
           }
         },
