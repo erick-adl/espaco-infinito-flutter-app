@@ -13,45 +13,43 @@ class TerapiasTileWidget extends StatelessWidget {
     return InkWell(
       onTap: () =>
           Modular.to.pushNamed("/terapia_details", arguments: document),
-      child: Container(
-        height: 180,
-        decoration: BoxDecoration(boxShadow: [
-          BoxShadow(blurRadius: 70, spreadRadius: -80, offset: Offset(0, 40))
-        ]),
-        child: Card(
-          elevation: 0,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20)),
-          ),
-          child: Column(
-            children: <Widget>[
-              Flexible(
-                flex: 8,
-                child: Hero(
-                  tag: document.documentID,
-                  child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            topRight: Radius.circular(20)),
-                        image: DecorationImage(
-                            fit: BoxFit.fill,
-                            image: new CachedNetworkImageProvider(
-                                document["foto"],
-                                errorListener: () => Icon(Icons.error)))),
-                  ),
+      child: Card(
+        margin: EdgeInsets.all(8),
+        elevation: 3,
+        color: Theme.of(context).secondaryHeaderColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Flexible(
+              flex: 8,
+              child: Hero(
+                tag: document.documentID,
+                child: Container(
+                  margin: EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      image: DecorationImage(
+                          fit: BoxFit.fill,
+                          image: new CachedNetworkImageProvider(
+                              document["foto"],
+                              errorListener: () => Icon(Icons.error)))),
                 ),
               ),
-              Flexible(
-                  flex: 2,
-                  child: Center(
-                    child: Text(
-                      document["nome"],
-                      style: Theme.of(context).textTheme.headline,
-                    ),
-                  ))
-            ],
-          ),
+            ),
+            Flexible(
+                flex: 2,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 7, right: 7),
+                  child: Text(
+                    document["nome"],
+                    style: Theme.of(context).textTheme.display2,
+                  ),
+                ))
+          ],
         ),
       ),
     );
