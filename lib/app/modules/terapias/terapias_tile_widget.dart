@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:infinito/app/shared/widgets/color_loader.dart';
 
 class TerapiasTileWidget extends StatelessWidget {
   final DocumentSnapshot document;
@@ -16,39 +17,50 @@ class TerapiasTileWidget extends StatelessWidget {
       child: Card(
         margin: EdgeInsets.all(8),
         elevation: 3,
-        color: Theme.of(context).secondaryHeaderColor,
+        color: Theme.of(context).accentColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Flexible(
-              flex: 8,
-              child: Hero(
-                tag: document.documentID,
-                child: Container(
-                  margin: EdgeInsets.all(5),
-                  decoration: BoxDecoration(
+            Hero(
+              tag: document.documentID,
+              child: Container(
+                height: 200,
+                // width: MediaQuery.of(context).size.width,
+                margin: EdgeInsets.all(5),
+                child: CachedNetworkImage(
+                  imageUrl: document["foto"],
+                  imageBuilder: (context, imageProvider) => Container(
+                    decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(10)),
                       image: DecorationImage(
-                          fit: BoxFit.fill,
-                          image: new CachedNetworkImageProvider(
-                              document["foto"],
-                              errorListener: () => Icon(Icons.error)))),
+                        image: imageProvider,
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                  ),
+                  placeholder: (context, url) => ColorLoader(),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
                 ),
               ),
             ),
-            Flexible(
-                flex: 2,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 7, right: 7),
-                  child: Text(
-                    document["nome"],
-                    style: Theme.of(context).textTheme.display2,
-                  ),
-                ))
+            Padding(
+              padding: const EdgeInsets.fromLTRB(8, 5, 8, 5),
+              child: Text(
+                document["nome"],
+                style: Theme.of(context).textTheme.display3,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(8, 5, 8, 5),
+              child: Text(
+                document["resumo"],
+                style: Theme.of(context).textTheme.subhead,
+              ),
+            )
           ],
         ),
       ),

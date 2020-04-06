@@ -51,7 +51,7 @@ class AuthFirebase implements IAuthFirebase {
           (await _auth.signInWithCredential(credential)).user;
       return user;
     } catch (e) {
-      return null;
+      throw e;
     }
   }
 

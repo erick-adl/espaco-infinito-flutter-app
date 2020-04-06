@@ -30,7 +30,11 @@ abstract class _AuthControllerBase with Store {
 
   @action
   Future loginWithGoogle() async {
-    user = await _authFirebase.getGoogleLogin();
+    try {
+      user = await _authFirebase.getGoogleLogin();
+    } catch (e) {
+      throw e;
+    }
   }
 
   @action

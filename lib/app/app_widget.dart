@@ -38,6 +38,10 @@ class AppWidget extends StatelessWidget {
                   fontSize: 12.0,
                   fontFamily: 'WorkSansBold',
                   color: Color(0xff2f4049)),
+              subhead: TextStyle(
+                  fontSize: 12.0,
+                  fontFamily: 'WorkSansBold',
+                  color: Color(0xff2f4049)),
               body2: TextStyle(
                   fontSize: 15.0,
                   fontFamily: 'WorkSansBold',

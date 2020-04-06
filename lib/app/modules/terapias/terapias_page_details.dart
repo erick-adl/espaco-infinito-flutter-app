@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:infinito/app/shared/widgets/color_loader.dart';
 
 class TerapiasPageDetails extends StatelessWidget {
   final DocumentSnapshot document;
@@ -24,11 +26,20 @@ class TerapiasPageDetails extends StatelessWidget {
               child: Container(
                 height: 300,
                 margin: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                    image: DecorationImage(
-                        image: NetworkImage(document["foto"]),
-                        fit: BoxFit.cover)),
+                child: CachedNetworkImage(
+                  imageUrl: document["foto"],
+                  imageBuilder: (context, imageProvider) => Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      image: DecorationImage(
+                        image: imageProvider,
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                  ),
+                  placeholder: (context, url) => ColorLoader(),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
+                ),
               ),
             ),
             Container(

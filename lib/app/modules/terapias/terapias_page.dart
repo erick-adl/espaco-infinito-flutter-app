@@ -38,7 +38,7 @@ class _TerapiasPageState
             case ConnectionState.waiting:
               return Center(child: new ColorLoader());
             default:
-              return new GridView(
+              return new ListView(
                 // padding: EdgeInsets.all(),
                 children:
                     snapshot.data.documents.map((DocumentSnapshot document) {
@@ -46,10 +46,10 @@ class _TerapiasPageState
                     document: document,
                   );
                 }).toList(),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: 1.1,
-                ),
+                // gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                //   crossAxisCount: 1,
+                //   childAspectRatio: 1.1,
+                // ),
               );
           }
         },

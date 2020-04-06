@@ -128,7 +128,7 @@ abstract class _SignSignupControllerBase with Store {
       else if (e.code == "ERROR_USER_NOT_FOUND")
         changeErrorMessage("Usuario não encontrado");
       else
-        changeErrorMessage("Falha ao relalizar login..");
+        changeErrorMessage("Falha ao relalizar login. verifique sua conexão");
     }
   }
 
@@ -137,9 +137,16 @@ abstract class _SignSignupControllerBase with Store {
     try {
       loading = true;
       await _authController.loginWithGoogle();
-      Modular.to.pushReplacementNamed('/home');
+      if (_authController.user != null) {
+        loading = false;
+        Modular.to.pushReplacementNamed('/home');
+      } else {
+        loading = false;
+        changeErrorMessage("Falha ao relalizar login..");
+      }
     } catch (e) {
       loading = false;
+      changeErrorMessage("Falha ao relalizar login. Verifique sua conexão");
     }
   }
 }
