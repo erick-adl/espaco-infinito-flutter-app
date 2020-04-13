@@ -19,6 +19,9 @@
 android/key.properties
 android/app/google-services.json
 android/app/google-services.json
+# Firebase
+/android/app/google-services.json
+/ios/Runner/GoogleService-Info.plist
 
 # The .vscode folder contains launch configuration and tasks you configure in
 # VS Code which you may wish to be included in version control, so this line
