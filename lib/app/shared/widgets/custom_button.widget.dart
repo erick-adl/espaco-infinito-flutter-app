@@ -20,8 +20,8 @@ class CustomButton extends StatelessWidget {
       width: MediaQuery.of(context).size.width / 1.2,
       height: 50,
       decoration: new BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(50)),
-          boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 15)]),
+        borderRadius: BorderRadius.all(Radius.circular(50)),
+      ),
       child: MaterialButton(
         color: Color(0xfff6f7ff),
         highlightColor: Colors.transparent,

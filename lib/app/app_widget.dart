@@ -26,7 +26,7 @@ class AppWidget extends StatelessWidget {
           // text styling for headlines, titles, bodies of text, and more.
           textTheme: TextTheme(
               button: TextStyle(
-                  fontSize: 20.0,
+                  fontSize: 16.0,
                   fontFamily: 'WorkSansBold',
                   color: Color(0xff2f4049)),
               title: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
@@ -55,7 +55,7 @@ class AppWidget extends StatelessWidget {
                   fontFamily: 'WorkSansBold',
                   color: Color(0xfff3f5f6)),
               display1: TextStyle(
-                  fontSize: 20.0,
+                  fontSize: 18.0,
                   fontFamily: 'WorkSansBold',
                   color: Color(0xfff3f5f6)),
               display4: TextStyle(

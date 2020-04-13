@@ -69,7 +69,8 @@ class _CustomScaffoldState extends State<CustomScaffold>
         scale: _scaleAnimation,
         child: Material(
           animationDuration: duration,
-          borderRadius: BorderRadius.all(Radius.circular(40)),
+          borderRadius:
+              isCollapsed ? null : BorderRadius.all(Radius.circular(40)),
           elevation: 8,
           color: Theme.of(context).primaryColor,
           child: Stack(
