@@ -11,7 +11,7 @@ description: A new Flutter project.
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+1
+version: 1.0.0+2
 
 environment:
   sdk: ">=2.3.0 <3.0.0"
@@ -52,8 +52,8 @@ dev_dependencies:
     sdk: flutter
 
 flutter_icons:
-  image_path_android: "assets/images/logo_infinito_icon_black.png"
-  image_path_ios: "assets/images/logo_infinito_icon_black.png"
+  image_path_android: "assets/images/logo_infinito_orange.png"
+  image_path_ios: "assets/images/logo_infinito_orange.png"
   android: true # can specify file name here e.g. "ic_launcher"
   ios: true # can specify file name here e.g. "My-Launcher-Icon"
 

@@ -50,28 +50,22 @@ class _HomePageState extends ModularState<HomePage, HomeController>
               child: Text(
                 "Infinite-se",
                 textAlign: TextAlign.justify,
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold),
+                style: Theme.of(context).textTheme.display4,
               )),
           Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                 child: Text(
-                  "Aqui você vai encontrar tudo sobre o nosso espaço. Um lugar deferenciado para pessoas que querem O MELHOR DE SUAS VIDAS. Desde o iníco nos propusemos a construir um lugar que se tornasse referência, tanto no aspecto dos atendimentos terapêuticos, na oferta e comercialização dee produtos do mundo holístico, quanto na implementação de atividades formativas, realizando cursos, palestras e workshops",
+                  "Aqui você vai encontrar tudo sobre o nosso espaço. Um lugar diferenciado para pessoas que querem O MELHOR DE SUAS VIDAS. Desde o iníco nos propusemos a construir um lugar que se tornasse referência, tanto no aspecto dos atendimentos terapêuticos, na oferta e comercialização de produtos do mundo holístico, quanto na implementação de atividades formativas, realizando cursos, palestras e workshops",
                   textAlign: TextAlign.justify,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold),
+                  style: Theme.of(context).textTheme.display1,
                 ),
               )),
           CustomButton(
               context: context,
               text: "Conheça nossas terapias",
-              onPressed: () => Modular.to.pushReplacementNamed("/terapias")),
+              onPressed: () => Modular.to.pushReplacementNamed("/home")),
         ],
       ),
     );

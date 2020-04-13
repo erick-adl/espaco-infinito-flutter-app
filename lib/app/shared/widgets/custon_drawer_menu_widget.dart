@@ -75,7 +75,7 @@ class CustonDrawerMenuWidget extends StatelessWidget {
                   context: context,
                   icon: FontAwesomeIcons.dna,
                   text: "Terapias",
-                  onTap: () => Modular.to.pushReplacementNamed("/terapias")),
+                  onTap: () => Modular.to.pushReplacementNamed("/home")),
               SizedBox(height: 10),
               _customMenuTile(
                   context: context,

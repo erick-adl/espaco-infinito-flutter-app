@@ -54,7 +54,7 @@ class _ContactPageState extends ModularState<ContactPage, ContactController> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
                     child: Text(
-                      "Nosso endereço fica na Av. Centenário n° 555",
+                      "Nosso endereço fica na Av. José Loureiro da Silva n° 1799",
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 15,
@@ -64,7 +64,7 @@ class _ContactPageState extends ModularState<ContactPage, ContactController> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(30, 0, 30, 10),
                     child: Text(
-                      "Bairro Passo das Pedras",
+                      "Bairro Centro",
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 15,

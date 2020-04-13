@@ -58,7 +58,7 @@ class TerapiasTileWidget extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(8, 5, 8, 5),
               child: Text(
                 document["resumo"],
-                style: Theme.of(context).textTheme.subhead,
+                style: Theme.of(context).textTheme.display3,
               ),
             )
           ],
