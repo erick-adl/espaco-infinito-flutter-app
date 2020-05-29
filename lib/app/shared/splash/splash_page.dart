@@ -46,7 +46,6 @@ class _SplashPageState extends State<SplashPage> {
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
-      color: Theme.of(context).secondaryHeaderColor,
       child: Center(
         child: FlareActor("assets/flare.flr",
             alignment: Alignment.center,

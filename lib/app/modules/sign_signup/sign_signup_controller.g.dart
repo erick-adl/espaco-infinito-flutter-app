@@ -13,17 +13,15 @@ mixin _$SignSignupController on _SignSignupControllerBase, Store {
 
   @override
   bool get loading {
-    _$loadingAtom.context.enforceReadPolicy(_$loadingAtom);
-    _$loadingAtom.reportObserved();
+    _$loadingAtom.reportRead();
     return super.loading;
   }
 
   @override
   set loading(bool value) {
-    _$loadingAtom.context.conditionallyRunInAction(() {
+    _$loadingAtom.reportWrite(value, super.loading, () {
       super.loading = value;
-      _$loadingAtom.reportChanged();
-    }, _$loadingAtom, name: '${_$loadingAtom.name}_set');
+    });
   }
 
   final _$errorMessageAtom =
@@ -31,51 +29,45 @@ mixin _$SignSignupController on _SignSignupControllerBase, Store {
 
   @override
   String get errorMessage {
-    _$errorMessageAtom.context.enforceReadPolicy(_$errorMessageAtom);
-    _$errorMessageAtom.reportObserved();
+    _$errorMessageAtom.reportRead();
     return super.errorMessage;
   }
 
   @override
   set errorMessage(String value) {
-    _$errorMessageAtom.context.conditionallyRunInAction(() {
+    _$errorMessageAtom.reportWrite(value, super.errorMessage, () {
       super.errorMessage = value;
-      _$errorMessageAtom.reportChanged();
-    }, _$errorMessageAtom, name: '${_$errorMessageAtom.name}_set');
+    });
   }
 
   final _$signupNameAtom = Atom(name: '_SignSignupControllerBase.signupName');
 
   @override
   String get signupName {
-    _$signupNameAtom.context.enforceReadPolicy(_$signupNameAtom);
-    _$signupNameAtom.reportObserved();
+    _$signupNameAtom.reportRead();
     return super.signupName;
   }
 
   @override
   set signupName(String value) {
-    _$signupNameAtom.context.conditionallyRunInAction(() {
+    _$signupNameAtom.reportWrite(value, super.signupName, () {
       super.signupName = value;
-      _$signupNameAtom.reportChanged();
-    }, _$signupNameAtom, name: '${_$signupNameAtom.name}_set');
+    });
   }
 
   final _$signupEmailAtom = Atom(name: '_SignSignupControllerBase.signupEmail');
 
   @override
   String get signupEmail {
-    _$signupEmailAtom.context.enforceReadPolicy(_$signupEmailAtom);
-    _$signupEmailAtom.reportObserved();
+    _$signupEmailAtom.reportRead();
     return super.signupEmail;
   }
 
   @override
   set signupEmail(String value) {
-    _$signupEmailAtom.context.conditionallyRunInAction(() {
+    _$signupEmailAtom.reportWrite(value, super.signupEmail, () {
       super.signupEmail = value;
-      _$signupEmailAtom.reportChanged();
-    }, _$signupEmailAtom, name: '${_$signupEmailAtom.name}_set');
+    });
   }
 
   final _$signupPasswordAtom =
@@ -83,17 +75,15 @@ mixin _$SignSignupController on _SignSignupControllerBase, Store {
 
   @override
   String get signupPassword {
-    _$signupPasswordAtom.context.enforceReadPolicy(_$signupPasswordAtom);
-    _$signupPasswordAtom.reportObserved();
+    _$signupPasswordAtom.reportRead();
     return super.signupPassword;
   }
 
   @override
   set signupPassword(String value) {
-    _$signupPasswordAtom.context.conditionallyRunInAction(() {
+    _$signupPasswordAtom.reportWrite(value, super.signupPassword, () {
       super.signupPassword = value;
-      _$signupPasswordAtom.reportChanged();
-    }, _$signupPasswordAtom, name: '${_$signupPasswordAtom.name}_set');
+    });
   }
 
   final _$signupPasswordCheckAtom =
@@ -101,36 +91,30 @@ mixin _$SignSignupController on _SignSignupControllerBase, Store {
 
   @override
   String get signupPasswordCheck {
-    _$signupPasswordCheckAtom.context
-        .enforceReadPolicy(_$signupPasswordCheckAtom);
-    _$signupPasswordCheckAtom.reportObserved();
+    _$signupPasswordCheckAtom.reportRead();
     return super.signupPasswordCheck;
   }
 
   @override
   set signupPasswordCheck(String value) {
-    _$signupPasswordCheckAtom.context.conditionallyRunInAction(() {
+    _$signupPasswordCheckAtom.reportWrite(value, super.signupPasswordCheck, () {
       super.signupPasswordCheck = value;
-      _$signupPasswordCheckAtom.reportChanged();
-    }, _$signupPasswordCheckAtom,
-        name: '${_$signupPasswordCheckAtom.name}_set');
+    });
   }
 
   final _$loginEmailAtom = Atom(name: '_SignSignupControllerBase.loginEmail');
 
   @override
   String get loginEmail {
-    _$loginEmailAtom.context.enforceReadPolicy(_$loginEmailAtom);
-    _$loginEmailAtom.reportObserved();
+    _$loginEmailAtom.reportRead();
     return super.loginEmail;
   }
 
   @override
   set loginEmail(String value) {
-    _$loginEmailAtom.context.conditionallyRunInAction(() {
+    _$loginEmailAtom.reportWrite(value, super.loginEmail, () {
       super.loginEmail = value;
-      _$loginEmailAtom.reportChanged();
-    }, _$loginEmailAtom, name: '${_$loginEmailAtom.name}_set');
+    });
   }
 
   final _$loginPasswordAtom =
@@ -138,20 +122,19 @@ mixin _$SignSignupController on _SignSignupControllerBase, Store {
 
   @override
   String get loginPassword {
-    _$loginPasswordAtom.context.enforceReadPolicy(_$loginPasswordAtom);
-    _$loginPasswordAtom.reportObserved();
+    _$loginPasswordAtom.reportRead();
     return super.loginPassword;
   }
 
   @override
   set loginPassword(String value) {
-    _$loginPasswordAtom.context.conditionallyRunInAction(() {
+    _$loginPasswordAtom.reportWrite(value, super.loginPassword, () {
       super.loginPassword = value;
-      _$loginPasswordAtom.reportChanged();
-    }, _$loginPasswordAtom, name: '${_$loginPasswordAtom.name}_set');
+    });
   }
 
-  final _$registerAsyncAction = AsyncAction('register');
+  final _$registerAsyncAction =
+      AsyncAction('_SignSignupControllerBase.register');
 
   @override
   Future<dynamic> register() {
@@ -159,7 +142,7 @@ mixin _$SignSignupController on _SignSignupControllerBase, Store {
   }
 
   final _$loginWithEmailAndPasswordAsyncAction =
-      AsyncAction('loginWithEmailAndPassword');
+      AsyncAction('_SignSignupControllerBase.loginWithEmailAndPassword');
 
   @override
   Future<dynamic> loginWithEmailAndPassword() {
@@ -167,7 +150,8 @@ mixin _$SignSignupController on _SignSignupControllerBase, Store {
         .run(() => super.loginWithEmailAndPassword());
   }
 
-  final _$loginWithGoogleAsyncAction = AsyncAction('loginWithGoogle');
+  final _$loginWithGoogleAsyncAction =
+      AsyncAction('_SignSignupControllerBase.loginWithGoogle');
 
   @override
   Future<dynamic> loginWithGoogle() {
@@ -179,8 +163,8 @@ mixin _$SignSignupController on _SignSignupControllerBase, Store {
 
   @override
   dynamic changeErrorMessage(String value) {
-    final _$actionInfo =
-        _$_SignSignupControllerBaseActionController.startAction();
+    final _$actionInfo = _$_SignSignupControllerBaseActionController
+        .startAction(name: '_SignSignupControllerBase.changeErrorMessage');
     try {
       return super.changeErrorMessage(value);
     } finally {
@@ -190,8 +174,8 @@ mixin _$SignSignupController on _SignSignupControllerBase, Store {
 
   @override
   dynamic signupChangeName(String value) {
-    final _$actionInfo =
-        _$_SignSignupControllerBaseActionController.startAction();
+    final _$actionInfo = _$_SignSignupControllerBaseActionController
+        .startAction(name: '_SignSignupControllerBase.signupChangeName');
     try {
       return super.signupChangeName(value);
     } finally {
@@ -201,8 +185,8 @@ mixin _$SignSignupController on _SignSignupControllerBase, Store {
 
   @override
   dynamic signupChangeEmail(String value) {
-    final _$actionInfo =
-        _$_SignSignupControllerBaseActionController.startAction();
+    final _$actionInfo = _$_SignSignupControllerBaseActionController
+        .startAction(name: '_SignSignupControllerBase.signupChangeEmail');
     try {
       return super.signupChangeEmail(value);
     } finally {
@@ -212,8 +196,8 @@ mixin _$SignSignupController on _SignSignupControllerBase, Store {
 
   @override
   dynamic signupChangePassword(String value) {
-    final _$actionInfo =
-        _$_SignSignupControllerBaseActionController.startAction();
+    final _$actionInfo = _$_SignSignupControllerBaseActionController
+        .startAction(name: '_SignSignupControllerBase.signupChangePassword');
     try {
       return super.signupChangePassword(value);
     } finally {
@@ -224,7 +208,8 @@ mixin _$SignSignupController on _SignSignupControllerBase, Store {
   @override
   dynamic signupChangePasswordCheck(String value) {
     final _$actionInfo =
-        _$_SignSignupControllerBaseActionController.startAction();
+        _$_SignSignupControllerBaseActionController.startAction(
+            name: '_SignSignupControllerBase.signupChangePasswordCheck');
     try {
       return super.signupChangePasswordCheck(value);
     } finally {
@@ -234,8 +219,8 @@ mixin _$SignSignupController on _SignSignupControllerBase, Store {
 
   @override
   dynamic loginChangeEmail(String value) {
-    final _$actionInfo =
-        _$_SignSignupControllerBaseActionController.startAction();
+    final _$actionInfo = _$_SignSignupControllerBaseActionController
+        .startAction(name: '_SignSignupControllerBase.loginChangeEmail');
     try {
       return super.loginChangeEmail(value);
     } finally {
@@ -245,8 +230,8 @@ mixin _$SignSignupController on _SignSignupControllerBase, Store {
 
   @override
   dynamic loginChangePassword(String value) {
-    final _$actionInfo =
-        _$_SignSignupControllerBaseActionController.startAction();
+    final _$actionInfo = _$_SignSignupControllerBaseActionController
+        .startAction(name: '_SignSignupControllerBase.loginChangePassword');
     try {
       return super.loginChangePassword(value);
     } finally {
@@ -256,8 +241,15 @@ mixin _$SignSignupController on _SignSignupControllerBase, Store {
 
   @override
   String toString() {
-    final string =
-        'loading: ${loading.toString()},errorMessage: ${errorMessage.toString()},signupName: ${signupName.toString()},signupEmail: ${signupEmail.toString()},signupPassword: ${signupPassword.toString()},signupPasswordCheck: ${signupPasswordCheck.toString()},loginEmail: ${loginEmail.toString()},loginPassword: ${loginPassword.toString()}';
-    return '{$string}';
+    return '''
+loading: ${loading},
+errorMessage: ${errorMessage},
+signupName: ${signupName},
+signupEmail: ${signupEmail},
+signupPassword: ${signupPassword},
+signupPasswordCheck: ${signupPasswordCheck},
+loginEmail: ${loginEmail},
+loginPassword: ${loginPassword}
+    ''';
   }
 }

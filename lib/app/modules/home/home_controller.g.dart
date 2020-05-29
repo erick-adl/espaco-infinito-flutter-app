@@ -14,7 +14,8 @@ mixin _$HomeController on _HomeControllerBase, Store {
 
   @override
   void logoutApp() {
-    final _$actionInfo = _$_HomeControllerBaseActionController.startAction();
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.logoutApp');
     try {
       return super.logoutApp();
     } finally {
@@ -24,7 +25,8 @@ mixin _$HomeController on _HomeControllerBase, Store {
 
   @override
   String toString() {
-    final string = '';
-    return '{$string}';
+    return '''
+
+    ''';
   }
 }

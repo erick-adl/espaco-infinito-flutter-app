@@ -15,11 +15,11 @@ class TerapiasTileWidget extends StatelessWidget {
       onTap: () =>
           Modular.to.pushNamed("/terapia_details", arguments: document),
       child: Card(
-        margin: EdgeInsets.all(8),
-        elevation: 3,
-        color: Theme.of(context).accentColor,
+        margin: EdgeInsets.all(20),
+        elevation: 10,
+        color: Theme.of(context).colorScheme.surface,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10)),
+          borderRadius: BorderRadius.all(Radius.circular(30)),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -28,14 +28,15 @@ class TerapiasTileWidget extends StatelessWidget {
             Hero(
               tag: document.documentID,
               child: Container(
-                height: 200,
-                // width: MediaQuery.of(context).size.width,
-                margin: EdgeInsets.all(5),
+                height: 250,
                 child: CachedNetworkImage(
                   imageUrl: document["foto"],
                   imageBuilder: (context, imageProvider) => Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(30),
+                        topRight: Radius.circular(30),
+                      ),
                       image: DecorationImage(
                         image: imageProvider,
                         fit: BoxFit.fill,
@@ -48,17 +49,17 @@ class TerapiasTileWidget extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(8, 5, 8, 5),
+              padding: const EdgeInsets.all(10),
               child: Text(
                 document["nome"],
-                style: Theme.of(context).textTheme.display3,
+                style: Theme.of(context).textTheme.title,
               ),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(8, 5, 8, 5),
+              padding: const EdgeInsets.all(10),
               child: Text(
                 document["resumo"],
-                style: Theme.of(context).textTheme.display3,
+                style: Theme.of(context).textTheme.body1,
               ),
             )
           ],

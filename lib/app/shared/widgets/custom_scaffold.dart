@@ -41,7 +41,6 @@ class _CustomScaffoldState extends State<CustomScaffold>
     screenHeight = size.height;
     screenWidth = size.width;
     return Scaffold(
-      backgroundColor: Theme.of(context).secondaryHeaderColor,
       body: Stack(
         children: <Widget>[
           CustonDrawerMenuWidget(),
@@ -72,7 +71,6 @@ class _CustomScaffoldState extends State<CustomScaffold>
           borderRadius:
               isCollapsed ? null : BorderRadius.all(Radius.circular(40)),
           elevation: 8,
-          color: Theme.of(context).primaryColor,
           child: Stack(
             children: <Widget>[
               Padding(
@@ -82,7 +80,9 @@ class _CustomScaffoldState extends State<CustomScaffold>
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     InkWell(
-                      child: Icon(Icons.menu, color: Colors.white),
+                      child: Icon(
+                        Icons.menu,
+                      ),
                       onTap: () {
                         setState(() {
                           if (isCollapsed)
@@ -94,7 +94,6 @@ class _CustomScaffoldState extends State<CustomScaffold>
                         });
                       },
                     ),
-                    Text(title, style: Theme.of(context).textTheme.display1),
                   ],
                 ),
               ),

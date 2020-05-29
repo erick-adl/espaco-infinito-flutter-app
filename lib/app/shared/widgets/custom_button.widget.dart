@@ -15,23 +15,20 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
       margin: EdgeInsets.only(top: 10.0),
       width: MediaQuery.of(context).size.width / 1.2,
       height: 50,
       decoration: new BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(50)),
+        color: Theme.of(context).cardColor,
+        borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
       child: MaterialButton(
-        color: Color(0xfff6f7ff),
-        highlightColor: Colors.transparent,
-        splashColor: Theme.of(context).primaryColor,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(10))),
         child: Text(
           text,
-          style: Theme.of(context).textTheme.button,
           overflow: TextOverflow.ellipsis,
+          style: Theme.of(context).primaryTextTheme.button,
         ),
         onPressed: onPressed,
       ),

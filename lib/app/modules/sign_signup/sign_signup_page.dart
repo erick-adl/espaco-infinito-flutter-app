@@ -48,7 +48,7 @@ class _SignSignupPageState
               gradient: new LinearGradient(
                   colors: [
                     Theme.of(context).primaryColor,
-                    Theme.of(context).secondaryHeaderColor,
+                    Theme.of(context).primaryColorDark,
                   ],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
@@ -221,8 +221,8 @@ class _SignSignupPageState
               overflow: Overflow.visible,
               children: <Widget>[
                 Card(
+                  color: Theme.of(context).cardColor,
                   elevation: 2.0,
-                  color: Theme.of(context).accentColor,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8.0),
                   ),
@@ -388,7 +388,7 @@ class _SignSignupPageState
               children: <Widget>[
                 Card(
                   elevation: 2.0,
-                  color: Theme.of(context).accentColor,
+                  color: Theme.of(context).cardColor,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8.0),
                   ),
@@ -592,11 +592,10 @@ class _SignSignupPageState
         child: new Text(
           value,
           textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.body1,
         ),
       ),
-      backgroundColor: Theme.of(context).accentColor,
       duration: Duration(seconds: 3),
+      backgroundColor: Theme.of(context).cardColor,
     ));
   }
 

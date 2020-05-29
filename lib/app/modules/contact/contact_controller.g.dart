@@ -13,88 +13,79 @@ mixin _$ContactController on _ContactControllerBase, Store {
 
   @override
   String get nome {
-    _$nomeAtom.context.enforceReadPolicy(_$nomeAtom);
-    _$nomeAtom.reportObserved();
+    _$nomeAtom.reportRead();
     return super.nome;
   }
 
   @override
   set nome(String value) {
-    _$nomeAtom.context.conditionallyRunInAction(() {
+    _$nomeAtom.reportWrite(value, super.nome, () {
       super.nome = value;
-      _$nomeAtom.reportChanged();
-    }, _$nomeAtom, name: '${_$nomeAtom.name}_set');
+    });
   }
 
   final _$emailAtom = Atom(name: '_ContactControllerBase.email');
 
   @override
   String get email {
-    _$emailAtom.context.enforceReadPolicy(_$emailAtom);
-    _$emailAtom.reportObserved();
+    _$emailAtom.reportRead();
     return super.email;
   }
 
   @override
   set email(String value) {
-    _$emailAtom.context.conditionallyRunInAction(() {
+    _$emailAtom.reportWrite(value, super.email, () {
       super.email = value;
-      _$emailAtom.reportChanged();
-    }, _$emailAtom, name: '${_$emailAtom.name}_set');
+    });
   }
 
   final _$messageAtom = Atom(name: '_ContactControllerBase.message');
 
   @override
   String get message {
-    _$messageAtom.context.enforceReadPolicy(_$messageAtom);
-    _$messageAtom.reportObserved();
+    _$messageAtom.reportRead();
     return super.message;
   }
 
   @override
   set message(String value) {
-    _$messageAtom.context.conditionallyRunInAction(() {
+    _$messageAtom.reportWrite(value, super.message, () {
       super.message = value;
-      _$messageAtom.reportChanged();
-    }, _$messageAtom, name: '${_$messageAtom.name}_set');
+    });
   }
 
   final _$errorTextAtom = Atom(name: '_ContactControllerBase.errorText');
 
   @override
   String get errorText {
-    _$errorTextAtom.context.enforceReadPolicy(_$errorTextAtom);
-    _$errorTextAtom.reportObserved();
+    _$errorTextAtom.reportRead();
     return super.errorText;
   }
 
   @override
   set errorText(String value) {
-    _$errorTextAtom.context.conditionallyRunInAction(() {
+    _$errorTextAtom.reportWrite(value, super.errorText, () {
       super.errorText = value;
-      _$errorTextAtom.reportChanged();
-    }, _$errorTextAtom, name: '${_$errorTextAtom.name}_set');
+    });
   }
 
   final _$loadingAtom = Atom(name: '_ContactControllerBase.loading');
 
   @override
   bool get loading {
-    _$loadingAtom.context.enforceReadPolicy(_$loadingAtom);
-    _$loadingAtom.reportObserved();
+    _$loadingAtom.reportRead();
     return super.loading;
   }
 
   @override
   set loading(bool value) {
-    _$loadingAtom.context.conditionallyRunInAction(() {
+    _$loadingAtom.reportWrite(value, super.loading, () {
       super.loading = value;
-      _$loadingAtom.reportChanged();
-    }, _$loadingAtom, name: '${_$loadingAtom.name}_set');
+    });
   }
 
-  final _$checkMessageAsyncAction = AsyncAction('checkMessage');
+  final _$checkMessageAsyncAction =
+      AsyncAction('_ContactControllerBase.checkMessage');
 
   @override
   Future checkMessage() {
@@ -106,7 +97,8 @@ mixin _$ContactController on _ContactControllerBase, Store {
 
   @override
   dynamic changeName(String value) {
-    final _$actionInfo = _$_ContactControllerBaseActionController.startAction();
+    final _$actionInfo = _$_ContactControllerBaseActionController.startAction(
+        name: '_ContactControllerBase.changeName');
     try {
       return super.changeName(value);
     } finally {
@@ -116,7 +108,8 @@ mixin _$ContactController on _ContactControllerBase, Store {
 
   @override
   dynamic changeEmail(String value) {
-    final _$actionInfo = _$_ContactControllerBaseActionController.startAction();
+    final _$actionInfo = _$_ContactControllerBaseActionController.startAction(
+        name: '_ContactControllerBase.changeEmail');
     try {
       return super.changeEmail(value);
     } finally {
@@ -126,7 +119,8 @@ mixin _$ContactController on _ContactControllerBase, Store {
 
   @override
   dynamic changeMessage(String value) {
-    final _$actionInfo = _$_ContactControllerBaseActionController.startAction();
+    final _$actionInfo = _$_ContactControllerBaseActionController.startAction(
+        name: '_ContactControllerBase.changeMessage');
     try {
       return super.changeMessage(value);
     } finally {
@@ -136,7 +130,8 @@ mixin _$ContactController on _ContactControllerBase, Store {
 
   @override
   dynamic changeErrorText(String value) {
-    final _$actionInfo = _$_ContactControllerBaseActionController.startAction();
+    final _$actionInfo = _$_ContactControllerBaseActionController.startAction(
+        name: '_ContactControllerBase.changeErrorText');
     try {
       return super.changeErrorText(value);
     } finally {
@@ -146,8 +141,12 @@ mixin _$ContactController on _ContactControllerBase, Store {
 
   @override
   String toString() {
-    final string =
-        'nome: ${nome.toString()},email: ${email.toString()},message: ${message.toString()},errorText: ${errorText.toString()},loading: ${loading.toString()}';
-    return '{$string}';
+    return '''
+nome: ${nome},
+email: ${email},
+message: ${message},
+errorText: ${errorText},
+loading: ${loading}
+    ''';
   }
 }

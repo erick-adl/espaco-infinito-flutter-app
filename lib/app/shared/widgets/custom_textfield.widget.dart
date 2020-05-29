@@ -26,8 +26,7 @@ class CustomTextFieldWidget extends StatelessWidget {
       margin: EdgeInsets.only(top: 15),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10)),
-          color: Colors.white,
-          boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 5)]),
+          color: Theme.of(context).cardColor),
       width: MediaQuery.of(context).size.width / 1.2,
       height: 50,
       child: TextField(

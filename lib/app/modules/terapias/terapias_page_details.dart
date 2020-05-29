@@ -11,9 +11,10 @@ class TerapiasPageDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: Theme.of(context).accentIconTheme,
         title: Text(
           document["nome"],
-          style: Theme.of(context).textTheme.display1,
+          style: Theme.of(context).textTheme.title,
         ),
       ),
       body: SingleChildScrollView(
@@ -47,7 +48,7 @@ class TerapiasPageDetails extends StatelessWidget {
               child: Center(
                 child: Text(
                   document["nome"],
-                  style: Theme.of(context).textTheme.body1,
+                  style: Theme.of(context).textTheme.title,
                 ),
               ),
             ),
@@ -56,7 +57,7 @@ class TerapiasPageDetails extends StatelessWidget {
                     margin: EdgeInsets.fromLTRB(10, 5, 10, 5),
                     child: Text(
                       f,
-                      style: Theme.of(context).textTheme.display3,
+                      style: Theme.of(context).textTheme.body1,
                     ),
                   ),
                 ),

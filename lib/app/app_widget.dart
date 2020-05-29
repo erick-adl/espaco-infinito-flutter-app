@@ -11,57 +11,94 @@ class AppWidget extends StatelessWidget {
         onGenerateRoute: Modular.generateRoute,
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          // Define the default brightness and colors.
-          brightness: Brightness.light,
-          primaryColor: Color(0xFFf9a933),
-          secondaryHeaderColor: Color(0xFFde9426),
-
-          accentColor: Color(0xfff3f5f6),
-          unselectedWidgetColor: Color(0xff2f4049),
-
-          // Define the default font family.
-          // fontFamily: 'Georgia',
-
-          // Define the default TextTheme. Use this to specify the default
-          // text styling for headlines, titles, bodies of text, and more.
-          textTheme: TextTheme(
-              button: TextStyle(
-                  fontSize: 16.0,
-                  fontFamily: 'WorkSansBold',
-                  color: Color(0xff2f4049)),
-              title: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
-              body1: TextStyle(
-                  fontSize: 20.0,
-                  fontFamily: 'WorkSansBold',
-                  color: Color(0xff2f4049)),
+          primarySwatch: Colors.orange,
+          primaryColorBrightness: Brightness.dark,
+          primaryColor: Color(0xFFe0a650),
+          primaryColorLight: Color(0xFFe0a650),
+          primaryColorDark: Color(0xFFe0a650),
+          backgroundColor: Color(0xFFFFFFFF),
+          buttonColor: Color(0xFFe0a650),
+          buttonTheme: ButtonThemeData(
+            buttonColor: Color(0xFFf5f5f5),
+          ),
+          iconTheme: IconThemeData(color: Color(0xFFe0a650)),
+          accentIconTheme: IconThemeData(color: Colors.black54),
+          primaryIconTheme: IconThemeData(color: Color(0xFFe0a650)),
+          cardColor: Color(0xFFf5f5f5),
+          fontFamily: 'Inter',
+          primaryTextTheme: TextTheme(
               headline: TextStyle(
-                  fontSize: 12.0,
-                  fontFamily: 'WorkSansBold',
-                  color: Color(0xff2f4049)),
+                  fontSize: 36,
+                  fontFamily: "Inter",
+                  color: Colors.black54,
+                  fontWeight: FontWeight.bold),
               subhead: TextStyle(
-                  fontSize: 12.0,
-                  fontFamily: 'WorkSansBold',
-                  color: Color(0xff2f4049)),
+                  fontSize: 30,
+                  fontFamily: "Inter",
+                  color: Colors.black54,
+                  fontWeight: FontWeight.bold),
+              title: TextStyle(
+                  fontSize: 24,
+                  fontFamily: "Inter",
+                  color: Colors.black54,
+                  fontWeight: FontWeight.bold),
+              subtitle: TextStyle(
+                  fontSize: 20,
+                  fontFamily: "Inter",
+                  color: Colors.black54,
+                  fontWeight: FontWeight.bold),
+              body1: TextStyle(
+                fontSize: 18,
+                fontFamily: "Inter",
+                color: Colors.black54,
+                fontWeight: FontWeight.bold,
+              ),
               body2: TextStyle(
-                  fontSize: 15.0,
-                  fontFamily: 'WorkSansBold',
-                  color: Color(0xfff3f5f6)),
-              display3: TextStyle(
-                  fontSize: 15.0,
-                  fontFamily: 'WorkSansBold',
-                  color: Color(0xff2f4049)),
-              display2: TextStyle(
-                  fontSize: 15.0,
-                  fontFamily: 'WorkSansBold',
-                  color: Color(0xfff3f5f6)),
-              display1: TextStyle(
-                  fontSize: 18.0,
-                  fontFamily: 'WorkSansBold',
-                  color: Color(0xfff3f5f6)),
-              display4: TextStyle(
-                  fontSize: 23.0,
-                  fontFamily: 'WorkSansBold',
-                  color: Color(0xfff3f5f6))),
+                fontSize: 15,
+                fontFamily: "Inter",
+                color: Colors.black54,
+              ),
+              button: TextStyle(
+                  fontSize: 18,
+                  fontFamily: "Inter",
+                  color: Colors.black54,
+                  fontWeight: FontWeight.bold)),
+          accentTextTheme: TextTheme(
+              headline: TextStyle(
+                  fontSize: 36,
+                  fontFamily: "Inter",
+                  color: Color(0xFFf3f3f4),
+                  fontWeight: FontWeight.bold),
+              subhead: TextStyle(
+                  fontSize: 30,
+                  fontFamily: "Inter",
+                  color: Color(0xFFf3f3f4),
+                  fontWeight: FontWeight.bold),
+              title: TextStyle(
+                  fontSize: 24,
+                  fontFamily: "Inter",
+                  color: Color(0xFFf3f3f4),
+                  fontWeight: FontWeight.bold),
+              subtitle: TextStyle(
+                  fontSize: 20,
+                  fontFamily: "Inter",
+                  color: Color(0xFFf3f3f4),
+                  fontWeight: FontWeight.bold),
+              body1: TextStyle(
+                  fontSize: 18,
+                  fontFamily: "Inter",
+                  color: Color(0xFFf3f3f4),
+                  fontWeight: FontWeight.bold),
+              body2: TextStyle(
+                fontSize: 15,
+                fontFamily: "Inter",
+                color: Color(0xFFf3f3f4),
+              ),
+              button: TextStyle(
+                  fontSize: 18,
+                  fontFamily: "Inter",
+                  color: Color(0xFFf3f3f4),
+                  fontWeight: FontWeight.bold)),
         ));
   }
 }
