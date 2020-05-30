@@ -139,7 +139,7 @@ abstract class _SignSignupControllerBase with Store {
       await _authController.loginWithGoogle();
       if (_authController.user != null) {
         loading = false;
-        Modular.to.pushReplacementNamed('/home');
+        Modular.to.pushReplacementNamed('/about');
       } else {
         loading = false;
         changeErrorMessage("Falha ao relalizar login..");

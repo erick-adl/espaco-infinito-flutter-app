@@ -1,12 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:infinito/app/modules/products/products_tile_widget.dart';
-
 import 'package:infinito/app/shared/widgets/color_loader.dart';
-import 'package:infinito/app/shared/widgets/custom_scaffold.dart';
-import 'products_controller.dart';
 import 'package:intl/intl.dart';
 
 class ProductsPage extends StatefulWidget {
@@ -17,16 +13,12 @@ class ProductsPage extends StatefulWidget {
   _ProductsPageState createState() => _ProductsPageState();
 }
 
-class _ProductsPageState
-    extends ModularState<ProductsPage, ProductsController> {
+class _ProductsPageState extends State<ProductsPage> {
   String searchKey = "";
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(
-      title: widget.title,
-      page: buildProductsPage(),
-    );
+    return buildProductsPage();
   }
 
   buildProductsPage() {

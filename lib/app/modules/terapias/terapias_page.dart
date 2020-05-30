@@ -1,34 +1,29 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
+
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:infinito/app/modules/terapias/terapias_tile_widget.dart';
+
 import 'package:infinito/app/shared/widgets/color_loader.dart';
-import 'package:infinito/app/shared/widgets/custom_scaffold.dart';
-import 'terapias_controller.dart';
+
 import 'package:intl/intl.dart';
 
 class TerapiasPage extends StatefulWidget {
   final String title;
-  const TerapiasPage({Key key, this.title = "Terapias"}) : super(key: key);
+  final Function onMenuTap;
+
+  const TerapiasPage({Key key, this.title = "Terapias", this.onMenuTap})
+      : super(key: key);
 
   @override
   _TerapiasPageState createState() => _TerapiasPageState();
 }
 
-class _TerapiasPageState
-    extends ModularState<TerapiasPage, TerapiasController> {
+class _TerapiasPageState extends State<TerapiasPage> {
   String searchKey = "";
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(
-      title: widget.title,
-      page: buildTerapiasPage(),
-    );
-  }
-
-  buildTerapiasPage() {
     return Container(
       height: MediaQuery.of(context).size.height / 1.15,
       child: SingleChildScrollView(

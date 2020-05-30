@@ -1,34 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+
 import 'package:infinito/app/shared/widgets/custom_button.widget.dart';
-import 'package:infinito/app/shared/widgets/custom_scaffold.dart';
 
-import 'home_controller.dart';
-
-class HomePage extends StatefulWidget {
+class AboutPage extends StatelessWidget {
   final String title;
-  const HomePage({Key key, this.title = "Quem somos"}) : super(key: key);
-
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends ModularState<HomePage, HomeController>
-    with SingleTickerProviderStateMixin {
-  @override
-  void dispose() {
-    super.dispose();
-  }
+  const AboutPage({Key key, this.title = "Quem somos"}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(
-      page: pageHome(),
-      title: widget.title,
-    );
-  }
-
-  Widget pageHome() {
     return Container(
       color: Theme.of(context).primaryColor,
       width: MediaQuery.of(context).size.width,
@@ -58,7 +38,7 @@ class _HomePageState extends ModularState<HomePage, HomeController>
             CustomButton(
                 context: context,
                 text: "Conheça nossas terapias",
-                onPressed: () => Modular.to.pushReplacementNamed("/home")),
+                onPressed: () => Modular.to.pushReplacementNamed("/about")),
           ],
         ),
       ),

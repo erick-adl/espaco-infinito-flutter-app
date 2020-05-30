@@ -1,0 +1,5 @@
+lib/app/shared/menudashboard/menudashboard_module.dart
+lib/app/shared/menudashboard/menudashboard_page.dart
+test/app/shared/menudashboard/menudashboard_page_test.dart
+lib/app/shared/menudashboard/menudashboard_controller.dart
+test/app/shared/menudashboard/menudashboard_controller_test.dart
