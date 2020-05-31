@@ -1,17 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-
-import 'package:infinito/app/modules/about/about_module.dart';
-import 'package:infinito/app/modules/contact/contact_module.dart';
-import 'package:infinito/app/modules/products/products_module.dart';
-import 'package:infinito/app/modules/terapias/terapias_module.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:infinito/app/shared/auth_firebase/auth_controller.dart';
-
 import 'package:infinito/app/shared/widgets/color_loader.dart';
-
 import 'menudashboard_controller.dart';
 
 class Menu extends StatelessWidget {
@@ -40,9 +33,9 @@ class Menu extends StatelessWidget {
             height: MediaQuery.of(context).size.height,
             color: Theme.of(context).cardColor,
             child: Padding(
-              padding: const EdgeInsets.only(left: 16.0),
+              padding: const EdgeInsets.only(top: 40, left: 16.0),
               child: Align(
-                alignment: Alignment.centerLeft,
+                alignment: Alignment.topLeft,
                 child: SingleChildScrollView(
                   child: Observer(
                     builder: (context) {
@@ -59,32 +52,43 @@ class Menu extends StatelessWidget {
                               children: <Widget>[
                                 CircleAvatar(
                                   radius: 50,
-                                  child: CachedNetworkImage(
-                                    imageUrl: _authController.user.photoUrl,
-                                    imageBuilder: (context, imageProvider) =>
-                                        Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(10)),
-                                        image: DecorationImage(
-                                          image: imageProvider,
-                                          fit: BoxFit.fill,
+                                  child: _authController.user.photoUrl == null
+                                      ? Icon(
+                                          FontAwesomeIcons.userAlt,
+                                          size: 40,
+                                        )
+                                      : CachedNetworkImage(
+                                          imageUrl:
+                                              _authController.user.photoUrl,
+                                          imageBuilder:
+                                              (context, imageProvider) =>
+                                                  Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(10)),
+                                              image: DecorationImage(
+                                                image: imageProvider,
+                                                fit: BoxFit.fill,
+                                              ),
+                                            ),
+                                          ),
+                                          placeholder: (context, url) =>
+                                              ColorLoader(),
+                                          errorWidget: (context, url, error) =>
+                                              Icon(Icons.error),
                                         ),
-                                      ),
-                                    ),
-                                    placeholder: (context, url) =>
-                                        ColorLoader(),
-                                    errorWidget: (context, url, error) =>
-                                        Icon(Icons.error),
-                                  ),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(
                                     top: 10.0,
                                   ),
                                   child: Text(
-                                      _authController.user.displayName == null
-                                          ? "Olá Visitante!"
+                                      (_authController.user.displayName ==
+                                                  null ||
+                                              _authController
+                                                      .user.displayName ==
+                                                  "")
+                                          ? "Olá visitante!"
                                           : "Olá ${_authController.user.displayName.split(" ").first}!",
                                       style: Theme.of(context)
                                           .primaryTextTheme
@@ -106,7 +110,7 @@ class Menu extends StatelessWidget {
                             onTap: () {
                               Modular.get<MenudashboardController>()
                                   .setAboutPage();
-                              // onMenuItemClicked();
+                              onMenuItemClicked();
                             },
                             child: Text(
                               "Quem somos",
@@ -122,7 +126,7 @@ class Menu extends StatelessWidget {
                             onTap: () {
                               Modular.get<MenudashboardController>()
                                   .setTerapiasPage();
-                              // onMenuItemClicked();
+                              onMenuItemClicked();
                             },
                             child: Text(
                               "Terapias",
@@ -138,7 +142,7 @@ class Menu extends StatelessWidget {
                             onTap: () {
                               Modular.get<MenudashboardController>()
                                   .setProductsPage();
-                              // onMenuItemClicked();
+                              onMenuItemClicked();
                             },
                             child: Text(
                               "Produtos",
@@ -152,25 +156,9 @@ class Menu extends StatelessWidget {
                           SizedBox(height: 30),
                           GestureDetector(
                             onTap: () {
-                              // Modular.get<MenudashboardController>()
-                              //     .changePage(TerapiasModule());
-                              // onMenuItemClicked();
-                            },
-                            child: Text(
-                              "Agenda",
-                              style: Modular.get<MenudashboardController>()
-                                          .index ==
-                                      3
-                                  ? Theme.of(context).primaryTextTheme.subtitle
-                                  : Theme.of(context).primaryTextTheme.body1,
-                            ),
-                          ),
-                          SizedBox(height: 30),
-                          GestureDetector(
-                            onTap: () {
                               Modular.get<MenudashboardController>()
                                   .setContactPage();
-                              // onMenuItemClicked();
+                              onMenuItemClicked();
                             },
                             child: Text(
                               "Contato",
@@ -186,11 +174,7 @@ class Menu extends StatelessWidget {
                             onTap: () => _authController.logout(),
                             child: Text(
                               "Sair",
-                              style: Modular.get<MenudashboardController>()
-                                          .index ==
-                                      0
-                                  ? Theme.of(context).primaryTextTheme.subtitle
-                                  : Theme.of(context).primaryTextTheme.body1,
+                              style: Theme.of(context).primaryTextTheme.body1,
                             ),
                           ),
                           SizedBox(height: 30),

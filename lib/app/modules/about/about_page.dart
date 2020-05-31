@@ -11,8 +11,6 @@ class AboutPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Theme.of(context).primaryColor,
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
       child: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,

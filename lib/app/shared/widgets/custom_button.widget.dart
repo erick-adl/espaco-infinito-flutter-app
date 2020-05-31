@@ -6,8 +6,10 @@ class CustomButton extends StatelessWidget {
     @required this.context,
     @required this.text,
     @required this.onPressed,
+    this.milked = false,
   }) : super(key: key);
 
+  final bool milked;
   final BuildContext context;
   final String text;
   final void Function() onPressed;
@@ -19,7 +21,9 @@ class CustomButton extends StatelessWidget {
       width: MediaQuery.of(context).size.width / 1.2,
       height: 50,
       decoration: new BoxDecoration(
-        color: Theme.of(context).cardColor,
+        color: milked
+            ? Theme.of(context).primaryColor
+            : Theme.of(context).cardColor,
         borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
       child: MaterialButton(
@@ -28,7 +32,9 @@ class CustomButton extends StatelessWidget {
         child: Text(
           text,
           overflow: TextOverflow.ellipsis,
-          style: Theme.of(context).primaryTextTheme.button,
+          style: milked
+              ? Theme.of(context).accentTextTheme.button
+              : Theme.of(context).primaryTextTheme.button,
         ),
         onPressed: onPressed,
       ),

@@ -39,6 +39,21 @@ mixin _$MenudashboardController on _MenudashboardControllerBase, Store {
     });
   }
 
+  final _$collapsedAtom = Atom(name: '_MenudashboardControllerBase.collapsed');
+
+  @override
+  bool get collapsed {
+    _$collapsedAtom.reportRead();
+    return super.collapsed;
+  }
+
+  @override
+  set collapsed(bool value) {
+    _$collapsedAtom.reportWrite(value, super.collapsed, () {
+      super.collapsed = value;
+    });
+  }
+
   final _$pageNameAtom = Atom(name: '_MenudashboardControllerBase.pageName');
 
   @override
@@ -56,6 +71,17 @@ mixin _$MenudashboardController on _MenudashboardControllerBase, Store {
 
   final _$_MenudashboardControllerBaseActionController =
       ActionController(name: '_MenudashboardControllerBase');
+
+  @override
+  dynamic setCollapsed(bool value) {
+    final _$actionInfo = _$_MenudashboardControllerBaseActionController
+        .startAction(name: '_MenudashboardControllerBase.setCollapsed');
+    try {
+      return super.setCollapsed(value);
+    } finally {
+      _$_MenudashboardControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic setAboutPage() {
@@ -106,6 +132,7 @@ mixin _$MenudashboardController on _MenudashboardControllerBase, Store {
     return '''
 page: ${page},
 index: ${index},
+collapsed: ${collapsed},
 pageName: ${pageName}
     ''';
   }

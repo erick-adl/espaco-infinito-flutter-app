@@ -12,10 +12,15 @@ class MenudashboardController = _MenudashboardControllerBase
 
 abstract class _MenudashboardControllerBase with Store {
   @observable
-  Widget page = TerapiasModule();
+  Widget page = AboutModule();
 
   @observable
   int index = 0;
+
+  @observable
+  bool collapsed = true;
+  @action
+  setCollapsed(bool value) => collapsed = value;
 
   @observable
   String pageName = "Terapias";

@@ -20,6 +20,8 @@ class _MenudashboardPageState
     extends ModularState<MenudashboardPage, MenudashboardController>
     with SingleTickerProviderStateMixin {
   bool isCollapsed = true;
+  bool autoSlide = false;
+
   double screenWidth, screenHeight;
   final Duration duration = const Duration(milliseconds: 300);
   AnimationController _controller;
@@ -52,15 +54,18 @@ class _MenudashboardPageState
         _controller.reverse();
 
       isCollapsed = !isCollapsed;
+      controller.setCollapsed(isCollapsed);
     });
   }
 
   void onMenuItemClicked() {
-    setState(() {
-      _controller.reverse();
-    });
+    if (autoSlide) {
+      setState(() {
+        _controller.reverse();
+      });
 
-    isCollapsed = !isCollapsed;
+      isCollapsed = !isCollapsed;
+    }
   }
 
   @override
@@ -70,60 +75,69 @@ class _MenudashboardPageState
     screenWidth = size.width;
 
     return Scaffold(body: Observer(builder: (context) {
-      return Stack(
-        children: <Widget>[
-          Menu(
-            slideAnimation: _slideAnimation,
-            menuAnimation: _menuScaleAnimation,
-            selectedIndex: controller.index,
-            onMenuItemClicked: onMenuItemClicked,
-          ),
-          Dashboard(
-            duration: duration,
-            onMenuTap: onMenuTap,
-            scaleAnimation: _scaleAnimation,
-            isCollapsed: isCollapsed,
-            screenWidth: screenWidth,
-            child: SingleChildScrollView(
-              child: Column(
+      return SafeArea(
+        child: Stack(
+          children: <Widget>[
+            Menu(
+              slideAnimation: _slideAnimation,
+              menuAnimation: _menuScaleAnimation,
+              selectedIndex: controller.index,
+              onMenuItemClicked: onMenuItemClicked,
+            ),
+            Dashboard(
+              duration: duration,
+              onMenuTap: onMenuTap,
+              scaleAnimation: _scaleAnimation,
+              isCollapsed: isCollapsed,
+              screenWidth: screenWidth,
+              child: Stack(
                 children: <Widget>[
-                  Material(
-                    elevation: 10,
-                    child: Container(
-                      height: 60,
-                      color: Theme.of(context).primaryColor,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          InkWell(
-                            child: Icon(
-                              Icons.menu,
-                              color: Colors.white,
-                              size: 30,
+                  Positioned(
+                      top: 60,
+                      child: Container(
+                          height: screenHeight,
+                          width: screenWidth,
+                          child: controller.page)),
+                  Observer(builder: (context) {
+                    return Material(
+                      elevation: 20,
+                      color: Theme.of(context).cardColor,
+                      child: Container(
+                        height: 60,
+                        decoration: BoxDecoration(
+                            color: Theme.of(context).primaryColor,
+                            borderRadius: BorderRadius.only(
+                                topLeft: controller.collapsed
+                                    ? Radius.circular(0)
+                                    : Radius.circular(50))),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            InkWell(
+                              child: Icon(
+                                Icons.menu,
+                                color: Colors.white,
+                                size: 30,
+                              ),
+                              onTap: onMenuTap,
                             ),
-                            onTap: onMenuTap,
-                          ),
-                          Observer(
-                            builder: (context) {
-                              return Text(controller.pageName,
-                                  style: TextStyle(
-                                      fontSize: 24, color: Colors.white));
-                            },
-                          ),
-                          SizedBox(
-                            width: 40,
-                          ),
-                        ],
+                            Text(controller.pageName,
+                                style: TextStyle(
+                                    fontSize: 24, color: Colors.white)),
+                            SizedBox(
+                              width: 40,
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ),
-                  controller.page
+                    );
+                  }),
                 ],
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       );
     }));
   }

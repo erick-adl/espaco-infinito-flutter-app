@@ -12,108 +12,121 @@ class ContactPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Theme.of(context).primaryColor,
-      child: Column(
+      height: MediaQuery.of(context).size.height,
+      width: MediaQuery.of(context).size.width,
+      child: Stack(
         children: <Widget>[
-          Container(
-            height: MediaQuery.of(context).size.height * 0.25,
-            child: InkWell(
-              onTap: () => _launchInBrowser(
-                  "https://www.google.com/maps/place/Espa%C3%A7o+infinito+-+Terapias+Alternativas+E+Produtos+Hol%C3%ADsticos/@-29.9514781,-50.9957021,15z/data=!4m5!3m4!1s0x0:0xbaf2539391a38a9c!8m2!3d-29.9514781!4d-50.9957021"),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
-                    child: Text(
-                      "Nosso endereço fica na Av. José Loureiro da Silva n° 1799",
-                      style: Theme.of(context).accentTextTheme.body1,
+          Positioned(
+            top: 20,
+            child: Container(
+              height: MediaQuery.of(context).size.height / 4,
+              width: MediaQuery.of(context).size.width,
+              child: InkWell(
+                onTap: () => _launchInBrowser(
+                    "https://www.google.com/maps/place/Espa%C3%A7o+infinito+-+Terapias+Alternativas+E+Produtos+Hol%C3%ADsticos/@-29.9514781,-50.9957021,15z/data=!4m5!3m4!1s0x0:0xbaf2539391a38a9c!8m2!3d-29.9514781!4d-50.9957021"),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+                      child: Text(
+                        "Nosso endereço fica na Av. José Loureiro da Silva n° 1799",
+                        style: Theme.of(context).accentTextTheme.body1,
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(30, 0, 30, 10),
-                    child: Text(
-                      "Bairro Centro",
-                      style: Theme.of(context).accentTextTheme.body1,
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(30, 0, 30, 10),
+                      child: Text(
+                        "Bairro Centro",
+                        style: Theme.of(context).accentTextTheme.body1,
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(30, 0, 30, 10),
-                    child: Text(
-                      "Gravataí/RS – CEP 94035-240",
-                      style: Theme.of(context).accentTextTheme.body1,
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(30, 0, 30, 10),
+                      child: Text(
+                        "Gravataí/RS – CEP 94035-240",
+                        style: Theme.of(context).accentTextTheme.body1,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * 0.75,
-            padding: const EdgeInsets.only(bottom: 10),
-            decoration: BoxDecoration(
-                color: Theme.of(context).backgroundColor,
-                borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(30),
-                )),
-            child: SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10),
-                    child: Text(
-                      "Entre em contato",
-                      style: Theme.of(context).primaryTextTheme.body1,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                    child: CustomTextFieldWidget(
-                        context: context,
-                        textHint: "Nome",
-                        iconDecoration: null,
-                        onChanged: (value) => {},
-                        obscureText: false,
-                        textInputType: TextInputType.text),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                    child: CustomTextFieldWidget(
-                        context: context,
-                        textHint: "E-mail",
-                        iconDecoration: null,
-                        onChanged: (value) => {},
-                        obscureText: false,
-                        textInputType: TextInputType.text),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                    child: Container(
-                      padding: EdgeInsets.fromLTRB(16, 0, 16, 5),
-                      margin: EdgeInsets.only(top: 15),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        color: Theme.of(context).cardColor,
-                      ),
-                      width: MediaQuery.of(context).size.width / 1.2,
-                      height: 150,
-                      child: TextField(
-                        maxLines: null,
-                        keyboardType: TextInputType.multiline,
-                        obscureText: false,
-                        onChanged: (value) => {},
-                        decoration: InputDecoration(
-                            hintText: "Mensagem", border: InputBorder.none),
+          Positioned(
+            top: (MediaQuery.of(context).size.height / 4),
+            bottom: 0,
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              padding: const EdgeInsets.only(bottom: 10),
+              decoration: BoxDecoration(
+                  color: Theme.of(context).backgroundColor,
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(30),
+                  )),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10),
+                      child: Text(
+                        "Entre em contato",
+                        style: Theme.of(context).primaryTextTheme.body1,
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                    child: CustomButton(
-                        context: context, text: "Enviar", onPressed: () => {}),
-                  ),
-                ],
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                      child: CustomTextFieldWidget(
+                          context: context,
+                          textHint: "Nome",
+                          iconDecoration: null,
+                          onChanged: (value) => {},
+                          obscureText: false,
+                          textInputType: TextInputType.text),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                      child: CustomTextFieldWidget(
+                          context: context,
+                          textHint: "E-mail",
+                          iconDecoration: null,
+                          onChanged: (value) => {},
+                          obscureText: false,
+                          textInputType: TextInputType.text),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                      child: Container(
+                        padding: EdgeInsets.fromLTRB(16, 0, 16, 5),
+                        margin: EdgeInsets.only(top: 15),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          color: Theme.of(context).cardColor,
+                        ),
+                        width: MediaQuery.of(context).size.width / 1.2,
+                        height: 150,
+                        child: TextField(
+                          maxLines: null,
+                          keyboardType: TextInputType.multiline,
+                          obscureText: false,
+                          onChanged: (value) => {},
+                          decoration: InputDecoration(
+                              hintText: "Mensagem", border: InputBorder.none),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                      child: CustomButton(
+                        context: context,
+                        text: "Enviar",
+                        onPressed: () => {},
+                        milked: true,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

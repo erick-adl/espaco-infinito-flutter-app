@@ -22,7 +22,7 @@ class Dashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedPositioned(
       duration: duration,
-      top: 20,
+      top: 0,
       bottom: 0,
       left: isCollapsed ? 0 : 0.6 * screenWidth,
       right: isCollapsed ? 0 : -0.2 * screenWidth,
