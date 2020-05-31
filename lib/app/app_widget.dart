@@ -24,7 +24,8 @@ class AppWidget extends StatelessWidget {
           iconTheme: IconThemeData(color: Color(0xFFe0a650)),
           accentIconTheme: IconThemeData(color: Colors.black54),
           primaryIconTheme: IconThemeData(color: Color(0xFFe0a650)),
-          cardColor: Color(0xFFf5f5f5),
+          cardColor: Color(0xFFebebeb),
+          textSelectionColor: Color(0xFFebebeb),
           fontFamily: 'Inter',
           primaryTextTheme: TextTheme(
               headline: TextStyle(

@@ -20,7 +20,7 @@ class _MenudashboardPageState
     extends ModularState<MenudashboardPage, MenudashboardController>
     with SingleTickerProviderStateMixin {
   bool isCollapsed = true;
-  bool autoSlide = false;
+  bool autoSlide = true;
 
   double screenWidth, screenHeight;
   final Duration duration = const Duration(milliseconds: 300);
@@ -54,7 +54,6 @@ class _MenudashboardPageState
         _controller.reverse();
 
       isCollapsed = !isCollapsed;
-      controller.setCollapsed(isCollapsed);
     });
   }
 
@@ -95,21 +94,20 @@ class _MenudashboardPageState
                   Positioned(
                       top: 60,
                       child: Container(
-                          height: screenHeight,
-                          width: screenWidth,
-                          child: controller.page)),
+                        height: screenHeight,
+                        width: screenWidth,
+                        color: Theme.of(context).textSelectionColor,
+                        child: controller.page,
+                      )),
                   Observer(builder: (context) {
                     return Material(
                       elevation: 20,
-                      color: Theme.of(context).cardColor,
+                      color: Theme.of(context).textSelectionColor,
                       child: Container(
                         height: 60,
                         decoration: BoxDecoration(
-                            color: Theme.of(context).primaryColor,
-                            borderRadius: BorderRadius.only(
-                                topLeft: controller.collapsed
-                                    ? Radius.circular(0)
-                                    : Radius.circular(50))),
+                          color: Theme.of(context).primaryColor,
+                        ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           mainAxisSize: MainAxisSize.max,

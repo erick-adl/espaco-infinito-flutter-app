@@ -17,7 +17,7 @@ class TerapiasTileWidget extends StatelessWidget {
       child: Card(
         margin: EdgeInsets.all(20),
         elevation: 10,
-        color: Theme.of(context).colorScheme.surface,
+        color: Theme.of(context).backgroundColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(30)),
         ),
@@ -43,7 +43,7 @@ class TerapiasTileWidget extends StatelessWidget {
                       ),
                     ),
                   ),
-                  placeholder: (context, url) => ColorLoader(),
+                  placeholder: (context, url) => Center(child: ColorLoader()),
                   errorWidget: (context, url, error) => Icon(Icons.error),
                 ),
               ),

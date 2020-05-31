@@ -18,11 +18,6 @@ abstract class _MenudashboardControllerBase with Store {
   int index = 0;
 
   @observable
-  bool collapsed = true;
-  @action
-  setCollapsed(bool value) => collapsed = value;
-
-  @observable
   String pageName = "Terapias";
 
   @action

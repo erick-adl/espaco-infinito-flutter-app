@@ -221,7 +221,7 @@ class _SignSignupPageState
               overflow: Overflow.visible,
               children: <Widget>[
                 Card(
-                  color: Theme.of(context).cardColor,
+                  color: Theme.of(context).textSelectionColor,
                   elevation: 2.0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8.0),
@@ -388,7 +388,7 @@ class _SignSignupPageState
               children: <Widget>[
                 Card(
                   elevation: 2.0,
-                  color: Theme.of(context).cardColor,
+                  color: Theme.of(context).textSelectionColor,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8.0),
                   ),
@@ -595,7 +595,7 @@ class _SignSignupPageState
         ),
       ),
       duration: Duration(seconds: 3),
-      backgroundColor: Theme.of(context).cardColor,
+      backgroundColor: Theme.of(context).textSelectionColor,
     ));
   }
 

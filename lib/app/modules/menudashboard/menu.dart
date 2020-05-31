@@ -25,13 +25,15 @@ class Menu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final indexMenu = Modular.get<MenudashboardController>().index;
+
     return SlideTransition(
       position: slideAnimation,
       child: ScaleTransition(
           scale: menuAnimation,
           child: Container(
             height: MediaQuery.of(context).size.height,
-            color: Theme.of(context).cardColor,
+            color: Theme.of(context).backgroundColor,
             child: Padding(
               padding: const EdgeInsets.only(top: 40, left: 16.0),
               child: Align(
@@ -106,69 +108,31 @@ class Menu extends StatelessWidget {
                               ],
                             ),
                           ),
-                          GestureDetector(
-                            onTap: () {
-                              Modular.get<MenudashboardController>()
-                                  .setAboutPage();
-                              onMenuItemClicked();
-                            },
-                            child: Text(
-                              "Quem somos",
-                              style: Modular.get<MenudashboardController>()
-                                          .index ==
-                                      0
-                                  ? Theme.of(context).primaryTextTheme.subtitle
-                                  : Theme.of(context).primaryTextTheme.body1,
-                            ),
-                          ),
+                          buildMenuTile(context, "Conheça", indexMenu == 0, () {
+                            Modular.get<MenudashboardController>()
+                                .setAboutPage();
+                            onMenuItemClicked();
+                          }),
                           SizedBox(height: 30),
-                          GestureDetector(
-                            onTap: () {
-                              Modular.get<MenudashboardController>()
-                                  .setTerapiasPage();
-                              onMenuItemClicked();
-                            },
-                            child: Text(
-                              "Terapias",
-                              style: Modular.get<MenudashboardController>()
-                                          .index ==
-                                      1
-                                  ? Theme.of(context).primaryTextTheme.subtitle
-                                  : Theme.of(context).primaryTextTheme.body1,
-                            ),
-                          ),
+                          buildMenuTile(context, "Terapias", indexMenu == 1,
+                              () {
+                            Modular.get<MenudashboardController>()
+                                .setTerapiasPage();
+                            onMenuItemClicked();
+                          }),
                           SizedBox(height: 30),
-                          GestureDetector(
-                            onTap: () {
-                              Modular.get<MenudashboardController>()
-                                  .setProductsPage();
-                              onMenuItemClicked();
-                            },
-                            child: Text(
-                              "Produtos",
-                              style: Modular.get<MenudashboardController>()
-                                          .index ==
-                                      2
-                                  ? Theme.of(context).primaryTextTheme.subtitle
-                                  : Theme.of(context).primaryTextTheme.body1,
-                            ),
-                          ),
+                          buildMenuTile(context, "Produtos", indexMenu == 2,
+                              () {
+                            Modular.get<MenudashboardController>()
+                                .setProductsPage();
+                            onMenuItemClicked();
+                          }),
                           SizedBox(height: 30),
-                          GestureDetector(
-                            onTap: () {
-                              Modular.get<MenudashboardController>()
-                                  .setContactPage();
-                              onMenuItemClicked();
-                            },
-                            child: Text(
-                              "Contato",
-                              style: Modular.get<MenudashboardController>()
-                                          .index ==
-                                      3
-                                  ? Theme.of(context).primaryTextTheme.subtitle
-                                  : Theme.of(context).primaryTextTheme.body1,
-                            ),
-                          ),
+                          buildMenuTile(context, "Contato", indexMenu == 3, () {
+                            Modular.get<MenudashboardController>()
+                                .setContactPage();
+                            onMenuItemClicked();
+                          }),
                           SizedBox(height: 30),
                           GestureDetector(
                             onTap: () => _authController.logout(),
@@ -186,6 +150,19 @@ class Menu extends StatelessWidget {
               ),
             ),
           )),
+    );
+  }
+
+  GestureDetector buildMenuTile(
+      BuildContext context, String title, bool selected, Function f) {
+    return GestureDetector(
+      onTap: f,
+      child: Text(title,
+          style: TextStyle(
+              fontSize: 18,
+              color: selected ? Theme.of(context).primaryColor : Colors.black54,
+              fontFamily: "Inter",
+              fontWeight: FontWeight.bold)),
     );
   }
 }

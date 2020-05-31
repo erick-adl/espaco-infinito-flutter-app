@@ -25,15 +25,16 @@ class _TerapiasPageState extends State<TerapiasPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Theme.of(context).backgroundColor,
       height: MediaQuery.of(context).size.height / 1.15,
       child: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(15),
+            Container(
+              padding: const EdgeInsets.all(5),
               child: Container(
                 decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.surface,
+                    color: Theme.of(context).textSelectionColor,
                     borderRadius: BorderRadius.all(Radius.circular(20))),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),

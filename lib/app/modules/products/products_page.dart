@@ -24,13 +24,14 @@ class _ProductsPageState extends State<ProductsPage> {
   buildProductsPage() {
     return Container(
       height: MediaQuery.of(context).size.height / 1.13,
+      color: Theme.of(context).backgroundColor,
       child: SingleChildScrollView(
         child: Column(
           children: <Widget>[
             Container(
               margin: const EdgeInsets.all(15),
               decoration: BoxDecoration(
-                  color: Theme.of(context).cardColor,
+                  color: Theme.of(context).textSelectionColor,
                   borderRadius: BorderRadius.all(Radius.circular(10))),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),

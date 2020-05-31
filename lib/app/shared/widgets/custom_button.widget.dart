@@ -23,7 +23,7 @@ class CustomButton extends StatelessWidget {
       decoration: new BoxDecoration(
         color: milked
             ? Theme.of(context).primaryColor
-            : Theme.of(context).cardColor,
+            : Theme.of(context).backgroundColor,
         borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
       child: MaterialButton(
