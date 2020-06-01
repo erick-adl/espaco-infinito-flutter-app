@@ -22,83 +22,100 @@ class _ProductsPageState extends State<ProductsPage> {
   }
 
   buildProductsPage() {
+    final screenSizeWidth = MediaQuery.of(context).size.width;
+    final screenSizeHeight = MediaQuery.of(context).size.height;
+    final theme = Theme.of(context);
+
     return Container(
-      height: MediaQuery.of(context).size.height / 1.13,
-      color: Theme.of(context).backgroundColor,
-      child: SingleChildScrollView(
-        child: Column(
+        height: screenSizeHeight,
+        color: theme.backgroundColor,
+        child: Stack(
           children: <Widget>[
             Container(
-              margin: const EdgeInsets.all(15),
-              decoration: BoxDecoration(
-                  color: Theme.of(context).textSelectionColor,
-                  borderRadius: BorderRadius.all(Radius.circular(10))),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextField(
-                  onChanged: (value) => {searchKey = value},
-                  keyboardType: TextInputType.emailAddress,
-                  style: TextStyle(
-                      fontFamily: "WorkSansSemiBold",
-                      fontSize: 16.0,
-                      color: Colors.black),
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    icon: Icon(
-                      FontAwesomeIcons.search,
-                      color: Colors.black,
-                      size: 22.0,
+              color: theme.primaryColor,
+              height: screenSizeHeight / 3,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    margin: const EdgeInsets.all(15),
+                    height: 60,
+                    decoration: BoxDecoration(
+                        color: theme.textSelectionColor,
+                        borderRadius: BorderRadius.all(Radius.circular(50))),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextField(
+                        onChanged: (value) => {searchKey = value},
+                        keyboardType: TextInputType.emailAddress,
+                        style: TextStyle(
+                            fontFamily: "WorkSansSemiBold",
+                            fontSize: 16.0,
+                            color: Colors.black),
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          icon: Icon(
+                            FontAwesomeIcons.search,
+                            color: Colors.black,
+                            size: 22.0,
+                          ),
+                          hintText: "Busque...",
+                          hintStyle: TextStyle(
+                              fontFamily: "WorkSansSemiBold", fontSize: 17.0),
+                        ),
+                      ),
                     ),
-                    hintText: "Busque...",
-                    hintStyle: TextStyle(
-                        fontFamily: "WorkSansSemiBold", fontSize: 17.0),
                   ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 60),
+              child: Container(
+                padding: EdgeInsets.only(top: 30),
+                color: Colors.transparent,
+                width: screenSizeWidth,
+                child: StreamBuilder<QuerySnapshot>(
+                  stream: Firestore.instance
+                      .collection('produtos')
+                      .where('nome',
+                          isGreaterThanOrEqualTo:
+                              toBeginningOfSentenceCase(searchKey))
+                      .where('nome',
+                          isLessThan:
+                              toBeginningOfSentenceCase(searchKey) + "z")
+                      .orderBy("nome")
+                      .snapshots(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (snapshot.hasError)
+                      return new Text('Error: ${snapshot.error}');
+                    switch (snapshot.connectionState) {
+                      case ConnectionState.waiting:
+                        return Center(child: new ColorLoader());
+                      default:
+                        return new GridView(
+                          // padding: EdgeInsets.all(),
+                          children: snapshot.data.documents
+                              .map((DocumentSnapshot document) {
+                            return new ProductsTileWidget(
+                              document: document,
+                            );
+                          }).toList(),
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2, childAspectRatio: 0.7),
+                          // gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          //   crossAxisCount: 1,
+                          //   childAspectRatio: 1.1,
+                          // ),
+                        );
+                    }
+                  },
                 ),
               ),
-            ),
-            Container(
-              height: MediaQuery.of(context).size.height / 1.17,
-              width: MediaQuery.of(context).size.width,
-              child: StreamBuilder<QuerySnapshot>(
-                stream: Firestore.instance
-                    .collection('produtos')
-                    .where('nome',
-                        isGreaterThanOrEqualTo:
-                            toBeginningOfSentenceCase(searchKey))
-                    .where('nome',
-                        isLessThan: toBeginningOfSentenceCase(searchKey) + "z")
-                    .orderBy("nome")
-                    .snapshots(),
-                builder: (BuildContext context,
-                    AsyncSnapshot<QuerySnapshot> snapshot) {
-                  if (snapshot.hasError)
-                    return new Text('Error: ${snapshot.error}');
-                  switch (snapshot.connectionState) {
-                    case ConnectionState.waiting:
-                      return Center(child: new ColorLoader());
-                    default:
-                      return new GridView(
-                        // padding: EdgeInsets.all(),
-                        children: snapshot.data.documents
-                            .map((DocumentSnapshot document) {
-                          return new ProductsTileWidget(
-                            document: document,
-                          );
-                        }).toList(),
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2, childAspectRatio: 0.7),
-                        // gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        //   crossAxisCount: 1,
-                        //   childAspectRatio: 1.1,
-                        // ),
-                      );
-                  }
-                },
-              ),
-            ),
+            )
           ],
-        ),
-      ),
-    );
+        ));
   }
 }
