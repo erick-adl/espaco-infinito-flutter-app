@@ -61,7 +61,7 @@ class _ProductsPageState extends State<ProductsPage> {
               width: MediaQuery.of(context).size.width,
               child: StreamBuilder<QuerySnapshot>(
                 stream: Firestore.instance
-                    .collection('products')
+                    .collection('produtos')
                     .where('nome',
                         isGreaterThanOrEqualTo:
                             toBeginningOfSentenceCase(searchKey))

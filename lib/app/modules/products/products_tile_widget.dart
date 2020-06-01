@@ -14,7 +14,7 @@ class ProductsTileWidget extends StatelessWidget {
     return InkWell(
       onTap: () => Modular.to.pushNamed("/product_detail", arguments: document),
       child: Card(
-        color: Theme.of(context).backgroundColor,
+        color: Theme.of(context).primaryColor,
         margin: EdgeInsets.all(10),
         elevation: 10,
         shape: RoundedRectangleBorder(
@@ -33,7 +33,7 @@ class ProductsTileWidget extends StatelessWidget {
                     imageUrl: document["foto"],
                     imageBuilder: (context, imageProvider) => Container(
                       decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColor,
+                        color: Theme.of(context).backgroundColor,
                         borderRadius: BorderRadius.vertical(
                           top: Radius.circular(20),
                         ),
