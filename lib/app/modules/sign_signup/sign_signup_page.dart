@@ -31,6 +31,9 @@ class _SignSignupPageState
 
   @override
   Widget build(BuildContext context) {
+    final screenSizeWidth = MediaQuery.of(context).size.width;
+    final screenSizeHeight = MediaQuery.of(context).size.height;
+    final theme = Theme.of(context);
     return new Scaffold(
       key: _scaffoldKey,
       body: NotificationListener<OverscrollIndicatorNotification>(
@@ -39,16 +42,13 @@ class _SignSignupPageState
         },
         child: SingleChildScrollView(
           child: Container(
-            width: MediaQuery.of(context).size.width,
-            // height: MediaQuery.of(context).size.height >= 775.0
-            // ? MediaQuery.of(context).size.height
-            // : 775.0,
-            height: MediaQuery.of(context).size.height,
+            width: screenSizeWidth,
+            height: screenSizeHeight,
             decoration: new BoxDecoration(
               gradient: new LinearGradient(
                   colors: [
-                    Theme.of(context).primaryColor,
-                    Theme.of(context).primaryColorDark,
+                    theme.primaryColor,
+                    theme.primaryColorDark,
                   ],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
@@ -105,7 +105,8 @@ class _SignSignupPageState
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 20.0),
-                  child: _buildMenuBar(context),
+                  child:
+                      _buildMenuBar(context, screenSizeHeight, screenSizeWidth),
                 ),
                 Expanded(
                   flex: 2,
@@ -127,11 +128,13 @@ class _SignSignupPageState
                     children: <Widget>[
                       new ConstrainedBox(
                         constraints: const BoxConstraints.expand(),
-                        child: _buildSignIn(context),
+                        child: _buildSignIn(
+                            context, screenSizeHeight, screenSizeWidth, theme),
                       ),
                       new ConstrainedBox(
                         constraints: const BoxConstraints.expand(),
-                        child: _buildSignUp(context),
+                        child: _buildSignUp(
+                            context, screenSizeHeight, screenSizeWidth, theme),
                       ),
                     ],
                   ),
@@ -162,9 +165,10 @@ class _SignSignupPageState
     _pageController = PageController();
   }
 
-  Widget _buildMenuBar(BuildContext context) {
+  Widget _buildMenuBar(
+      BuildContext context, double screenSizeHeight, double screenSizeWidth) {
     return Container(
-      width: 300.0,
+      width: screenSizeWidth / 1.3,
       height: 50.0,
       decoration: BoxDecoration(
         color: Color(0x552B2B2B),
@@ -210,7 +214,8 @@ class _SignSignupPageState
     );
   }
 
-  Widget _buildSignIn(BuildContext context) {
+  Widget _buildSignIn(BuildContext context, double screenSizeHeight,
+      double screenSizeWidth, ThemeData theme) {
     return Container(
       padding: EdgeInsets.only(top: 23.0),
       child: SingleChildScrollView(
@@ -221,13 +226,13 @@ class _SignSignupPageState
               overflow: Overflow.visible,
               children: <Widget>[
                 Card(
-                  color: Theme.of(context).textSelectionColor,
+                  color: theme.textSelectionColor,
                   elevation: 2.0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                   child: Container(
-                    width: 300.0,
+                    width: screenSizeWidth / 1.2,
                     height: 180.0,
                     child: Column(
                       children: <Widget>[
@@ -376,7 +381,8 @@ class _SignSignupPageState
     );
   }
 
-  Widget _buildSignUp(BuildContext context) {
+  Widget _buildSignUp(BuildContext context, double screenSizeHeight,
+      double screenSizeWidth, ThemeData theme) {
     return Container(
       padding: EdgeInsets.only(top: 23.0),
       child: SingleChildScrollView(
@@ -388,12 +394,12 @@ class _SignSignupPageState
               children: <Widget>[
                 Card(
                   elevation: 2.0,
-                  color: Theme.of(context).textSelectionColor,
+                  color: theme.textSelectionColor,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                   child: Container(
-                    width: 300.0,
+                    width: screenSizeWidth / 1.2,
                     height: 360.0,
                     child: Column(
                       children: <Widget>[
@@ -581,21 +587,21 @@ class _SignSignupPageState
   }
 
   Future<void> showInSnackBar(String value) async {
+    final theme = Theme.of(context);
     FocusScope.of(context).requestFocus(new FocusNode());
     _scaffoldKey.currentState?.removeCurrentSnackBar();
     _scaffoldKey.currentState.showSnackBar(new SnackBar(
       content: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(100), topRight: Radius.circular(100)),
+          borderRadius: BorderRadius.vertical(top: Radius.circular(100)),
         ),
         child: new Text(
           value,
-          textAlign: TextAlign.center,
+          style: theme.primaryTextTheme.body1,
         ),
       ),
       duration: Duration(seconds: 3),
-      backgroundColor: Theme.of(context).textSelectionColor,
+      backgroundColor: theme.textSelectionColor,
     ));
   }
 
