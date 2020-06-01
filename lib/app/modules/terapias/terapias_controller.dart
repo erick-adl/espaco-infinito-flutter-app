@@ -6,10 +6,8 @@ class TerapiasController = _TerapiasControllerBase with _$TerapiasController;
 
 abstract class _TerapiasControllerBase with Store {
   @observable
-  int value = 0;
+  String searchKey = "";
 
   @action
-  void increment() {
-    value++;
-  }
+  setSearchkey(value) => searchKey = value;
 }

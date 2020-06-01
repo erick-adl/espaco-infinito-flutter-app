@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:infinito/app/modules/products/products_controller.dart';
 import 'package:infinito/app/modules/products/products_tile_widget.dart';
 import 'package:infinito/app/shared/widgets/color_loader.dart';
 import 'package:intl/intl.dart';
@@ -13,9 +16,8 @@ class ProductsPage extends StatefulWidget {
   _ProductsPageState createState() => _ProductsPageState();
 }
 
-class _ProductsPageState extends State<ProductsPage> {
-  String searchKey = "";
-
+class _ProductsPageState
+    extends ModularState<ProductsPage, ProductsController> {
   @override
   Widget build(BuildContext context) {
     return buildProductsPage();
@@ -46,7 +48,7 @@ class _ProductsPageState extends State<ProductsPage> {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextField(
-                        onChanged: (value) => {searchKey = value},
+                        onChanged: (value) => {controller.searchKey = value},
                         keyboardType: TextInputType.emailAddress,
                         style: TextStyle(
                             fontFamily: "WorkSansSemiBold",
@@ -75,40 +77,43 @@ class _ProductsPageState extends State<ProductsPage> {
                 padding: EdgeInsets.only(top: 30),
                 color: Colors.transparent,
                 width: screenSizeWidth,
-                child: StreamBuilder<QuerySnapshot>(
-                  stream: Firestore.instance
-                      .collection('produtos')
-                      .where('nome',
-                          isGreaterThanOrEqualTo:
-                              toBeginningOfSentenceCase(searchKey))
-                      .where('nome',
-                          isLessThan:
-                              toBeginningOfSentenceCase(searchKey) + "z")
-                      .orderBy("nome")
-                      .snapshots(),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<QuerySnapshot> snapshot) {
-                    if (snapshot.hasError)
-                      return new Text('Error: ${snapshot.error}');
-                    switch (snapshot.connectionState) {
-                      case ConnectionState.waiting:
-                        return Center(child: new ColorLoader());
-                      default:
-                        return new GridView(
-                          // padding: EdgeInsets.all(),
-                          children: snapshot.data.documents
-                              .map((DocumentSnapshot document) {
-                            return new ProductsTileWidget(
-                              document: document,
-                            );
-                          }).toList(),
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2, childAspectRatio: 0.7),
-                        );
-                    }
-                  },
-                ),
+                child: Observer(builder: (_) {
+                  return StreamBuilder<QuerySnapshot>(
+                    stream: Firestore.instance
+                        .collection('produtos')
+                        .where('nome',
+                            isGreaterThanOrEqualTo:
+                                toBeginningOfSentenceCase(controller.searchKey))
+                        .where('nome',
+                            isLessThan: toBeginningOfSentenceCase(
+                                    controller.searchKey) +
+                                "z")
+                        .orderBy("nome")
+                        .snapshots(),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<QuerySnapshot> snapshot) {
+                      if (snapshot.hasError)
+                        return new Text('Error: ${snapshot.error}');
+                      switch (snapshot.connectionState) {
+                        case ConnectionState.waiting:
+                          return Center(child: new ColorLoader());
+                        default:
+                          return new GridView(
+                            // padding: EdgeInsets.all(),
+                            children: snapshot.data.documents
+                                .map((DocumentSnapshot document) {
+                              return new ProductsTileWidget(
+                                document: document,
+                              );
+                            }).toList(),
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2, childAspectRatio: 0.7),
+                          );
+                      }
+                    },
+                  );
+                }),
               ),
             )
           ],

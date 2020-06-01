@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:infinito/app/modules/terapias/terapias_controller.dart';
 import 'package:infinito/app/modules/terapias/terapias_tile_widget.dart';
 
 import 'package:infinito/app/shared/widgets/color_loader.dart';
@@ -19,14 +22,14 @@ class TerapiasPage extends StatefulWidget {
   _TerapiasPageState createState() => _TerapiasPageState();
 }
 
-class _TerapiasPageState extends State<TerapiasPage> {
-  String searchKey = "";
-
+class _TerapiasPageState
+    extends ModularState<TerapiasPage, TerapiasController> {
   @override
   Widget build(BuildContext context) {
     final screenSizeWidth = MediaQuery.of(context).size.width;
     final screenSizeHeight = MediaQuery.of(context).size.height;
     final theme = Theme.of(context);
+    TextEditingController _textEditController;
 
     return Container(
         height: screenSizeHeight,
@@ -48,8 +51,9 @@ class _TerapiasPageState extends State<TerapiasPage> {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextField(
-                        onChanged: (value) => {searchKey = value},
-                        keyboardType: TextInputType.emailAddress,
+                        controller: _textEditController,
+                        onChanged: (value) => controller.searchKey = value,
+                        keyboardType: TextInputType.text,
                         style: TextStyle(
                             fontFamily: "WorkSansSemiBold",
                             fontSize: 16.0,
@@ -77,37 +81,40 @@ class _TerapiasPageState extends State<TerapiasPage> {
                 padding: EdgeInsets.only(top: 30),
                 color: Colors.transparent,
                 width: screenSizeWidth,
-                child: StreamBuilder<QuerySnapshot>(
-                  stream: Firestore.instance
-                      .collection('terapias')
-                      .where('nome',
-                          isGreaterThanOrEqualTo:
-                              toBeginningOfSentenceCase(searchKey))
-                      .where('nome',
-                          isLessThan:
-                              toBeginningOfSentenceCase(searchKey) + "z")
-                      .orderBy("nome")
-                      .snapshots(),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<QuerySnapshot> snapshot) {
-                    if (snapshot.hasError)
-                      return new Text('Error: ${snapshot.error}');
-                    switch (snapshot.connectionState) {
-                      case ConnectionState.waiting:
-                        return Center(child: new ColorLoader());
-                      default:
-                        return new ListView(
-                          // padding: EdgeInsets.all(),
-                          children: snapshot.data.documents
-                              .map((DocumentSnapshot document) {
-                            return new TerapiasTileWidget(
-                              document: document,
-                            );
-                          }).toList(),
-                        );
-                    }
-                  },
-                ),
+                child: Observer(builder: (_) {
+                  return StreamBuilder<QuerySnapshot>(
+                    stream: Firestore.instance
+                        .collection('terapias')
+                        .where('nome',
+                            isGreaterThanOrEqualTo:
+                                toBeginningOfSentenceCase(controller.searchKey))
+                        .where('nome',
+                            isLessThan: toBeginningOfSentenceCase(
+                                    controller.searchKey) +
+                                "z")
+                        .orderBy("nome")
+                        .snapshots(),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<QuerySnapshot> snapshot) {
+                      if (snapshot.hasError)
+                        return new Text('Error: ${snapshot.error}');
+                      switch (snapshot.connectionState) {
+                        case ConnectionState.waiting:
+                          return Center(child: new ColorLoader());
+                        default:
+                          return new ListView(
+                            // padding: EdgeInsets.all(),
+                            children: snapshot.data.documents
+                                .map((DocumentSnapshot document) {
+                              return new TerapiasTileWidget(
+                                document: document,
+                              );
+                            }).toList(),
+                          );
+                      }
+                    },
+                  );
+                }),
               ),
             )
           ],
