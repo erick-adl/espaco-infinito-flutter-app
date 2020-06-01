@@ -2,20 +2,14 @@ import 'package:infinito/app/app_controller.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter/material.dart';
 import 'package:infinito/app/app_widget.dart';
-import 'package:infinito/app/modules/contact/contact_module.dart';
 import 'package:infinito/app/modules/forgot_password/forgot_password_module.dart';
-import 'package:infinito/app/modules/about/about_module.dart';
-import 'package:infinito/app/modules/menudashboard/menudashboard_page.dart';
-import 'package:infinito/app/modules/products/products_module.dart';
 import 'package:infinito/app/modules/terapias/terapias_page_details.dart';
 import 'package:infinito/app/shared/auth_firebase/auth_controller.dart';
 import 'package:infinito/app/shared/auth_firebase/auth_firebase.dart';
 import 'package:infinito/app/shared/auth_firebase/auth_firebase_interface.dart';
-
 import 'package:infinito/app/shared/repositories/localstorage/local_storage_interface.dart';
 import 'package:infinito/app/shared/repositories/localstorage/local_storage_share.dart';
 import 'package:infinito/app/shared/splash/splash_page.dart';
-
 import 'modules/menudashboard/menudashboard_module.dart';
 import 'modules/products/product_detail_page.dart';
 import 'modules/sign_signup/sign_signup_module.dart';

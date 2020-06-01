@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:infinito/app/modules/contact/contact_controller.dart';
 
 import 'package:infinito/app/shared/widgets/custom_button.widget.dart';
 import 'package:infinito/app/shared/widgets/custom_textfield.widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class ContactPage extends StatelessWidget {
+class ContactPage extends StatefulWidget {
   final String title;
   const ContactPage({Key key, this.title = "Contato"}) : super(key: key);
 
+  @override
+  _ContactPageState createState() => _ContactPageState();
+}
+
+class _ContactPageState extends ModularState<ContactPage, ContactController> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -70,10 +78,22 @@ class ContactPage extends StatelessWidget {
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.only(top: 10),
-                      child: Text(
-                        "Entre em contato",
-                        style: Theme.of(context).primaryTextTheme.body1,
-                      ),
+                      child: Observer(builder: (context) {
+                        return controller.errorText != null
+                            ? Text(
+                                controller.errorText,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontFamily: "Inter",
+                                  color: Colors.red,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )
+                            : Text(
+                                "Entre em contato",
+                                style: Theme.of(context).primaryTextTheme.body1,
+                              );
+                      }),
                     ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
@@ -81,7 +101,7 @@ class ContactPage extends StatelessWidget {
                           context: context,
                           textHint: "Nome",
                           iconDecoration: null,
-                          onChanged: (value) => {},
+                          onChanged: (value) => controller.nome = value,
                           obscureText: false,
                           textInputType: TextInputType.text),
                     ),
@@ -91,7 +111,7 @@ class ContactPage extends StatelessWidget {
                           context: context,
                           textHint: "E-mail",
                           iconDecoration: null,
-                          onChanged: (value) => {},
+                          onChanged: (value) => controller.email = value,
                           obscureText: false,
                           textInputType: TextInputType.text),
                     ),
@@ -110,7 +130,7 @@ class ContactPage extends StatelessWidget {
                           maxLines: null,
                           keyboardType: TextInputType.multiline,
                           obscureText: false,
-                          onChanged: (value) => {},
+                          onChanged: (value) => controller.message = value,
                           decoration: InputDecoration(
                               hintText: "Mensagem", border: InputBorder.none),
                         ),
@@ -121,7 +141,7 @@ class ContactPage extends StatelessWidget {
                       child: CustomButton(
                         context: context,
                         text: "Enviar",
-                        onPressed: () => {},
+                        onPressed: () => controller.sendEmail(),
                         milked: true,
                       ),
                     ),
