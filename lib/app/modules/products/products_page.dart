@@ -105,10 +105,6 @@ class _ProductsPageState extends State<ProductsPage> {
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 2, childAspectRatio: 0.7),
-                          // gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          //   crossAxisCount: 1,
-                          //   childAspectRatio: 1.1,
-                          // ),
                         );
                     }
                   },

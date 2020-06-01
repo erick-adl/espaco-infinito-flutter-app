@@ -24,79 +24,93 @@ class _TerapiasPageState extends State<TerapiasPage> {
 
   @override
   Widget build(BuildContext context) {
+    final screenSizeWidth = MediaQuery.of(context).size.width;
+    final screenSizeHeight = MediaQuery.of(context).size.height;
+    final theme = Theme.of(context);
+
     return Container(
-      color: Theme.of(context).backgroundColor,
-      height: MediaQuery.of(context).size.height / 1.15,
-      child: SingleChildScrollView(
-        child: Column(
+        height: screenSizeHeight,
+        color: theme.backgroundColor,
+        child: Stack(
           children: <Widget>[
             Container(
-              padding: const EdgeInsets.all(5),
-              child: Container(
-                decoration: BoxDecoration(
-                    color: Theme.of(context).textSelectionColor,
-                    borderRadius: BorderRadius.all(Radius.circular(20))),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextField(
-                    onChanged: (value) => {searchKey = value},
-                    keyboardType: TextInputType.emailAddress,
-                    style: TextStyle(
-                        fontFamily: "WorkSansSemiBold",
-                        fontSize: 16.0,
-                        color: Colors.black),
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      icon: Icon(
-                        FontAwesomeIcons.search,
-                        color: Theme.of(context).primaryColor,
-                        size: 22.0,
+              color: theme.primaryColor,
+              height: screenSizeHeight / 3,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    margin: const EdgeInsets.all(15),
+                    height: 60,
+                    decoration: BoxDecoration(
+                        color: theme.textSelectionColor,
+                        borderRadius: BorderRadius.all(Radius.circular(50))),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextField(
+                        onChanged: (value) => {searchKey = value},
+                        keyboardType: TextInputType.emailAddress,
+                        style: TextStyle(
+                            fontFamily: "WorkSansSemiBold",
+                            fontSize: 16.0,
+                            color: Colors.black),
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          icon: Icon(
+                            FontAwesomeIcons.search,
+                            color: Colors.black,
+                            size: 22.0,
+                          ),
+                          hintText: "Busque...",
+                          hintStyle: TextStyle(
+                              fontFamily: "WorkSansSemiBold", fontSize: 17.0),
+                        ),
                       ),
-                      hintText: "Busque...",
-                      hintStyle: TextStyle(
-                          fontFamily: "WorkSansSemiBold", fontSize: 17.0),
                     ),
                   ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 60),
+              child: Container(
+                padding: EdgeInsets.only(top: 30),
+                color: Colors.transparent,
+                width: screenSizeWidth,
+                child: StreamBuilder<QuerySnapshot>(
+                  stream: Firestore.instance
+                      .collection('terapias')
+                      .where('nome',
+                          isGreaterThanOrEqualTo:
+                              toBeginningOfSentenceCase(searchKey))
+                      .where('nome',
+                          isLessThan:
+                              toBeginningOfSentenceCase(searchKey) + "z")
+                      .orderBy("nome")
+                      .snapshots(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (snapshot.hasError)
+                      return new Text('Error: ${snapshot.error}');
+                    switch (snapshot.connectionState) {
+                      case ConnectionState.waiting:
+                        return Center(child: new ColorLoader());
+                      default:
+                        return new ListView(
+                          // padding: EdgeInsets.all(),
+                          children: snapshot.data.documents
+                              .map((DocumentSnapshot document) {
+                            return new TerapiasTileWidget(
+                              document: document,
+                            );
+                          }).toList(),
+                        );
+                    }
+                  },
                 ),
               ),
-            ),
-            Container(
-              height: MediaQuery.of(context).size.height / 1.17,
-              width: MediaQuery.of(context).size.width,
-              child: StreamBuilder<QuerySnapshot>(
-                stream: Firestore.instance
-                    .collection('terapias')
-                    .where('nome',
-                        isGreaterThanOrEqualTo:
-                            toBeginningOfSentenceCase(searchKey))
-                    .where('nome',
-                        isLessThan: toBeginningOfSentenceCase(searchKey) + "z")
-                    .orderBy("nome")
-                    .snapshots(),
-                builder: (BuildContext context,
-                    AsyncSnapshot<QuerySnapshot> snapshot) {
-                  if (snapshot.hasError)
-                    return new Text('Error: ${snapshot.error}');
-                  switch (snapshot.connectionState) {
-                    case ConnectionState.waiting:
-                      return Center(child: new ColorLoader());
-                    default:
-                      return new ListView(
-                        // padding: EdgeInsets.all(),
-                        children: snapshot.data.documents
-                            .map((DocumentSnapshot document) {
-                          return new TerapiasTileWidget(
-                            document: document,
-                          );
-                        }).toList(),
-                      );
-                  }
-                },
-              ),
-            ),
+            )
           ],
-        ),
-      ),
-    );
+        ));
   }
 }
