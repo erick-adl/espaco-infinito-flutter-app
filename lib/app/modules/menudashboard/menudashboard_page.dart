@@ -108,25 +108,25 @@ class _MenudashboardPageState
                         decoration: BoxDecoration(
                           color: Theme.of(context).primaryColor,
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            InkWell(
-                              child: Icon(
+                        child: InkWell(
+                          onTap: onMenuTap,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Icon(
                                 Icons.menu,
                                 color: Colors.white,
                                 size: 30,
                               ),
-                              onTap: onMenuTap,
-                            ),
-                            Text(controller.pageName,
-                                style: TextStyle(
-                                    fontSize: 24, color: Colors.white)),
-                            SizedBox(
-                              width: 40,
-                            ),
-                          ],
+                              Text(controller.pageName,
+                                  style: TextStyle(
+                                      fontSize: 24, color: Colors.white)),
+                              SizedBox(
+                                width: 40,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     );
