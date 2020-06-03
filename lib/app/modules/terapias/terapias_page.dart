@@ -29,95 +29,88 @@ class _TerapiasPageState
     final screenSizeWidth = MediaQuery.of(context).size.width;
     final screenSizeHeight = MediaQuery.of(context).size.height;
     final theme = Theme.of(context);
-    TextEditingController _textEditController;
 
     return Container(
         height: screenSizeHeight,
         color: theme.backgroundColor,
-        child: Stack(
-          children: <Widget>[
-            Container(
-              color: theme.primaryColor,
-              height: screenSizeHeight / 3,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Container(
-                    margin: const EdgeInsets.all(15),
-                    height: 60,
-                    decoration: BoxDecoration(
-                        color: theme.textSelectionColor,
-                        borderRadius: BorderRadius.all(Radius.circular(50))),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextField(
-                        controller: _textEditController,
-                        onChanged: (value) => controller.searchKey = value,
-                        keyboardType: TextInputType.text,
-                        style: TextStyle(
-                            fontFamily: "WorkSansSemiBold",
-                            fontSize: 16.0,
-                            color: Colors.black),
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          icon: Icon(
-                            FontAwesomeIcons.search,
-                            color: Colors.black,
-                            size: 22.0,
-                          ),
-                          hintText: "Busque...",
-                          hintStyle: TextStyle(
-                              fontFamily: "WorkSansSemiBold", fontSize: 17.0),
+        child: NestedScrollView(
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            return <Widget>[
+              SliverAppBar(
+                backgroundColor: theme.backgroundColor,
+                expandedHeight: 70.0,
+                floating: false,
+                pinned: false,
+                flexibleSpace: Container(
+                  margin: const EdgeInsets.all(10),
+                  height: 50,
+                  decoration: BoxDecoration(
+                      color: theme.textSelectionColor,
+                      borderRadius: BorderRadius.all(Radius.circular(50))),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: TextField(
+                      onChanged: (value) => controller.searchKey = value,
+                      keyboardType: TextInputType.text,
+                      style: TextStyle(
+                          fontFamily: "WorkSansSemiBold",
+                          fontSize: 16.0,
+                          color: Colors.black),
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        icon: Icon(
+                          FontAwesomeIcons.search,
+                          color: theme.primaryColor,
+                          size: 22.0,
                         ),
+                        // hintText: "Busque...",
+                        hintStyle: TextStyle(
+                            fontFamily: "WorkSansSemiBold", fontSize: 17.0),
                       ),
                     ),
                   ),
-                ],
+                ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 60),
-              child: Container(
-                padding: EdgeInsets.only(top: 30),
-                color: Colors.transparent,
-                width: screenSizeWidth,
-                child: Observer(builder: (_) {
-                  return StreamBuilder<QuerySnapshot>(
-                    stream: Firestore.instance
-                        .collection('terapias')
-                        .where('nome',
-                            isGreaterThanOrEqualTo:
-                                toBeginningOfSentenceCase(controller.searchKey))
-                        .where('nome',
-                            isLessThan: toBeginningOfSentenceCase(
-                                    controller.searchKey) +
+            ];
+          },
+          body: Container(
+            color: Colors.transparent,
+            width: screenSizeWidth,
+            child: Observer(builder: (_) {
+              return StreamBuilder<QuerySnapshot>(
+                stream: Firestore.instance
+                    .collection('terapias')
+                    .where('nome',
+                        isGreaterThanOrEqualTo:
+                            toBeginningOfSentenceCase(controller.searchKey))
+                    .where('nome',
+                        isLessThan:
+                            toBeginningOfSentenceCase(controller.searchKey) +
                                 "z")
-                        .orderBy("nome")
-                        .snapshots(),
-                    builder: (BuildContext context,
-                        AsyncSnapshot<QuerySnapshot> snapshot) {
-                      if (snapshot.hasError)
-                        return new Text('Error: ${snapshot.error}');
-                      switch (snapshot.connectionState) {
-                        case ConnectionState.waiting:
-                          return Center(child: new ColorLoader());
-                        default:
-                          return new ListView(
-                            // padding: EdgeInsets.all(),
-                            children: snapshot.data.documents
-                                .map((DocumentSnapshot document) {
-                              return new TerapiasTileWidget(
-                                document: document,
-                              );
-                            }).toList(),
+                    .orderBy("nome")
+                    .snapshots(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (snapshot.hasError)
+                    return new Text('Error: ${snapshot.error}');
+                  switch (snapshot.connectionState) {
+                    case ConnectionState.waiting:
+                      return Center(child: new ColorLoader());
+                    default:
+                      return new ListView(
+                        // padding: EdgeInsets.all(),
+                        children: snapshot.data.documents
+                            .map((DocumentSnapshot document) {
+                          return new TerapiasTileWidget(
+                            document: document,
                           );
-                      }
-                    },
-                  );
-                }),
-              ),
-            )
-          ],
+                        }).toList(),
+                      );
+                  }
+                },
+              );
+            }),
+          ),
         ));
   }
 }

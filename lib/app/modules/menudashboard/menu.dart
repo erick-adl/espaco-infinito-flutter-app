@@ -108,7 +108,7 @@ class Menu extends StatelessWidget {
                               ],
                             ),
                           ),
-                          buildMenuTile(context, "Conheça", indexMenu == 0, () {
+                          buildMenuTile(context, "Sobre", indexMenu == 0, () {
                             Modular.get<MenudashboardController>()
                                 .setAboutPage();
                             onMenuItemClicked();
