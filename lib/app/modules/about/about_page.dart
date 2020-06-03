@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:infinito/app/modules/menudashboard/menudashboard_controller.dart';
 
 import 'package:infinito/app/shared/widgets/custom_button.widget.dart';
 
@@ -50,7 +51,8 @@ class AboutPage extends StatelessWidget {
                           context: context,
                           text: "Conheça nossas terapias",
                           onPressed: () =>
-                              Modular.to.pushReplacementNamed("/about")),
+                              Modular.get<MenudashboardController>()
+                                  .setTerapiasPage()),
                     ],
                   ))),
         ],
