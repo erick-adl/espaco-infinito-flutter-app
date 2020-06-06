@@ -96,7 +96,7 @@ class _MenudashboardPageState
                       child: Container(
                         height: screenHeight,
                         width: screenWidth,
-                        color: Theme.of(context).textSelectionColor,
+                        color: Theme.of(context).backgroundColor,
                         child: controller.page,
                       )),
                   Observer(builder: (context) {

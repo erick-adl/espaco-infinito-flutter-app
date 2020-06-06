@@ -10,4 +10,9 @@ abstract class _TerapiasControllerBase with Store {
 
   @action
   setSearchkey(value) => searchKey = value;
+
+  @observable
+  bool searchBarShow = true;
+  @action
+  setSearchBarShow(value) => searchBarShow = value;
 }

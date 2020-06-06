@@ -24,6 +24,22 @@ mixin _$TerapiasController on _TerapiasControllerBase, Store {
     });
   }
 
+  final _$searchBarShowAtom =
+      Atom(name: '_TerapiasControllerBase.searchBarShow');
+
+  @override
+  bool get searchBarShow {
+    _$searchBarShowAtom.reportRead();
+    return super.searchBarShow;
+  }
+
+  @override
+  set searchBarShow(bool value) {
+    _$searchBarShowAtom.reportWrite(value, super.searchBarShow, () {
+      super.searchBarShow = value;
+    });
+  }
+
   final _$_TerapiasControllerBaseActionController =
       ActionController(name: '_TerapiasControllerBase');
 
@@ -39,9 +55,21 @@ mixin _$TerapiasController on _TerapiasControllerBase, Store {
   }
 
   @override
+  dynamic setSearchBarShow(dynamic value) {
+    final _$actionInfo = _$_TerapiasControllerBaseActionController.startAction(
+        name: '_TerapiasControllerBase.setSearchBarShow');
+    try {
+      return super.setSearchBarShow(value);
+    } finally {
+      _$_TerapiasControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
-searchKey: ${searchKey}
+searchKey: ${searchKey},
+searchBarShow: ${searchBarShow}
     ''';
   }
 }

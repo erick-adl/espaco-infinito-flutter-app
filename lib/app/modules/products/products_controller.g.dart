@@ -24,6 +24,22 @@ mixin _$ProductsController on _ProductsControllerBase, Store {
     });
   }
 
+  final _$searchBarShowAtom =
+      Atom(name: '_ProductsControllerBase.searchBarShow');
+
+  @override
+  bool get searchBarShow {
+    _$searchBarShowAtom.reportRead();
+    return super.searchBarShow;
+  }
+
+  @override
+  set searchBarShow(bool value) {
+    _$searchBarShowAtom.reportWrite(value, super.searchBarShow, () {
+      super.searchBarShow = value;
+    });
+  }
+
   final _$_ProductsControllerBaseActionController =
       ActionController(name: '_ProductsControllerBase');
 
@@ -39,9 +55,21 @@ mixin _$ProductsController on _ProductsControllerBase, Store {
   }
 
   @override
+  dynamic setSearchBarShow(dynamic value) {
+    final _$actionInfo = _$_ProductsControllerBaseActionController.startAction(
+        name: '_ProductsControllerBase.setSearchBarShow');
+    try {
+      return super.setSearchBarShow(value);
+    } finally {
+      _$_ProductsControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
-searchKey: ${searchKey}
+searchKey: ${searchKey},
+searchBarShow: ${searchBarShow}
     ''';
   }
 }
