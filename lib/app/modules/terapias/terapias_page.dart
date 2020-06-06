@@ -63,11 +63,54 @@ class _TerapiasPageState extends ModularState<TerapiasPage, TerapiasController>
     final theme = Theme.of(context);
 
     return Container(
-        height: screenSizeHeight,
-        color: theme.backgroundColor,
-        child: Stack(
-          children: <Widget>[
-            Container(
+      color: theme.backgroundColor,
+      child: Column(
+        children: <Widget>[
+          Observer(builder: (_) {
+            return AnimatedContainer(
+                duration: Duration(milliseconds: 500),
+                height: controller.searchBarShow ? 60 : 0,
+                decoration: BoxDecoration(
+                    color: theme.primaryColor,
+                    borderRadius:
+                        BorderRadius.vertical(bottom: Radius.circular(30))),
+                child: controller.searchBarShow
+                    ? Container(
+                        margin: const EdgeInsets.fromLTRB(20, 8, 20, 8),
+                        height: 50,
+                        decoration: BoxDecoration(
+                            color: theme.textSelectionColor,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(50))),
+                        child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: TextField(
+                            onChanged: (value) => controller.searchKey = value,
+                            keyboardType: TextInputType.text,
+                            style: TextStyle(
+                                fontFamily: "WorkSansSemiBold",
+                                fontSize: 16.0,
+                                color: Colors.black),
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              icon: Icon(
+                                FontAwesomeIcons.search,
+                                color: theme.primaryColor,
+                                size: 22.0,
+                              ),
+                              // hintText: "Busque...",
+                              hintStyle: TextStyle(
+                                  fontFamily: "WorkSansSemiBold",
+                                  fontSize: 17.0),
+                            ),
+                          ),
+                        ),
+                      )
+                    : Container());
+          }),
+          Flexible(
+            flex: 1,
+            child: Container(
               color: theme.backgroundColor,
               width: screenSizeWidth,
               child: Observer(builder: (_) {
@@ -91,63 +134,26 @@ class _TerapiasPageState extends ModularState<TerapiasPage, TerapiasController>
                       case ConnectionState.waiting:
                         return Center(child: new ColorLoader());
                       default:
-                        return new ListView(
-                          controller: _scrollController,
-                          children: snapshot.data.documents
-                              .map((DocumentSnapshot document) {
-                            return new TerapiasTileWidget(
-                              document: document,
-                            );
-                          }).toList(),
+                        return Material(
+                          color: theme.backgroundColor,
+                          child: new ListView(
+                            controller: _scrollController,
+                            children: snapshot.data.documents
+                                .map((DocumentSnapshot document) {
+                              return new TerapiasTileWidget(
+                                document: document,
+                              );
+                            }).toList(),
+                          ),
                         );
                     }
                   },
                 );
               }),
             ),
-            Observer(builder: (_) {
-              return AnimatedOpacity(
-                  duration: Duration(milliseconds: 500),
-                  opacity: controller.searchBarShow ? 1 : 0,
-                  child: controller.searchBarShow
-                      ? Padding(
-                          padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
-                          child: Container(
-                            margin: const EdgeInsets.all(8),
-                            height: 50,
-                            decoration: BoxDecoration(
-                                color: theme.textSelectionColor,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(50))),
-                            child: Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: TextField(
-                                onChanged: (value) =>
-                                    controller.searchKey = value,
-                                keyboardType: TextInputType.text,
-                                style: TextStyle(
-                                    fontFamily: "WorkSansSemiBold",
-                                    fontSize: 16.0,
-                                    color: Colors.black),
-                                decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  icon: Icon(
-                                    FontAwesomeIcons.search,
-                                    color: theme.primaryColor,
-                                    size: 22.0,
-                                  ),
-                                  // hintText: "Busque...",
-                                  hintStyle: TextStyle(
-                                      fontFamily: "WorkSansSemiBold",
-                                      fontSize: 17.0),
-                                ),
-                              ),
-                            ),
-                          ),
-                        )
-                      : Container());
-            }),
-          ],
-        ));
+          ),
+        ],
+      ),
+    );
   }
 }
