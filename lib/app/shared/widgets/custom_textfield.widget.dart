@@ -26,7 +26,7 @@ class CustomTextFieldWidget extends StatelessWidget {
       margin: EdgeInsets.only(top: 15),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10)),
-          color: Theme.of(context).textSelectionColor),
+          color: Theme.of(context).dividerColor),
       width: MediaQuery.of(context).size.width / 1.2,
       height: 50,
       child: TextField(

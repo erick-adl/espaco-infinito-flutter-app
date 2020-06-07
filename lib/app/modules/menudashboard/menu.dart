@@ -92,9 +92,11 @@ class Menu extends StatelessWidget {
                                                   "")
                                           ? "Olá visitante!"
                                           : "Olá ${_authController.user.displayName.split(" ").first}!",
-                                      style: Theme.of(context)
-                                          .primaryTextTheme
-                                          .body1),
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          color: Colors.black54,
+                                          fontFamily: "Inter",
+                                          fontWeight: FontWeight.bold)),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(
@@ -138,7 +140,11 @@ class Menu extends StatelessWidget {
                             onTap: () => _authController.logout(),
                             child: Text(
                               "Sair",
-                              style: Theme.of(context).primaryTextTheme.body1,
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.black54,
+                                  fontFamily: "Inter",
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                           SizedBox(height: 30),

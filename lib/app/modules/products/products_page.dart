@@ -74,7 +74,7 @@ class _ProductsPageState extends ModularState<ProductsPage, ProductsController>
                         margin: const EdgeInsets.fromLTRB(20, 8, 20, 8),
                         height: 50,
                         decoration: BoxDecoration(
-                            color: theme.textSelectionColor,
+                            color: theme.backgroundColor,
                             borderRadius:
                                 BorderRadius.all(Radius.circular(50))),
                         child: Padding(
