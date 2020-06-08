@@ -4,7 +4,7 @@ import 'package:infinito/app/app_module.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 void main() {
-  Crashlytics.instance.enableInDevMode = false;
+  Crashlytics.instance.enableInDevMode = true;
   FlutterError.onError = Crashlytics.instance.recordFlutterError;
   runApp(ModularApp(module: AppModule()));
 }
