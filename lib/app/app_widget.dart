@@ -20,37 +20,37 @@ class AppWidget extends StatelessWidget {
           dividerColor: Color(0xFFebebeb),
           backgroundColor: Color(0xFFFFFFFF),
           buttonColor: Color(0xFFffa726),
-          iconTheme: IconThemeData(color: Color(0xFF212121)),
+          iconTheme: IconThemeData(color: Color(0xFFFFFFFF)),
           accentIconTheme: IconThemeData(color: Color(0xFF212121)),
           primaryIconTheme: IconThemeData(color: Color(0xFF212121)),
           primaryTextTheme: TextTheme(
-              headline: TextStyle(
+              headline5: TextStyle(
                   fontSize: 36,
                   fontFamily: "Inter",
                   color: Color(0xFF212121),
                   fontWeight: FontWeight.bold),
-              subhead: TextStyle(
+              subtitle1: TextStyle(
                   fontSize: 30,
                   fontFamily: "Inter",
                   color: Color(0xFF212121),
                   fontWeight: FontWeight.bold),
-              title: TextStyle(
+              headline6: TextStyle(
                   fontSize: 24,
                   fontFamily: "Inter",
                   color: Color(0xFF212121),
                   fontWeight: FontWeight.bold),
-              subtitle: TextStyle(
+              subtitle2: TextStyle(
                   fontSize: 20,
                   fontFamily: "Inter",
                   color: Color(0xFF212121),
                   fontWeight: FontWeight.bold),
-              body1: TextStyle(
+              bodyText2: TextStyle(
                 fontSize: 18,
                 fontFamily: "Inter",
                 color: Color(0xFF212121),
                 fontWeight: FontWeight.bold,
               ),
-              body2: TextStyle(
+              bodyText1: TextStyle(
                 fontSize: 15,
                 fontFamily: "Inter",
                 color: Color(0xFF212121),
@@ -62,32 +62,32 @@ class AppWidget extends StatelessWidget {
                   color: Color(0xFF212121),
                   fontWeight: FontWeight.bold)),
           accentTextTheme: TextTheme(
-              headline: TextStyle(
+              headline5: TextStyle(
                   fontSize: 36,
                   fontFamily: "Inter",
                   color: Color(0xFFFFFFFF),
                   fontWeight: FontWeight.bold),
-              subhead: TextStyle(
+              subtitle1: TextStyle(
                   fontSize: 30,
                   fontFamily: "Inter",
                   color: Color(0xFFFFFFFF),
                   fontWeight: FontWeight.bold),
-              title: TextStyle(
+              headline6: TextStyle(
                   fontSize: 24,
                   fontFamily: "Inter",
                   color: Color(0xFFFFFFFF),
                   fontWeight: FontWeight.bold),
-              subtitle: TextStyle(
+              subtitle2: TextStyle(
                   fontSize: 20,
                   fontFamily: "Inter",
                   color: Color(0xFFFFFFFF),
                   fontWeight: FontWeight.bold),
-              body1: TextStyle(
+              bodyText2: TextStyle(
                   fontSize: 18,
                   fontFamily: "Inter",
                   color: Color(0xFFFFFFFF),
                   fontWeight: FontWeight.bold),
-              body2: TextStyle(
+              bodyText1: TextStyle(
                 fontSize: 15,
                 fontFamily: "Inter",
                 color: Color(0xFFFFFFFF),
