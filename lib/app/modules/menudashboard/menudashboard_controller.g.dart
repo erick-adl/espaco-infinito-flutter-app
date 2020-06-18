@@ -102,6 +102,17 @@ mixin _$MenudashboardController on _MenudashboardControllerBase, Store {
   }
 
   @override
+  dynamic setWishListtPage() {
+    final _$actionInfo = _$_MenudashboardControllerBaseActionController
+        .startAction(name: '_MenudashboardControllerBase.setWishListtPage');
+    try {
+      return super.setWishListtPage();
+    } finally {
+      _$_MenudashboardControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 page: ${page},

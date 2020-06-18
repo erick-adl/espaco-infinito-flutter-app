@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:infinito/app/shared/widgets/color_loader.dart';
 
-class ProductsTileWidget extends StatelessWidget {
+class WishlistTileWidget extends StatelessWidget {
   final DocumentSnapshot document;
 
-  const ProductsTileWidget({Key key, this.document}) : super(key: key);
+  const WishlistTileWidget({Key key, this.document}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +57,6 @@ class ProductsTileWidget extends StatelessWidget {
                   document["nome"],
                   softWrap: true,
                   overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
                   style: Theme.of(context).textTheme.headline6,
                 ),
               ),

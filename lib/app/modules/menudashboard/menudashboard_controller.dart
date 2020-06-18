@@ -3,6 +3,7 @@ import 'package:infinito/app/modules/about/about_module.dart';
 import 'package:infinito/app/modules/contact/contact_module.dart';
 import 'package:infinito/app/modules/products/products_module.dart';
 import 'package:infinito/app/modules/terapias/terapias_module.dart';
+import 'package:infinito/app/modules/wishlist/wishlist_module.dart';
 import 'package:mobx/mobx.dart';
 
 part 'menudashboard_controller.g.dart';
@@ -46,5 +47,12 @@ abstract class _MenudashboardControllerBase with Store {
     page = ContactModule();
     index = 3;
     pageName = "Contato";
+  }
+
+  @action
+  setWishListtPage() {
+    page = WishlistModule();
+    index = 4;
+    pageName = "Lista de desejos";
   }
 }

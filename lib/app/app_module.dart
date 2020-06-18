@@ -7,6 +7,8 @@ import 'package:infinito/app/modules/terapias/terapias_page_details.dart';
 import 'package:infinito/app/shared/auth_firebase/auth_controller.dart';
 import 'package:infinito/app/shared/auth_firebase/auth_firebase.dart';
 import 'package:infinito/app/shared/auth_firebase/auth_firebase_interface.dart';
+import 'package:infinito/app/shared/firestore/firestore_database.dart';
+import 'package:infinito/app/shared/firestore/firestore_database_interface.dart';
 import 'package:infinito/app/shared/repositories/localstorage/local_storage_interface.dart';
 import 'package:infinito/app/shared/repositories/localstorage/local_storage_share.dart';
 import 'package:infinito/app/shared/splash/splash_page.dart';
@@ -21,6 +23,7 @@ class AppModule extends MainModule {
         //  Bind((i) => LocalStorageHive()),
         Bind<ILocalStorage>((i) => LocalStorageShared()),
         Bind<IAuthFirebase>((i) => AuthFirebase()),
+        Bind<IFirestoreDatabase>((i) => FirestoreDatabase()),
         Bind((i) => AuthController()),
       ];
 

@@ -6,7 +6,6 @@ import 'package:infinito/app/shared/utils/url_lauch.dart';
 
 import 'package:infinito/app/shared/widgets/custom_button.widget.dart';
 import 'package:infinito/app/shared/widgets/custom_textfield.widget.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class ContactPage extends StatefulWidget {
   final String title;

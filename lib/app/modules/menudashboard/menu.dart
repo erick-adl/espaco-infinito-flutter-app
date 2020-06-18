@@ -105,7 +105,7 @@ class Menu extends StatelessWidget {
                                   child: Text(_authController.user.email,
                                       style: Theme.of(context)
                                           .primaryTextTheme
-                                          .body2),
+                                          .bodyText1),
                                 )
                               ],
                             ),
@@ -133,6 +133,13 @@ class Menu extends StatelessWidget {
                           buildMenuTile(context, "Contato", indexMenu == 3, () {
                             Modular.get<MenudashboardController>()
                                 .setContactPage();
+                            onMenuItemClicked();
+                          }),
+                          SizedBox(height: 30),
+                          buildMenuTile(
+                              context, "Lista de desejo", indexMenu == 4, () {
+                            Modular.get<MenudashboardController>()
+                                .setWishListtPage();
                             onMenuItemClicked();
                           }),
                           SizedBox(height: 30),
