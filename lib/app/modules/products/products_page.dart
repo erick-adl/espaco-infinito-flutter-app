@@ -7,7 +7,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:infinito/app/modules/products/products_controller.dart';
 import 'package:infinito/app/modules/products/products_tile_widget.dart';
 import 'package:infinito/app/shared/widgets/color_loader.dart';
-import 'package:intl/intl.dart';
 
 class ProductsPage extends StatefulWidget {
   final String title;
@@ -110,17 +109,8 @@ class _ProductsPageState extends ModularState<ProductsPage, ProductsController>
               width: screenSizeWidth,
               child: Observer(builder: (_) {
                 return StreamBuilder<QuerySnapshot>(
-                  stream: Firestore.instance
-                      .collection('produtos')
-                      .where('nome',
-                          isGreaterThanOrEqualTo:
-                              toBeginningOfSentenceCase(controller.searchKey))
-                      .where('nome',
-                          isLessThan:
-                              toBeginningOfSentenceCase(controller.searchKey) +
-                                  "z")
-                      .orderBy("nome")
-                      .snapshots(),
+                  stream:
+                      controller.getProductsFromFirestore(controller.searchKey),
                   builder: (BuildContext context,
                       AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (snapshot.hasError)

@@ -6,7 +6,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:infinito/app/modules/wishlist/wishlist_controller.dart';
 import 'package:infinito/app/modules/wishlist/wishlist_tile_widget.dart';
-import 'package:infinito/app/shared/firestore/firestore_database.dart';
+import 'package:infinito/app/shared/utils/url_lauch.dart';
 import 'package:infinito/app/shared/widgets/color_loader.dart';
 
 class WishlistPage extends StatefulWidget {
@@ -20,6 +20,8 @@ class WishlistPage extends StatefulWidget {
 class _WishlistPageState extends ModularState<WishlistPage, WishlistController>
     with SingleTickerProviderStateMixin {
   ScrollController _scrollController = new ScrollController();
+
+  AsyncSnapshot<QuerySnapshot> _querySnapshot;
 
   void _setScrollControl() async {
     _scrollController.addListener(() {
@@ -51,14 +53,11 @@ class _WishlistPageState extends ModularState<WishlistPage, WishlistController>
     super.dispose();
   }
 
-  final FirestoreDatabase _firestoreDatabase = Modular.get();
-
   @override
   Widget build(BuildContext context) {
     final screenSizeWidth = MediaQuery.of(context).size.width;
     final screenSizeHeight = MediaQuery.of(context).size.height;
     final theme = Theme.of(context);
-
     return Container(
       color: theme.backgroundColor,
       child: Column(
@@ -106,14 +105,14 @@ class _WishlistPageState extends ModularState<WishlistPage, WishlistController>
                     : Container());
           }),
           Flexible(
-            flex: 1,
+            flex: 6,
             child: Container(
               color: theme.backgroundColor,
               width: screenSizeWidth,
               child: Observer(builder: (_) {
                 return StreamBuilder<QuerySnapshot>(
-                  stream: _firestoreDatabase.getCollection("produtos",
-                      filter: controller.searchKey),
+                  stream:
+                      controller.getWishlistFromFirestore(controller.searchKey),
                   builder: (BuildContext context,
                       AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (snapshot.hasError)
@@ -122,6 +121,7 @@ class _WishlistPageState extends ModularState<WishlistPage, WishlistController>
                       case ConnectionState.waiting:
                         return Center(child: new ColorLoader());
                       default:
+                        _querySnapshot = snapshot;
                         return new GridView(
                           controller: _scrollController,
                           children: snapshot.data.documents
@@ -140,7 +140,58 @@ class _WishlistPageState extends ModularState<WishlistPage, WishlistController>
               }),
             ),
           ),
+          Flexible(
+            child: buildWhatsAppRequestInfo(context),
+            flex: 1,
+          )
         ],
+      ),
+    );
+  }
+
+  buildWhatsAppRequestInfo(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        height: 80,
+        child: MaterialButton(
+          height: 70,
+          minWidth: MediaQuery.of(context).size.width,
+          color: Theme.of(context).primaryColor,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(50))),
+          child: Row(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Image(
+                  image: AssetImage('assets/images/iconwhats.png'),
+                  height: 35,
+                  width: 35,
+                ),
+              ),
+              Expanded(
+                child: Text("Compartilhe sua lista com um de nossos atendentes",
+                    maxLines: 2,
+                    textAlign: TextAlign.left,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).accentTextTheme.bodyText1),
+              ),
+            ],
+          ),
+          onPressed: () {
+            String urlTextWhats =
+                "https://api.whatsapp.com/send?phone=5551991928250&text=Ol%C3%A1!%20Gostaria%20de%20comprar%20os%20seguintes%20itens:%0A";
+            var listName = _querySnapshot.data.documents
+                .map((e) => '${e["nome"]}%0A')
+                .toList()
+                .join();
+            listName = listName.substring(1, listName.length);
+
+            print(listName);
+            UrlLauch.launchInBrowser(urlTextWhats + listName);
+          },
+        ),
       ),
     );
   }

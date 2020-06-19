@@ -6,10 +6,10 @@ import 'package:intl/intl.dart';
 import 'firestore_database_interface.dart';
 
 class FirestoreDatabase implements IFirestoreDatabase {
-  AuthController _authControoler = Modular.get();
+  AuthController _authController = Modular.get();
 
   bool isLoggedIn() {
-    return _authControoler.user != null;
+    return _authController.user != null;
   }
 
   @override
@@ -17,7 +17,23 @@ class FirestoreDatabase implements IFirestoreDatabase {
       {String filter = "", String orderBy = "nome"}) {
     if (isLoggedIn()) {
       return Firestore.instance
-          .collection('produtos')
+          .collection(collection)
+          .where('nome',
+              isGreaterThanOrEqualTo: toBeginningOfSentenceCase(filter))
+          .where('nome', isLessThan: toBeginningOfSentenceCase(filter) + "z")
+          .orderBy(orderBy)
+          .snapshots();
+    }
+    return null;
+  }
+
+  Stream<QuerySnapshot> getWishList(
+      {String filter = "", String orderBy = "nome"}) {
+    if (isLoggedIn()) {
+      return Firestore.instance
+          .collection('users_wishlist')
+          .document(_authController.user.uid)
+          .collection("wishlist")
           .where('nome',
               isGreaterThanOrEqualTo: toBeginningOfSentenceCase(filter))
           .where('nome', isLessThan: toBeginningOfSentenceCase(filter) + "z")
@@ -34,21 +50,47 @@ class FirestoreDatabase implements IFirestoreDatabase {
           .document(document)
           .setData(data, merge: true)
           .then((_) {
-        print("success!");
+        print("setted!");
       });
     }
   }
 
-  addProductToWishList(String document, Map<String, dynamic> data) {
+  Future<DocumentSnapshot> getDocumentFromWishlist(String documentID) {
+    if (isLoggedIn()) {
+      return Firestore.instance
+          .collection("users_wishlist")
+          .document(_authController.user.uid)
+          .collection("wishlist")
+          .document(documentID)
+          .get();
+    }
+    return null;
+  }
+
+  addProductToWishList(String documentID, Map<String, dynamic> data) {
     if (isLoggedIn()) {
       Firestore.instance
           .collection("users_wishlist")
-          .document(document)
+          .document(_authController.user.uid)
           .collection("wishlist")
-          .document()
+          .document(documentID)
           .setData(data, merge: true)
           .then((_) {
-        print("success!");
+        print("Added!");
+      });
+    }
+  }
+
+  removeProductFromWishList(String documentID) {
+    if (isLoggedIn()) {
+      Firestore.instance
+          .collection("users_wishlist")
+          .document(_authController.user.uid)
+          .collection("wishlist")
+          .document(documentID)
+          .delete()
+          .then((_) {
+        print("removed!");
       });
     }
   }

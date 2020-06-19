@@ -1,17 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:infinito/app/modules/terapias/terapias_controller.dart';
 import 'package:infinito/app/modules/terapias/terapias_tile_widget.dart';
-
 import 'package:infinito/app/shared/widgets/color_loader.dart';
-
-import 'package:intl/intl.dart';
 
 class TerapiasPage extends StatefulWidget {
   final String title;
@@ -115,17 +110,8 @@ class _TerapiasPageState extends ModularState<TerapiasPage, TerapiasController>
               width: screenSizeWidth,
               child: Observer(builder: (_) {
                 return StreamBuilder<QuerySnapshot>(
-                  stream: Firestore.instance
-                      .collection('terapias')
-                      .where('nome',
-                          isGreaterThanOrEqualTo:
-                              toBeginningOfSentenceCase(controller.searchKey))
-                      .where('nome',
-                          isLessThan:
-                              toBeginningOfSentenceCase(controller.searchKey) +
-                                  "z")
-                      .orderBy("nome")
-                      .snapshots(),
+                  stream:
+                      controller.getTerapiasFromFirestore(controller.searchKey),
                   builder: (BuildContext context,
                       AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (snapshot.hasError)

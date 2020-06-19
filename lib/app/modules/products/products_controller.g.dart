@@ -24,6 +24,23 @@ mixin _$ProductsController on _ProductsControllerBase, Store {
     });
   }
 
+  final _$documentAlreadyAddedAtom =
+      Atom(name: '_ProductsControllerBase.documentAlreadyAdded');
+
+  @override
+  bool get documentAlreadyAdded {
+    _$documentAlreadyAddedAtom.reportRead();
+    return super.documentAlreadyAdded;
+  }
+
+  @override
+  set documentAlreadyAdded(bool value) {
+    _$documentAlreadyAddedAtom.reportWrite(value, super.documentAlreadyAdded,
+        () {
+      super.documentAlreadyAdded = value;
+    });
+  }
+
   final _$searchBarShowAtom =
       Atom(name: '_ProductsControllerBase.searchBarShow');
 
@@ -66,9 +83,54 @@ mixin _$ProductsController on _ProductsControllerBase, Store {
   }
 
   @override
+  dynamic getDocumentFromFirestore(DocumentSnapshot document) {
+    final _$actionInfo = _$_ProductsControllerBaseActionController.startAction(
+        name: '_ProductsControllerBase.getDocumentFromFirestore');
+    try {
+      return super.getDocumentFromFirestore(document);
+    } finally {
+      _$_ProductsControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic getProductsFromFirestore(String filter) {
+    final _$actionInfo = _$_ProductsControllerBaseActionController.startAction(
+        name: '_ProductsControllerBase.getProductsFromFirestore');
+    try {
+      return super.getProductsFromFirestore(filter);
+    } finally {
+      _$_ProductsControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic addProductToWishList(DocumentSnapshot document) {
+    final _$actionInfo = _$_ProductsControllerBaseActionController.startAction(
+        name: '_ProductsControllerBase.addProductToWishList');
+    try {
+      return super.addProductToWishList(document);
+    } finally {
+      _$_ProductsControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic removeProductToWishList(DocumentSnapshot document) {
+    final _$actionInfo = _$_ProductsControllerBaseActionController.startAction(
+        name: '_ProductsControllerBase.removeProductToWishList');
+    try {
+      return super.removeProductToWishList(document);
+    } finally {
+      _$_ProductsControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 searchKey: ${searchKey},
+documentAlreadyAdded: ${documentAlreadyAdded},
 searchBarShow: ${searchBarShow}
     ''';
   }

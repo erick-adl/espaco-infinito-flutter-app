@@ -66,6 +66,17 @@ mixin _$TerapiasController on _TerapiasControllerBase, Store {
   }
 
   @override
+  dynamic getTerapiasFromFirestore(String filter) {
+    final _$actionInfo = _$_TerapiasControllerBaseActionController.startAction(
+        name: '_TerapiasControllerBase.getTerapiasFromFirestore');
+    try {
+      return super.getTerapiasFromFirestore(filter);
+    } finally {
+      _$_TerapiasControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 searchKey: ${searchKey},

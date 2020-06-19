@@ -1,11 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:infinito/app/shared/auth_firebase/auth_controller.dart';
-import 'package:infinito/app/shared/firestore/firestore_database.dart';
+import 'package:infinito/app/modules/products/products_controller.dart';
 import 'package:infinito/app/shared/utils/url_lauch.dart';
-
 import 'package:infinito/app/shared/widgets/color_loader.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:sliding_sheet/sliding_sheet.dart';
@@ -21,13 +20,13 @@ class ProductDetailPage extends StatefulWidget {
 
 class _ProductDetailPageState extends State<ProductDetailPage> {
   String urlTextWhats =
-      "https://api.whatsapp.com/send?phone=5551991566635&text=Ol%C3%A1!%20Gostaria%20de%20mais%20informacões.%20sobre%20o%20produto%20";
+      "https://api.whatsapp.com/send?phone=5551991928250&text=Ol%C3%A1!%20Gostaria%20de%20mais%20informacões.%20sobre%20o%20produto%20";
 
-  final FirestoreDatabase _firestoreDatabase = Modular.get();
-  final AuthController _authController = Modular.get();
+  final ProductsController _productsController = Modular.get();
 
   @override
   Widget build(BuildContext context) {
+    _productsController.getDocumentFromFirestore(widget.document);
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
@@ -137,13 +136,25 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           color: Theme.of(context).primaryColor,
           borderRadius: BorderRadius.all(Radius.circular(50)),
         ),
-        child: MaterialButton(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10))),
-            child: Text("Adicionar a Lista de Desejos",
-                style: Theme.of(context).accentTextTheme.bodyText2),
-            onPressed: () => _firestoreDatabase.addProductToWishList(
-                _authController.user.uid, widget.document.data)),
+        child: Observer(builder: (_) {
+          return _productsController.documentAlreadyAdded
+              ? MaterialButton(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  child: Text("Remover a Lista de Desejos",
+                      style: Theme.of(context).accentTextTheme.bodyText2),
+                  onPressed: () => _productsController
+                      .removeProductToWishList(widget.document))
+              : MaterialButton(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  child: Text("Adicionar a Lista de Desejos",
+                      style: Theme.of(context).accentTextTheme.bodyText2),
+                  onPressed: () => {
+                        _productsController
+                            .addProductToWishList(widget.document)
+                      });
+        }),
       ),
     );
   }

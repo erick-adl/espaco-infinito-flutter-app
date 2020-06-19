@@ -12,7 +12,7 @@ class WishlistTileWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Modular.to.pushNamed("/product_detail", arguments: document),
+      onTap: () => Modular.to.pushNamed("/wish_detail", arguments: document),
       child: Card(
         color: Theme.of(context).primaryColor,
         margin: EdgeInsets.all(10),
