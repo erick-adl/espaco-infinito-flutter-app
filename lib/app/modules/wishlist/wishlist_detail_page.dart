@@ -21,7 +21,7 @@ class WishlistDetailPage extends StatefulWidget {
 
 class _WishlistDetailPageState extends State<WishlistDetailPage> {
   String urlTextWhats =
-      "https://api.whatsapp.com/send?phone=5551991928250&text=Ol%C3%A1!%20Gostaria%20de%20mais%20informacões.%20sobre%20o%20produto%20";
+      "https://api.whatsapp.com/send?phone=5551989071829&text=Ol%C3%A1!%20Gostaria%20de%20mais%20informacões.%20sobre%20o%20produto%20";
 
   final WishlistController _wishlistsController = Modular.get();
 
@@ -117,7 +117,7 @@ class _WishlistDetailPageState extends State<WishlistDetailPage> {
                 ),
               ),
               Text("Solicite mais informacões",
-                  style: Theme.of(context).accentTextTheme.bodyText2),
+                  style: Theme.of(context).accentTextTheme.bodyText1),
             ],
           ),
           onPressed: () =>
@@ -143,14 +143,14 @@ class _WishlistDetailPageState extends State<WishlistDetailPage> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10))),
                   child: Text("Remover a Lista de Desejos",
-                      style: Theme.of(context).accentTextTheme.bodyText2),
+                      style: Theme.of(context).accentTextTheme.bodyText1),
                   onPressed: () => _wishlistsController
                       .removeProductToWishList(widget.document))
               : MaterialButton(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10))),
                   child: Text("Adicionar a Lista de Desejos",
-                      style: Theme.of(context).accentTextTheme.bodyText2),
+                      style: Theme.of(context).accentTextTheme.bodyText1),
                   onPressed: () => _wishlistsController
                       .addProductToWishList(widget.document));
         }),

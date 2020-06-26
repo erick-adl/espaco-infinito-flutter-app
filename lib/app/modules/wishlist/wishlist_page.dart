@@ -55,12 +55,12 @@ class _WishlistPageState extends ModularState<WishlistPage, WishlistController>
 
   @override
   Widget build(BuildContext context) {
-    final screenSizeWidth = MediaQuery.of(context).size.width;
-    final screenSizeHeight = MediaQuery.of(context).size.height;
+    double screenSizeWidth = MediaQuery.of(context).size.width;
+    double screenSizeHeight = MediaQuery.of(context).size.height;
     final theme = Theme.of(context);
     return Container(
       color: theme.backgroundColor,
-      child: Column(
+      child: Stack(
         children: <Widget>[
           Observer(builder: (_) {
             return AnimatedContainer(
@@ -104,46 +104,40 @@ class _WishlistPageState extends ModularState<WishlistPage, WishlistController>
                       )
                     : Container());
           }),
-          Flexible(
-            flex: 6,
-            child: Container(
-              color: theme.backgroundColor,
-              width: screenSizeWidth,
-              child: Observer(builder: (_) {
-                return StreamBuilder<QuerySnapshot>(
-                  stream:
-                      controller.getWishlistFromFirestore(controller.searchKey),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<QuerySnapshot> snapshot) {
-                    if (snapshot.hasError)
-                      return new Text('Error: ${snapshot.error}');
-                    switch (snapshot.connectionState) {
-                      case ConnectionState.waiting:
-                        return Center(child: new ColorLoader());
-                      default:
-                        _querySnapshot = snapshot;
-                        return new GridView(
-                          controller: _scrollController,
-                          children: snapshot.data.documents
-                              .map((DocumentSnapshot document) {
-                            return new WishlistTileWidget(
-                              document: document,
-                            );
-                          }).toList(),
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2, childAspectRatio: 0.7),
-                        );
-                    }
-                  },
-                );
-              }),
-            ),
+          Container(
+            color: theme.backgroundColor,
+            width: screenSizeWidth,
+            height: screenSizeHeight / 1.3,
+            child: Observer(builder: (_) {
+              return StreamBuilder<QuerySnapshot>(
+                stream:
+                    controller.getWishlistFromFirestore(controller.searchKey),
+                builder: (BuildContext context,
+                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (snapshot.hasError)
+                    return new Text('Error: ${snapshot.error}');
+                  switch (snapshot.connectionState) {
+                    case ConnectionState.waiting:
+                      return Center(child: new ColorLoader());
+                    default:
+                      _querySnapshot = snapshot;
+                      return new GridView(
+                        controller: _scrollController,
+                        children: snapshot.data.documents
+                            .map((DocumentSnapshot document) {
+                          return new WishlistTileWidget(
+                            document: document,
+                          );
+                        }).toList(),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2, childAspectRatio: 0.7),
+                      );
+                  }
+                },
+              );
+            }),
           ),
-          Flexible(
-            child: buildWhatsAppRequestInfo(context),
-            flex: 1,
-          )
+          buildWhatsAppRequestInfo(context),
         ],
       ),
     );
@@ -151,8 +145,9 @@ class _WishlistPageState extends ModularState<WishlistPage, WishlistController>
 
   buildWhatsAppRequestInfo(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: EdgeInsets.only(top: MediaQuery.of(context).size.height - 180),
       child: Container(
+        margin: EdgeInsets.all(5),
         height: 80,
         child: MaterialButton(
           height: 70,
@@ -181,7 +176,7 @@ class _WishlistPageState extends ModularState<WishlistPage, WishlistController>
           ),
           onPressed: () {
             String urlTextWhats =
-                "https://api.whatsapp.com/send?phone=5551991928250&text=Ol%C3%A1!%20Gostaria%20de%20comprar%20os%20seguintes%20itens:%0A";
+                "https://api.whatsapp.com/send?phone=5551989071829&text=Ol%C3%A1!%20Gostaria%20de%20comprar%20os%20seguintes%20itens:%0A";
             var listName = _querySnapshot.data.documents
                 .map((e) => '${e["nome"]}%0A')
                 .toList()

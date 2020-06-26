@@ -10,7 +10,7 @@ class TerapiasPageDetails extends StatelessWidget {
   const TerapiasPageDetails({Key key, this.document}) : super(key: key);
 
   final textWhats =
-      "https://api.whatsapp.com/send?phone=5551991928250&text=Ol%C3%A1!%20Gostaria%20de%20mais%20informacões.%20sobre%20";
+      "https://api.whatsapp.com/send?phone=5551989071829&text=Ol%C3%A1!%20Gostaria%20de%20mais%20informacões.%20sobre%20";
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +81,7 @@ class TerapiasPageDetails extends StatelessWidget {
                       ),
                     ),
                     Text("Solicite mais informacões",
-                        style: Theme.of(context).accentTextTheme.bodyText2),
+                        style: Theme.of(context).accentTextTheme.bodyText1),
                   ],
                 ),
                 onPressed: () =>

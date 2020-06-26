@@ -73,70 +73,73 @@ class _MenudashboardPageState
     screenHeight = size.height;
     screenWidth = size.width;
 
-    return Scaffold(body: Observer(builder: (context) {
-      return SafeArea(
-        child: Stack(
-          children: <Widget>[
-            Menu(
-              slideAnimation: _slideAnimation,
-              menuAnimation: _menuScaleAnimation,
-              selectedIndex: controller.index,
-              onMenuItemClicked: onMenuItemClicked,
-            ),
-            Dashboard(
-              duration: duration,
-              onMenuTap: onMenuTap,
-              scaleAnimation: _scaleAnimation,
-              isCollapsed: isCollapsed,
-              screenWidth: screenWidth,
-              child: Stack(
-                children: <Widget>[
-                  Positioned(
-                      top: 60,
-                      child: Container(
-                        height: screenHeight - 60,
-                        width: screenWidth,
-                        color: Theme.of(context).backgroundColor,
-                        child: controller.page,
-                      )),
-                  Observer(builder: (context) {
-                    return Material(
-                      elevation: 20,
-                      color: Theme.of(context).textSelectionColor,
-                      child: Container(
-                        height: 60,
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).primaryColor,
-                        ),
-                        child: InkWell(
-                          onTap: onMenuTap,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Icon(
-                                Icons.menu,
-                                color: Colors.white,
-                                size: 30,
+    return Scaffold(
+        resizeToAvoidBottomPadding: true,
+        body: Observer(builder: (context) {
+          return SafeArea(
+            child: Stack(
+              children: <Widget>[
+                Menu(
+                  slideAnimation: _slideAnimation,
+                  menuAnimation: _menuScaleAnimation,
+                  selectedIndex: controller.index,
+                  onMenuItemClicked: onMenuItemClicked,
+                ),
+                Dashboard(
+                  duration: duration,
+                  onMenuTap: onMenuTap,
+                  scaleAnimation: _scaleAnimation,
+                  isCollapsed: isCollapsed,
+                  screenWidth: screenWidth,
+                  child: Stack(
+                    children: <Widget>[
+                      Positioned(
+                          top: 60,
+                          child: Container(
+                            height: screenHeight - 60,
+                            width: screenWidth,
+                            color: Theme.of(context).backgroundColor,
+                            child: controller.page,
+                          )),
+                      Observer(builder: (context) {
+                        return Material(
+                          elevation: 20,
+                          color: Theme.of(context).textSelectionColor,
+                          child: Container(
+                            height: 60,
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).primaryColor,
+                            ),
+                            child: InkWell(
+                              onTap: onMenuTap,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Icon(
+                                    Icons.menu,
+                                    color: Colors.white,
+                                    size: 30,
+                                  ),
+                                  Text(controller.pageName,
+                                      style: TextStyle(
+                                          fontSize: 24, color: Colors.white)),
+                                  SizedBox(
+                                    width: 40,
+                                  ),
+                                ],
                               ),
-                              Text(controller.pageName,
-                                  style: TextStyle(
-                                      fontSize: 24, color: Colors.white)),
-                              SizedBox(
-                                width: 40,
-                              ),
-                            ],
+                            ),
                           ),
-                        ),
-                      ),
-                    );
-                  }),
-                ],
-              ),
+                        );
+                      }),
+                    ],
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
-      );
-    }));
+          );
+        }));
   }
 }
