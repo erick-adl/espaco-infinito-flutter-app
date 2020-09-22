@@ -75,12 +75,10 @@ class AuthFirebase implements IAuthFirebase {
       );
       if (result.user == null) return null;
       final FirebaseUser user = result.user;
-      await _auth.currentUser().then((val) {
-        UserUpdateInfo updateUser = UserUpdateInfo();
-        updateUser.displayName = name;
-        // updateUser.photoUrl = picURL;
-        val.updateProfile(updateUser);
-      });
+
+      UserUpdateInfo updateUser = UserUpdateInfo();
+      updateUser.displayName = name;
+      await user.updateProfile(updateUser);
 
       return user;
     } catch (e) {

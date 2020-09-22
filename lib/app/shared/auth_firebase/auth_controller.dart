@@ -51,7 +51,7 @@ abstract class _AuthControllerBase with Store {
   Future createUserWithEmailAndPassword(
       {String name, String email, String password}) async {
     try {
-      await _authFirebase.createUserWithEmailPassword(
+      user = await _authFirebase.createUserWithEmailPassword(
           name: name, email: email, password: password);
     } catch (e) {
       throw e;

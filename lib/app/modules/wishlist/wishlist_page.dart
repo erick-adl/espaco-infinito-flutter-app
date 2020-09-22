@@ -116,39 +116,16 @@ class _WishlistPageState extends ModularState<WishlistPage, WishlistController>
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Image(
-              image: AssetImage('assets/images/iconwhats.png'),
-              height: 35,
-              width: 35,
-            ),
-          ),
-          Expanded(
-            child: RichText(
-              text: new TextSpan(
-                style: new TextStyle(
-                  fontSize: 14.0,
-                  color: Colors.black,
-                ),
-                children: <TextSpan>[
-                  new TextSpan(
-                      text: 'Compartilhe',
-                      style: TextStyle(
-                          shadows: <Shadow>[
-                            Shadow(
-                              offset: Offset(1.0, 1.0),
-                              blurRadius: 3.0,
-                              color: Colors.white,
-                            ),
-                          ],
-                          fontSize: 14,
-                          color: Color(0xFF23185f),
-                          fontFamily: "Inter",
-                          fontWeight: FontWeight.bold)),
-                  new TextSpan(
-                      text: ' com uma de nossos atendentes',
-                      style: TextStyle(
+          RichText(
+            text: new TextSpan(
+              style: new TextStyle(
+                fontSize: 14.0,
+                color: Colors.black,
+              ),
+              children: <TextSpan>[
+                new TextSpan(
+                    text: 'Envie',
+                    style: TextStyle(
                         shadows: <Shadow>[
                           Shadow(
                             offset: Offset(1.0, 1.0),
@@ -159,12 +136,33 @@ class _WishlistPageState extends ModularState<WishlistPage, WishlistController>
                         fontSize: 14,
                         color: Color(0xFF23185f),
                         fontFamily: "Inter",
-                      )),
-                ],
-              ),
-              maxLines: 2,
-              textAlign: TextAlign.left,
-              overflow: TextOverflow.ellipsis,
+                        fontWeight: FontWeight.bold)),
+                new TextSpan(
+                    text: ' para um de nossos atendentes',
+                    style: TextStyle(
+                      shadows: <Shadow>[
+                        Shadow(
+                          offset: Offset(1.0, 1.0),
+                          blurRadius: 3.0,
+                          color: Colors.white,
+                        ),
+                      ],
+                      fontSize: 14,
+                      color: Color(0xFF23185f),
+                      fontFamily: "Inter",
+                    )),
+              ],
+            ),
+            maxLines: 2,
+            textAlign: TextAlign.left,
+            overflow: TextOverflow.ellipsis,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Image(
+              image: AssetImage('assets/images/iconwhats.png'),
+              height: 35,
+              width: 35,
             ),
           ),
         ],

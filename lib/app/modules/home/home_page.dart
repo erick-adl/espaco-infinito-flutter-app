@@ -71,7 +71,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
             ),
             SizedBox(height: 10),
             Container(
-              height: 300,
+              height: 200,
               child: Observer(builder: (_) {
                 return StreamBuilder<QuerySnapshot>(
                   stream: controller.getTerapiasFromFirestore(),
@@ -106,7 +106,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
               }),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 10, top: 30),
+              padding: const EdgeInsets.only(left: 10, top: 10),
               child: GestureDetector(
                 onTap: () =>
                     Modular.get<MenudashboardController>().setProductsPage(),
@@ -120,7 +120,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
             ),
             SizedBox(height: 10),
             Container(
-              height: 250,
+              height: 200,
               child: Observer(builder: (_) {
                 return StreamBuilder<QuerySnapshot>(
                   stream: controller.getProductsFromFirestore(),
