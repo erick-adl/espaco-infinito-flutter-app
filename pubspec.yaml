@@ -40,6 +40,8 @@ dependencies:
   flutter_staggered_animations: 
   intl:
   scroll_snap_list: ^0.4.1
+  solid_bottom_sheet: ^0.1.9
+
 
 
 

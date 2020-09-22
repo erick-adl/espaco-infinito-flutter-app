@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 
 import 'package:infinito/app/shared/widgets/color_loader.dart';
 
-import 'home_detail_page.dart';
-
 class HomeTileWidget extends StatelessWidget {
   final DocumentSnapshot document;
+  final Widget pageDetailBuild;
 
   const HomeTileWidget({
     Key key,
     @required this.document,
+    @required this.pageDetailBuild,
   }) : super(key: key);
 
   @override
@@ -21,9 +21,8 @@ class HomeTileWidget extends StatelessWidget {
       height: 200,
       width: 220,
       child: GestureDetector(
-        onTap: () {
-          Navigator.push(context, _createDetailRoute(document: document));
-        },
+        onTap: () => Navigator.push(
+            context, _createDetailRoute(pageBuild: pageDetailBuild)),
         child: Container(
           height: 220,
           width: 220,
@@ -69,11 +68,10 @@ class HomeTileWidget extends StatelessWidget {
     );
   }
 
-  Route _createDetailRoute({DocumentSnapshot document}) {
+  Route _createDetailRoute({Widget pageBuild}) {
     return PageRouteBuilder(
       transitionDuration: Duration(milliseconds: 500),
-      pageBuilder: (context, animation, secondaryAnimation) =>
-          DetailPage(document: document),
+      pageBuilder: (context, animation, secondaryAnimation) => pageBuild,
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         final begin = Offset(0.0, 1.0);
         final end = Offset.zero;

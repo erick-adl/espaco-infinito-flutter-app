@@ -4,20 +4,20 @@ import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class DetailPage extends StatefulWidget {
+class HomeDetailTerapiaPage extends StatefulWidget {
   final DocumentSnapshot document;
 
-  const DetailPage({
+  const HomeDetailTerapiaPage({
     Key key,
     @required this.document,
   })  : assert(document != null),
         super(key: key);
 
   @override
-  _DetailPageState createState() => _DetailPageState();
+  _HomeDetailTerapiaPageState createState() => _HomeDetailTerapiaPageState();
 }
 
-class _DetailPageState extends State<DetailPage>
+class _HomeDetailTerapiaPageState extends State<HomeDetailTerapiaPage>
     with SingleTickerProviderStateMixin {
   AnimationController _animationController;
   List<Animation> _slideAnimations;
@@ -121,27 +121,33 @@ class _DetailPageState extends State<DetailPage>
                   );
                 },
                 child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: 16),
+                  decoration: BoxDecoration(
+                    color: Colors.grey[200],
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  ),
+                  margin: EdgeInsets.symmetric(horizontal: 13),
                   alignment: Alignment.centerLeft,
-                  child: Text(
-                    widget.document["resumo"] ?? "Produto sem descrição",
-                    style: TextStyle(
-                        shadows: <Shadow>[
-                          Shadow(
-                            offset: Offset(1.0, 1.0),
-                            blurRadius: 3.0,
-                            color: Colors.white,
-                          ),
-                        ],
-                        fontSize: 18,
-                        color: Color(0xFF23185f),
-                        fontFamily: "Inter",
-                        fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.justify,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      widget.document["resumo"] ?? "Produto sem descrição",
+                      style: TextStyle(
+                          shadows: <Shadow>[
+                            Shadow(
+                              offset: Offset(1.0, 1.0),
+                              blurRadius: 3.0,
+                              color: Colors.white,
+                            ),
+                          ],
+                          fontSize: 18,
+                          color: Color(0xFF23185f),
+                          fontFamily: "Inter",
+                          fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.justify,
+                    ),
                   ),
                 ),
               ),
-              SizedBox(height: 24),
             ],
           ),
         ),

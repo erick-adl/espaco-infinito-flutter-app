@@ -2,13 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:infinito/app/modules/home/home_detail_product_page.dart';
+import 'package:infinito/app/modules/home/home_detail_terapia_page.dart';
 
 import 'package:infinito/app/modules/menudashboard/menudashboard_controller.dart';
 
 import 'package:infinito/app/shared/widgets/color_loader.dart';
 import 'package:scroll_snap_list/scroll_snap_list.dart';
 import 'home_controller.dart';
-
 import 'home_tile.dart';
 
 class HomePage extends StatefulWidget {
@@ -20,8 +21,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends ModularState<HomePage, HomeController> {
-  //use 'controller' variable to access controller
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -30,6 +29,25 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(left: 10, top: 20),
+              child: Row(
+                children: <Widget>[
+                  Text("Solicitar mais ",
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: theme.primaryColor,
+                        fontFamily: "Inter",
+                      )),
+                  Text("informações",
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: Color(0xFF23185f),
+                          fontFamily: "Inter",
+                          fontWeight: FontWeight.bold)),
+                ],
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.only(left: 10, top: 30),
               child: GestureDetector(
@@ -64,6 +82,8 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                           itemBuilder: (context, index) {
                             return new HomeTileWidget(
                               document: snapshot.data.documents[index],
+                              pageDetailBuild: HomeDetailTerapiaPage(
+                                  document: snapshot.data.documents[index]),
                             );
                           },
                           initialIndex: 1,
@@ -111,6 +131,8 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                           itemBuilder: (context, index) {
                             return new HomeTileWidget(
                               document: snapshot.data.documents[index],
+                              pageDetailBuild: HomeDetailProductPage(
+                                  document: snapshot.data.documents[index]),
                             );
                           },
                           initialIndex: 1,
@@ -125,26 +147,6 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
               }),
             ),
             SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.only(left: 10, bottom: 20),
-              child: Row(
-                children: <Widget>[
-                  Text("Solicitar mais ",
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: theme.primaryColor,
-                        fontFamily: "Inter",
-                      )),
-                  Text("informações",
-                      style: TextStyle(
-                          fontSize: 20,
-                          color: Color(0xFF23185f),
-                          fontFamily: "Inter",
-                          fontWeight: FontWeight.bold)),
-                ],
-              ),
-            ),
-            SizedBox(height: 20),
           ],
         ),
       ),

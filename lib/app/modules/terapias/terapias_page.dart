@@ -65,10 +65,6 @@ class _TerapiasPageState extends ModularState<TerapiasPage, TerapiasController>
             return AnimatedContainer(
                 duration: Duration(milliseconds: 500),
                 height: controller.searchBarShow ? 60 : 0,
-                decoration: BoxDecoration(
-                    color: theme.primaryColor,
-                    borderRadius:
-                        BorderRadius.vertical(bottom: Radius.circular(30))),
                 child: Visibility(
                   visible: controller.searchBarShow,
                   child: Container(
@@ -76,9 +72,13 @@ class _TerapiasPageState extends ModularState<TerapiasPage, TerapiasController>
                     height: 50,
                     decoration: BoxDecoration(
                         color: theme.backgroundColor,
+                        border: Border.all(
+                          color: Color(0xFFffa726),
+                          width: 1.0,
+                        ),
                         borderRadius: BorderRadius.all(Radius.circular(50))),
                     child: Padding(
-                      padding: const EdgeInsets.all(10),
+                      padding: const EdgeInsets.only(left: 10),
                       child: TextField(
                         onChanged: (value) => controller.searchKey = value,
                         keyboardType: TextInputType.text,
@@ -93,7 +93,7 @@ class _TerapiasPageState extends ModularState<TerapiasPage, TerapiasController>
                             color: theme.primaryColor,
                             size: 22.0,
                           ),
-                          // hintText: "Busque...",
+                          hintText: "Pesquise aqui...",
                           hintStyle: TextStyle(
                               fontFamily: "WorkSansSemiBold", fontSize: 17.0),
                         ),
