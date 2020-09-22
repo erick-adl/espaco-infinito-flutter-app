@@ -45,6 +45,14 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                           color: Color(0xFF23185f),
                           fontFamily: "Inter",
                           fontWeight: FontWeight.bold)),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Image(
+                      image: AssetImage('assets/images/iconwhats.png'),
+                      height: 35,
+                      width: 35,
+                    ),
+                  ),
                 ],
               ),
             ),
