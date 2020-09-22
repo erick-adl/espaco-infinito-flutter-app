@@ -21,45 +21,45 @@ class AppWidget extends StatelessWidget {
           backgroundColor: Color(0xFFFFFFFF),
           buttonColor: Color(0xFFffa726),
           iconTheme: IconThemeData(color: Color(0xFFFFFFFF)),
-          accentIconTheme: IconThemeData(color: Color(0xFF212121)),
-          primaryIconTheme: IconThemeData(color: Color(0xFF212121)),
+          accentIconTheme: IconThemeData(color: Color(0xFF23185f)),
+          primaryIconTheme: IconThemeData(color: Color(0xFF23185f)),
           primaryTextTheme: TextTheme(
               headline5: TextStyle(
                   fontSize: 36,
                   fontFamily: "Inter",
-                  color: Color(0xFF212121),
+                  color: Color(0xFF23185f),
                   fontWeight: FontWeight.bold),
               subtitle1: TextStyle(
                   fontSize: 30,
                   fontFamily: "Inter",
-                  color: Color(0xFF212121),
+                  color: Color(0xFF23185f),
                   fontWeight: FontWeight.bold),
               headline6: TextStyle(
                   fontSize: 24,
                   fontFamily: "Inter",
-                  color: Color(0xFF212121),
+                  color: Color(0xFF23185f),
                   fontWeight: FontWeight.bold),
               subtitle2: TextStyle(
                   fontSize: 20,
                   fontFamily: "Inter",
-                  color: Color(0xFF212121),
+                  color: Color(0xFF23185f),
                   fontWeight: FontWeight.bold),
               bodyText2: TextStyle(
                 fontSize: 18,
                 fontFamily: "Inter",
-                color: Color(0xFF212121),
+                color: Color(0xFF23185f),
                 fontWeight: FontWeight.bold,
               ),
               bodyText1: TextStyle(
                 fontSize: 15,
                 fontFamily: "Inter",
-                color: Color(0xFF212121),
+                color: Color(0xFF23185f),
                 fontWeight: FontWeight.bold,
               ),
               button: TextStyle(
                   fontSize: 18,
                   fontFamily: "Inter",
-                  color: Color(0xFF212121),
+                  color: Color(0xFF23185f),
                   fontWeight: FontWeight.bold)),
           accentTextTheme: TextTheme(
               headline5: TextStyle(

@@ -27,16 +27,16 @@ class _WishlistPageState extends ModularState<WishlistPage, WishlistController>
     _scrollController.addListener(() {
       if (_scrollController.position.userScrollDirection ==
               ScrollDirection.forward &&
-          !controller.searchBarShow) {
+          !controller.shareButtonShow) {
         print("reverse");
-        controller.searchBarShow = true;
+        controller.shareButtonShow = true;
       }
 
       if (_scrollController.position.userScrollDirection ==
               ScrollDirection.reverse &&
-          controller.searchBarShow) {
+          controller.shareButtonShow) {
         print("foward");
-        controller.searchBarShow = false;
+        controller.shareButtonShow = false;
       }
     });
   }
@@ -56,137 +56,118 @@ class _WishlistPageState extends ModularState<WishlistPage, WishlistController>
   @override
   Widget build(BuildContext context) {
     double screenSizeWidth = MediaQuery.of(context).size.width;
-    double screenSizeHeight = MediaQuery.of(context).size.height;
+
     final theme = Theme.of(context);
-    return Container(
-      color: theme.backgroundColor,
-      child: Stack(
-        children: <Widget>[
-          Observer(builder: (_) {
-            return AnimatedContainer(
-                duration: Duration(milliseconds: 500),
-                height: controller.searchBarShow ? 60 : 0,
-                decoration: BoxDecoration(
-                    color: theme.primaryColor,
-                    borderRadius:
-                        BorderRadius.vertical(bottom: Radius.circular(30))),
-                child: controller.searchBarShow
-                    ? Container(
-                        margin: const EdgeInsets.fromLTRB(20, 8, 20, 8),
-                        height: 50,
-                        decoration: BoxDecoration(
-                            color: theme.backgroundColor,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(50))),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: TextField(
-                            onChanged: (value) => controller.searchKey = value,
-                            keyboardType: TextInputType.text,
-                            style: TextStyle(
-                                fontFamily: "WorkSansSemiBold",
-                                fontSize: 16.0,
-                                color: Colors.black),
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              icon: Icon(
-                                FontAwesomeIcons.search,
-                                color: theme.primaryColor,
-                                size: 22.0,
-                              ),
-                              // hintText: "Busque...",
-                              hintStyle: TextStyle(
-                                  fontFamily: "WorkSansSemiBold",
-                                  fontSize: 17.0),
-                            ),
-                          ),
-                        ),
-                      )
-                    : Container());
+    return Column(
+      children: <Widget>[
+        _buildWhatsAppRequestInfo(context),
+        Expanded(
+          // color: theme.backgroundColor,
+          // width: screenSizeWidth,
+          child: Observer(builder: (_) {
+            return StreamBuilder<QuerySnapshot>(
+              stream: controller.getWishlistFromFirestore(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (snapshot.hasError)
+                  return new Text('Error: ${snapshot.error}');
+                switch (snapshot.connectionState) {
+                  case ConnectionState.waiting:
+                    return Center(child: new ColorLoader());
+                  default:
+                    _querySnapshot = snapshot;
+                    return new GridView(
+                      controller: _scrollController,
+                      children: snapshot.data.documents
+                          .map((DocumentSnapshot document) {
+                        return new WishlistTileWidget(
+                          document: document,
+                        );
+                      }).toList(),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2, childAspectRatio: 0.7),
+                    );
+                }
+              },
+            );
           }),
-          Container(
-            color: theme.backgroundColor,
-            width: screenSizeWidth,
-            height: screenSizeHeight / 1.3,
-            child: Observer(builder: (_) {
-              return StreamBuilder<QuerySnapshot>(
-                stream:
-                    controller.getWishlistFromFirestore(controller.searchKey),
-                builder: (BuildContext context,
-                    AsyncSnapshot<QuerySnapshot> snapshot) {
-                  if (snapshot.hasError)
-                    return new Text('Error: ${snapshot.error}');
-                  switch (snapshot.connectionState) {
-                    case ConnectionState.waiting:
-                      return Center(child: new ColorLoader());
-                    default:
-                      _querySnapshot = snapshot;
-                      return new GridView(
-                        controller: _scrollController,
-                        children: snapshot.data.documents
-                            .map((DocumentSnapshot document) {
-                          return new WishlistTileWidget(
-                            document: document,
-                          );
-                        }).toList(),
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2, childAspectRatio: 0.7),
-                      );
-                  }
-                },
-              );
-            }),
-          ),
-          buildWhatsAppRequestInfo(context),
-        ],
-      ),
+        ),
+        SizedBox(
+          height: 30,
+        )
+      ],
     );
   }
 
-  buildWhatsAppRequestInfo(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(top: MediaQuery.of(context).size.height - 180),
-      child: Container(
-        margin: EdgeInsets.all(5),
-        height: 80,
-        child: MaterialButton(
-          height: 70,
-          minWidth: MediaQuery.of(context).size.width,
-          color: Theme.of(context).primaryColor,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(50))),
-          child: Row(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Image(
-                  image: AssetImage('assets/images/iconwhats.png'),
-                  height: 35,
-                  width: 35,
-                ),
-              ),
-              Expanded(
-                child: Text("Compartilhe sua lista com um de nossos atendentes",
-                    maxLines: 2,
-                    textAlign: TextAlign.left,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).accentTextTheme.bodyText1),
-              ),
-            ],
-          ),
-          onPressed: () {
-            String urlTextWhats =
-                "https://api.whatsapp.com/send?phone=5551989071829&text=Ol%C3%A1!%20Gostaria%20de%20comprar%20os%20seguintes%20itens:%0A";
-            var listName = _querySnapshot.data.documents
-                .map((e) => '${e["nome"]}%0A')
-                .toList()
-                .join();
-            listName = listName.substring(1, listName.length);
+  _buildWhatsAppRequestInfo(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        String urlTextWhats =
+            "https://api.whatsapp.com/send?phone=5551989071829&text=Ol%C3%A1!%20Gostaria%20de%20comprar%20os%20seguintes%20itens:%0A";
+        var listName = _querySnapshot.data.documents
+            .map((e) => '${e["nome"]}%0A')
+            .toList()
+            .join();
+        listName = listName.substring(1, listName.length);
 
-            print(listName);
-            UrlLauch.launchInBrowser(urlTextWhats + listName);
-          },
-        ),
+        print(listName);
+        UrlLauch.launchInBrowser(urlTextWhats + listName);
+      },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Image(
+              image: AssetImage('assets/images/iconwhats.png'),
+              height: 35,
+              width: 35,
+            ),
+          ),
+          Expanded(
+            child: RichText(
+              text: new TextSpan(
+                style: new TextStyle(
+                  fontSize: 14.0,
+                  color: Colors.black,
+                ),
+                children: <TextSpan>[
+                  new TextSpan(
+                      text: 'Compartilhe',
+                      style: TextStyle(
+                          shadows: <Shadow>[
+                            Shadow(
+                              offset: Offset(1.0, 1.0),
+                              blurRadius: 3.0,
+                              color: Colors.white,
+                            ),
+                          ],
+                          fontSize: 14,
+                          color: Color(0xFF23185f),
+                          fontFamily: "Inter",
+                          fontWeight: FontWeight.bold)),
+                  new TextSpan(
+                      text: ' com uma de nossos atendentes',
+                      style: TextStyle(
+                        shadows: <Shadow>[
+                          Shadow(
+                            offset: Offset(1.0, 1.0),
+                            blurRadius: 3.0,
+                            color: Colors.white,
+                          ),
+                        ],
+                        fontSize: 14,
+                        color: Color(0xFF23185f),
+                        fontFamily: "Inter",
+                      )),
+                ],
+              ),
+              maxLines: 2,
+              textAlign: TextAlign.left,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ],
       ),
     );
   }

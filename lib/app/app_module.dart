@@ -31,7 +31,6 @@ class AppModule extends MainModule {
   @override
   List<Router> get routers => [
         Router('/', child: (_, args) => SplashPage()),
-        // Router('/', module: MenuDashboardModule()),
         Router('/terapia_details',
             child: (_, args) => TerapiasPageDetails(
                   document: args.data,
@@ -44,16 +43,9 @@ class AppModule extends MainModule {
             child: (_, args) => WishlistDetailPage(
                   document: args.data,
                 )),
-
-        // Router('/login', module: LoginModule()),
         Router('/login', module: SignSignupModule()),
-        // Router('/about', module: AboutModule()),
-
         Router('/forgot', module: ForgotPasswordModule()),
-        Router('/home', module: MenuDashboardModule()),
-        // Router('/contact', module: ContactModule()),
-
-        // Router('/products', module: ProductsModule()),
+        Router('/menu', module: MenuDashboardModule()),
       ];
 
   @override

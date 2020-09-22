@@ -39,6 +39,10 @@ dependencies:
   flutter_cache_manager: 
   flutter_staggered_animations: 
   intl:
+  scroll_snap_list: ^0.4.1
+
+
+
 
 
 

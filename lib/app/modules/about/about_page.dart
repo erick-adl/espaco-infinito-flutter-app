@@ -38,21 +38,26 @@ class AboutPage extends StatelessWidget {
                           BorderRadius.vertical(top: Radius.circular(50))),
                   child: Column(
                     children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                        child: Text(
-                          "Aqui você vai encontrar tudo sobre o nosso espaço. Um lugar diferenciado para pessoas que querem O MELHOR DE SUAS VIDAS. Desde o iníco nos propusemos a construir um lugar que se tornasse referência, tanto no aspecto dos atendimentos terapêuticos, na oferta e comercialização de produtos do mundo holístico, quanto na implementação de atividades formativas, realizando cursos, palestras e workshops",
-                          style: theme.primaryTextTheme.bodyText1,
-                          textAlign: TextAlign.justify,
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                          child: Text(
+                            "Aqui você vai encontrar tudo sobre o nosso espaço. Um lugar diferenciado para pessoas que querem O MELHOR DE SUAS VIDAS. Desde o iníco nos propusemos a construir um lugar que se tornasse referência, tanto no aspecto dos atendimentos terapêuticos, na oferta e comercialização de produtos do mundo holístico, quanto na implementação de atividades formativas, realizando cursos, palestras e workshops",
+                            style: theme.primaryTextTheme.bodyText1,
+                            textAlign: TextAlign.justify,
+                          ),
                         ),
                       ),
-                      CustomButton(
-                          milked: true,
-                          context: context,
-                          text: "Conheça nossas terapias",
-                          onPressed: () =>
-                              Modular.get<MenudashboardController>()
-                                  .setTerapiasPage()),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 30),
+                        child: CustomButton(
+                            milked: true,
+                            context: context,
+                            text: "Conheça nossas terapias",
+                            onPressed: () =>
+                                Modular.get<MenudashboardController>()
+                                    .setTerapiasPage()),
+                      ),
                     ],
                   ))),
         ],

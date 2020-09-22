@@ -51,15 +51,38 @@ class TerapiasTileWidget extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(10),
               child: Text(
+                // document["nome"],
                 document["nome"],
-                style: Theme.of(context).textTheme.title,
+                style: TextStyle(
+                    shadows: <Shadow>[
+                      Shadow(
+                        offset: Offset(1.0, 1.0),
+                        blurRadius: 3.0,
+                        color: Colors.white,
+                      ),
+                    ],
+                    fontSize: 18,
+                    color: Color(0xFF23185f),
+                    fontFamily: "Inter",
+                    fontWeight: FontWeight.bold),
               ),
             ),
             Padding(
               padding: const EdgeInsets.all(10),
               child: Text(
                 document["resumo"],
-                style: Theme.of(context).textTheme.body1,
+                style: TextStyle(
+                    shadows: <Shadow>[
+                      Shadow(
+                        offset: Offset(1.0, 1.0),
+                        blurRadius: 3.0,
+                        color: Colors.white,
+                      ),
+                    ],
+                    fontSize: 13,
+                    color: Color(0xFF23185f),
+                    fontFamily: "Inter",
+                    fontWeight: FontWeight.normal),
               ),
             )
           ],

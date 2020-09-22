@@ -22,6 +22,30 @@ class _ContactPageState extends ModularState<ContactPage, ContactController> {
       "https://api.whatsapp.com/send?phone=5551991928250&text=Ol%C3%A1!%20Gostaria%20de%20mais%20informacões";
   @override
   Widget build(BuildContext context) {
+    final screenSizeHeight = MediaQuery.of(context).size.height;
+    final theme = Theme.of(context);
+
+    return Container(
+      color: theme.primaryColor,
+      height: screenSizeHeight,
+      child: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            buildContainerInfos(context),
+            Container(
+                height: screenSizeHeight * 0.7,
+                decoration: BoxDecoration(
+                    color: theme.backgroundColor,
+                    borderRadius:
+                        BorderRadius.vertical(top: Radius.circular(50))),
+                child: buildContainerSendMessage(context)),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Container buildContent(BuildContext context) {
     return Container(
       color: Theme.of(context).primaryColor,
       width: MediaQuery.of(context).size.width,
@@ -125,10 +149,8 @@ class _ContactPageState extends ModularState<ContactPage, ContactController> {
   }
 
   buildContainerInfos(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(top: 30),
-      width: MediaQuery.of(context).size.width,
-      // height: MediaQuery.of(context).size.height / 2,
+    return Padding(
+      padding: const EdgeInsets.only(top: 12.0),
       child: InkWell(
         onTap: () => UrlLauch.launchInBrowser(
             "https://www.google.com/maps/place/Espa%C3%A7o+infinito+-+Terapias+Alternativas+E+Produtos+Hol%C3%ADsticos/@-29.9514781,-50.9957021,15z/data=!4m5!3m4!1s0x0:0xbaf2539391a38a9c!8m2!3d-29.9514781!4d-50.9957021"),
@@ -161,7 +183,7 @@ class _ContactPageState extends ModularState<ContactPage, ContactController> {
               padding: const EdgeInsets.fromLTRB(30, 0, 30, 10),
               child: Text(
                 "Entre em contato:",
-                style: Theme.of(context).accentTextTheme.bodyText2,
+                style: Theme.of(context).accentTextTheme.subtitle2,
               ),
             ),
             Padding(
@@ -169,7 +191,7 @@ class _ContactPageState extends ModularState<ContactPage, ContactController> {
               child: GestureDetector(
                 onTap: () => UrlLauch.launchInBrowser(urlTextWhats1),
                 child: Text(
-                  "051 89071-829",
+                  "051 989071-829",
                   style: Theme.of(context).accentTextTheme.bodyText2,
                 ),
               ),

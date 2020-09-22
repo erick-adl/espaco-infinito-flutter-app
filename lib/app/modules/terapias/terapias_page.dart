@@ -69,39 +69,38 @@ class _TerapiasPageState extends ModularState<TerapiasPage, TerapiasController>
                     color: theme.primaryColor,
                     borderRadius:
                         BorderRadius.vertical(bottom: Radius.circular(30))),
-                child: controller.searchBarShow
-                    ? Container(
-                        margin: const EdgeInsets.fromLTRB(20, 8, 20, 8),
-                        height: 50,
-                        decoration: BoxDecoration(
-                            color: theme.backgroundColor,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(50))),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: TextField(
-                            onChanged: (value) => controller.searchKey = value,
-                            keyboardType: TextInputType.text,
-                            style: TextStyle(
-                                fontFamily: "WorkSansSemiBold",
-                                fontSize: 16.0,
-                                color: Colors.black),
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              icon: Icon(
-                                FontAwesomeIcons.search,
-                                color: theme.primaryColor,
-                                size: 22.0,
-                              ),
-                              // hintText: "Busque...",
-                              hintStyle: TextStyle(
-                                  fontFamily: "WorkSansSemiBold",
-                                  fontSize: 17.0),
-                            ),
+                child: Visibility(
+                  visible: controller.searchBarShow,
+                  child: Container(
+                    margin: const EdgeInsets.fromLTRB(20, 8, 20, 8),
+                    height: 50,
+                    decoration: BoxDecoration(
+                        color: theme.backgroundColor,
+                        borderRadius: BorderRadius.all(Radius.circular(50))),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: TextField(
+                        onChanged: (value) => controller.searchKey = value,
+                        keyboardType: TextInputType.text,
+                        style: TextStyle(
+                            fontFamily: "WorkSansSemiBold",
+                            fontSize: 16.0,
+                            color: Colors.black),
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          icon: Icon(
+                            FontAwesomeIcons.search,
+                            color: theme.primaryColor,
+                            size: 22.0,
                           ),
+                          // hintText: "Busque...",
+                          hintStyle: TextStyle(
+                              fontFamily: "WorkSansSemiBold", fontSize: 17.0),
                         ),
-                      )
-                    : Container());
+                      ),
+                    ),
+                  ),
+                ));
           }),
           Flexible(
             flex: 1,

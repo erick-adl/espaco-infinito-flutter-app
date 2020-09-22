@@ -18,15 +18,14 @@ class ProductDetailPage extends StatefulWidget {
   _ProductDetailPageState createState() => _ProductDetailPageState();
 }
 
-class _ProductDetailPageState extends State<ProductDetailPage> {
+class _ProductDetailPageState
+    extends ModularState<ProductDetailPage, ProductsController> {
   String urlTextWhats =
       "https://api.whatsapp.com/send?phone=5551989071829&text=Ol%C3%A1!%20Gostaria%20de%20mais%20informacões.%20sobre%20o%20produto%20";
 
-  final ProductsController _productsController = Modular.get();
-
   @override
   Widget build(BuildContext context) {
-    _productsController.getDocumentFromFirestore(widget.document);
+    controller.getDocumentFromFirestore(widget.document);
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
@@ -137,23 +136,21 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           borderRadius: BorderRadius.all(Radius.circular(50)),
         ),
         child: Observer(builder: (_) {
-          return _productsController.documentAlreadyAdded
+          return controller.documentAlreadyAdded
               ? MaterialButton(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10))),
                   child: Text("Remover a Lista de Desejos",
                       style: Theme.of(context).accentTextTheme.bodyText1),
-                  onPressed: () => _productsController
-                      .removeProductToWishList(widget.document))
+                  onPressed: () =>
+                      controller.removeProductToWishList(widget.document))
               : MaterialButton(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10))),
                   child: Text("Adicionar a Lista de Desejos",
                       style: Theme.of(context).accentTextTheme.bodyText1),
-                  onPressed: () => {
-                        _productsController
-                            .addProductToWishList(widget.document)
-                      });
+                  onPressed: () =>
+                      {controller.addProductToWishList(widget.document)});
         }),
       ),
     );

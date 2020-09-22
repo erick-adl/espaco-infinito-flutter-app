@@ -1,5 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:infinito/app/modules/products/products_controller.dart';
+
 import 'package:infinito/app/shared/firestore/firestore_database.dart';
 import 'package:mobx/mobx.dart';
 

@@ -58,17 +58,39 @@ class ProductsTileWidget extends StatelessWidget {
                   softWrap: true,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
-                  style: Theme.of(context).textTheme.headline6,
+                  style: TextStyle(
+                      shadows: <Shadow>[
+                        Shadow(
+                          offset: Offset(1.0, 1.0),
+                          blurRadius: 3.0,
+                          color: Colors.white,
+                        ),
+                      ],
+                      fontSize: 15,
+                      color: Color(0xFF23185f),
+                      fontFamily: "Inter",
+                      fontWeight: FontWeight.bold),
                 ),
               ),
             ),
             Flexible(
-                flex: 2,
+                flex: 1,
                 child: Padding(
-                  padding: const EdgeInsets.all(10),
+                  padding: const EdgeInsets.fromLTRB(10, 2, 10, 2),
                   child: Text(
                     "R\$ ${document["valor"]}",
-                    style: Theme.of(context).textTheme.bodyText2,
+                    style: TextStyle(
+                        shadows: <Shadow>[
+                          Shadow(
+                            offset: Offset(1.0, 1.0),
+                            blurRadius: 3.0,
+                            color: Colors.white,
+                          ),
+                        ],
+                        fontSize: 15,
+                        color: Color(0xFF23185f),
+                        fontFamily: "Inter",
+                        fontWeight: FontWeight.normal),
                   ),
                 )),
           ],

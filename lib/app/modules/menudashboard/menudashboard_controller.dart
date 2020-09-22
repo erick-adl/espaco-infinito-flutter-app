@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:infinito/app/modules/about/about_module.dart';
 import 'package:infinito/app/modules/contact/contact_module.dart';
+import 'package:infinito/app/modules/home/home_module.dart';
 import 'package:infinito/app/modules/products/products_module.dart';
 import 'package:infinito/app/modules/terapias/terapias_module.dart';
 import 'package:infinito/app/modules/wishlist/wishlist_module.dart';
@@ -13,19 +14,19 @@ class MenudashboardController = _MenudashboardControllerBase
 
 abstract class _MenudashboardControllerBase with Store {
   @observable
-  Widget page = AboutModule();
+  Widget page = HomeModule();
 
   @observable
   int index = 0;
 
   @observable
-  String pageName = "Terapias";
+  String pageName = "Home";
 
   @action
-  setAboutPage() {
-    page = AboutModule();
+  setHomePage() {
+    page = HomeModule();
     index = 0;
-    pageName = "O espaço";
+    pageName = "Home";
   }
 
   @action
@@ -54,5 +55,12 @@ abstract class _MenudashboardControllerBase with Store {
     page = WishlistModule();
     index = 4;
     pageName = "Lista de desejos";
+  }
+
+  @action
+  setAboutPage() {
+    page = AboutModule();
+    index = 5;
+    pageName = "O espaço";
   }
 }

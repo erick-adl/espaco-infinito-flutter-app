@@ -58,6 +58,7 @@ class Menu extends StatelessWidget {
                                       ? Icon(
                                           FontAwesomeIcons.userAlt,
                                           size: 40,
+                                          color: Colors.white,
                                         )
                                       : CachedNetworkImage(
                                           imageUrl:
@@ -99,20 +100,23 @@ class Menu extends StatelessWidget {
                                           fontWeight: FontWeight.bold)),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(
-                                    bottom: 10.0,
-                                  ),
-                                  child: Text(_authController.user.email,
-                                      style: Theme.of(context)
-                                          .primaryTextTheme
-                                          .bodyText1),
-                                )
+                                    padding: const EdgeInsets.only(
+                                      bottom: 10.0,
+                                    ),
+                                    child: Text(
+                                      _authController.user.email,
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          fontFamily: "Inter",
+                                          color: Color(0xFFffa726),
+                                          fontWeight: FontWeight.bold),
+                                    ))
                               ],
                             ),
                           ),
-                          buildMenuTile(context, "Sobre", indexMenu == 0, () {
+                          buildMenuTile(context, "Home", indexMenu == 0, () {
                             Modular.get<MenudashboardController>()
-                                .setAboutPage();
+                                .setHomePage();
                             onMenuItemClicked();
                           }),
                           SizedBox(height: 30),
@@ -140,6 +144,12 @@ class Menu extends StatelessWidget {
                               context, "Lista de desejo", indexMenu == 4, () {
                             Modular.get<MenudashboardController>()
                                 .setWishListtPage();
+                            onMenuItemClicked();
+                          }),
+                          SizedBox(height: 30),
+                          buildMenuTile(context, "Sobre", indexMenu == 5, () {
+                            Modular.get<MenudashboardController>()
+                                .setAboutPage();
                             onMenuItemClicked();
                           }),
                           SizedBox(height: 30),

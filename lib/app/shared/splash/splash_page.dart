@@ -25,7 +25,7 @@ class _SplashPageState extends State<SplashPage> {
       final auth = Modular.get<AuthController>();
       Future.delayed(Duration(seconds: 3), () {
         if (auth.status == AuthStatus.login) {
-          Modular.to.pushReplacementNamed("/home");
+          Modular.to.pushReplacementNamed("/menu");
         } else {
           Modular.to.pushReplacementNamed('/login');
         }

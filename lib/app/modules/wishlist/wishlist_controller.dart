@@ -11,18 +11,12 @@ abstract class _WishlistControllerBase with Store {
   final FirestoreDatabase _firestoreDatabase = Modular.get();
 
   @observable
-  String searchKey = "";
-
-  @observable
   bool documentAlreadyAdded = false;
 
-  @action
-  setSearchkey(value) => searchKey = value;
-
   @observable
-  bool searchBarShow = true;
+  bool shareButtonShow = true;
   @action
-  setSearchBarShow(value) => searchBarShow = value;
+  setShareButtonShow(value) => shareButtonShow = value;
 
   @action
   getDocumentFromFirestore(DocumentSnapshot document) {
@@ -32,8 +26,8 @@ abstract class _WishlistControllerBase with Store {
   }
 
   @action
-  getWishlistFromFirestore(String filter) {
-    return _firestoreDatabase.getWishList(filter: filter);
+  getWishlistFromFirestore() {
+    return _firestoreDatabase.getWishList();
   }
 
   @action

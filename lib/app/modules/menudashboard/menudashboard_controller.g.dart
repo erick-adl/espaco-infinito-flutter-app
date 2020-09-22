@@ -58,11 +58,11 @@ mixin _$MenudashboardController on _MenudashboardControllerBase, Store {
       ActionController(name: '_MenudashboardControllerBase');
 
   @override
-  dynamic setAboutPage() {
+  dynamic setHomePage() {
     final _$actionInfo = _$_MenudashboardControllerBaseActionController
-        .startAction(name: '_MenudashboardControllerBase.setAboutPage');
+        .startAction(name: '_MenudashboardControllerBase.setHomePage');
     try {
-      return super.setAboutPage();
+      return super.setHomePage();
     } finally {
       _$_MenudashboardControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -107,6 +107,17 @@ mixin _$MenudashboardController on _MenudashboardControllerBase, Store {
         .startAction(name: '_MenudashboardControllerBase.setWishListtPage');
     try {
       return super.setWishListtPage();
+    } finally {
+      _$_MenudashboardControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setAboutPage() {
+    final _$actionInfo = _$_MenudashboardControllerBaseActionController
+        .startAction(name: '_MenudashboardControllerBase.setAboutPage');
+    try {
+      return super.setAboutPage();
     } finally {
       _$_MenudashboardControllerBaseActionController.endAction(_$actionInfo);
     }
