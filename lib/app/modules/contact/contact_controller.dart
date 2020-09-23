@@ -1,21 +1,16 @@
 import 'package:flutter_email_sender/flutter_email_sender.dart';
-import 'package:mobx/mobx.dart';
+import 'package:get/state_manager.dart';
 
-part 'contact_controller.g.dart';
+class ContactController extends GetxController {
+  final nome = "".obs;
 
-class ContactController = _ContactControllerBase with _$ContactController;
+  final email = "".obs;
 
-abstract class _ContactControllerBase with Store {
-  @observable
-  String nome = "";
-  @observable
-  String email = "";
-  @observable
-  String message = "";
-  @observable
-  String errorText = "";
-  @observable
-  bool loading = false;
+  final message = "".obs;
+
+  final errorText = "".obs;
+
+  final loading = false.obs;
 
   void _clean() {
     changeEmail("");
@@ -23,31 +18,32 @@ abstract class _ContactControllerBase with Store {
     changeMessage("");
   }
 
-  @action
-  changeName(String value) => nome = value;
-  @action
-  changeEmail(String value) => email = value;
-  @action
-  changeMessage(String value) => message = value;
-  @action
-  changeErrorText(String value) => errorText = value;
+  changeName(String value) => nome.value = value;
 
-  @action
+  changeEmail(String value) => email.value = value;
+
+  changeMessage(String value) => message.value = value;
+
+  changeErrorText(String value) => errorText.value = value;
+
   checkMessage() async {
-    loading = true;
-    if (this.nome.isEmpty || this.email.isEmpty || this.message.isEmpty)
+    loading.value = true;
+    if (this.nome.value.isEmpty ||
+        this.email.value.isEmpty ||
+        this.message.value.isEmpty)
       changeErrorText("Favor, Preencher todos os campos");
-    else if (this.nome.length < 3)
+    else if (this.nome.value.length < 3)
       changeErrorText("Campo nome deve ser maior que 3");
-    else if (!this.email.contains("@") || !this.email.contains(".com"))
+    else if (!this.email.value.contains("@") ||
+        !this.email.value.contains(".com"))
       changeErrorText("Formato de email incorreto");
   }
 
   sendEmail() async {
     checkMessage();
-    if (errorText.isEmpty) {
+    if (errorText.value.isEmpty) {
       final Email email = Email(
-        body: message,
+        body: message.value,
         subject: 'Contato via app',
         recipients: ['tatiane.monticelli@gmail.com'],
         isHTML: false,
@@ -55,13 +51,13 @@ abstract class _ContactControllerBase with Store {
       try {
         await FlutterEmailSender.send(email);
         _clean();
-        loading = false;
+        loading.value = false;
       } catch (e) {
         changeErrorText("Falha o enviar mensagem");
-        loading = false;
+        loading.value = false;
       }
     } else {
-      loading = false;
+      loading.value = false;
     }
   }
 }

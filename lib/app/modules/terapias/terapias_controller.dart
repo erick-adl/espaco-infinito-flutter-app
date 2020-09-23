@@ -1,26 +1,17 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:get/state_manager.dart';
 
 import 'package:infinito/app/shared/firestore/firestore_database.dart';
-import 'package:mobx/mobx.dart';
 
-part 'terapias_controller.g.dart';
-
-class TerapiasController = _TerapiasControllerBase with _$TerapiasController;
-
-abstract class _TerapiasControllerBase with Store {
+class TerapiasController extends GetxController {
   FirestoreDatabase _firestoreDatabase = Modular.get();
 
-  @observable
-  String searchKey = "";
+  final searchKey = "".obs;
 
-  @action
-  setSearchkey(value) => searchKey = value;
+  final searchBarShow = true.obs;
+  setSearchBarShow(value) => searchBarShow.value = value;
 
-  @observable
-  bool searchBarShow = true;
-  @action
-  setSearchBarShow(value) => searchBarShow = value;
-  @action
+  setSearchkey(value) => searchKey.value = value;
   getTerapiasFromFirestore(String filter) {
     return _firestoreDatabase.getCollection("terapias", filter: filter);
   }

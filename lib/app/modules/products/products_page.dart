@@ -25,14 +25,12 @@ class _ProductsPageState extends ModularState<ProductsPage, ProductsController>
       if (_scrollController.position.userScrollDirection ==
               ScrollDirection.forward &&
           !controller.searchBarShow) {
-        print("reverse");
         controller.searchBarShow = true;
       }
 
       if (_scrollController.position.userScrollDirection ==
               ScrollDirection.reverse &&
           controller.searchBarShow) {
-        print("foward");
         controller.searchBarShow = false;
       }
     });

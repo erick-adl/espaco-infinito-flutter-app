@@ -55,9 +55,6 @@ class _WishlistPageState extends ModularState<WishlistPage, WishlistController>
 
   @override
   Widget build(BuildContext context) {
-    double screenSizeWidth = MediaQuery.of(context).size.width;
-
-    final theme = Theme.of(context);
     return Column(
       children: <Widget>[
         _buildWhatsAppRequestInfo(context),

@@ -129,6 +129,7 @@ class _HomeDetailProductPageState extends State<HomeDetailProductPage>
             ),
           ),
           body: Container(
+            padding: EdgeInsets.all(10),
             color: Colors.white,
             height: 10,
             child: Center(
@@ -140,21 +141,7 @@ class _HomeDetailProductPageState extends State<HomeDetailProductPage>
                   ),
                   children: <TextSpan>[
                     new TextSpan(
-                        text: "Você encontra esse produto hoje no ",
-                        style: TextStyle(
-                          shadows: <Shadow>[
-                            Shadow(
-                              offset: Offset(1.0, 1.0),
-                              blurRadius: 3.0,
-                              color: Colors.white,
-                            ),
-                          ],
-                          fontSize: 14,
-                          color: Color(0xFF23185f),
-                          fontFamily: "Inter",
-                        )),
-                    new TextSpan(
-                        text: "valor ",
+                        text: "Valor ",
                         style: TextStyle(
                             shadows: <Shadow>[
                               Shadow(
@@ -168,7 +155,21 @@ class _HomeDetailProductPageState extends State<HomeDetailProductPage>
                             fontFamily: "Inter",
                             fontWeight: FontWeight.bold)),
                     new TextSpan(
-                        text: "de R\$: ${widget.document["valor"]}. ",
+                        text: "do produto: ",
+                        style: TextStyle(
+                            shadows: <Shadow>[
+                              Shadow(
+                                offset: Offset(1.0, 1.0),
+                                blurRadius: 3.0,
+                                color: Colors.white,
+                              ),
+                            ],
+                            fontSize: 14,
+                            color: Color(0xFF23185f),
+                            fontFamily: "Inter",
+                            fontWeight: FontWeight.bold)),
+                    new TextSpan(
+                        text: "R\$: ${widget.document["valor"]}. ",
                         style: TextStyle(
                           shadows: <Shadow>[
                             Shadow(
@@ -182,7 +183,7 @@ class _HomeDetailProductPageState extends State<HomeDetailProductPage>
                           fontFamily: "Inter",
                         )),
                     new TextSpan(
-                        text: "Esse produto possuí as seguintes ",
+                        text: "\nEsse produto possuí as seguintes ",
                         style: TextStyle(
                           shadows: <Shadow>[
                             Shadow(

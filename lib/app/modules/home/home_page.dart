@@ -2,13 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:infinito/app/modules/home/home_detail_product_page.dart';
 import 'package:infinito/app/modules/home/home_detail_terapia_page.dart';
 
 import 'package:infinito/app/modules/menudashboard/menudashboard_controller.dart';
 
 import 'package:infinito/app/shared/widgets/color_loader.dart';
-import 'package:scroll_snap_list/scroll_snap_list.dart';
+
 import 'home_controller.dart';
 import 'home_tile.dart';
 
@@ -30,9 +31,17 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.only(left: 10, top: 20),
+              padding: const EdgeInsets.only(top: 20),
               child: Row(
                 children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Image(
+                      image: AssetImage('assets/images/iconwhats.png'),
+                      height: 35,
+                      width: 35,
+                    ),
+                  ),
                   Text("Solicitar mais ",
                       style: TextStyle(
                         fontSize: 18,
@@ -45,19 +54,11 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                           color: Color(0xFF23185f),
                           fontFamily: "Inter",
                           fontWeight: FontWeight.bold)),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Image(
-                      image: AssetImage('assets/images/iconwhats.png'),
-                      height: 35,
-                      width: 35,
-                    ),
-                  ),
                 ],
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 10, top: 30),
+              padding: const EdgeInsets.only(left: 15, top: 30),
               child: GestureDetector(
                 onTap: () =>
                     Modular.get<MenudashboardController>().setTerapiasPage(),
@@ -83,22 +84,20 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                       case ConnectionState.waiting:
                         return Center(child: new ColorLoader());
                       default:
-                        return ScrollSnapList(
-                          itemSize: 220,
-                          scrollDirection: Axis.horizontal,
-                          itemCount: snapshot.data.documents.length,
-                          itemBuilder: (context, index) {
+                        return Swiper(
+                          itemBuilder: (BuildContext context, int index) {
                             return new HomeTileWidget(
                               document: snapshot.data.documents[index],
                               pageDetailBuild: HomeDetailTerapiaPage(
                                   document: snapshot.data.documents[index]),
                             );
                           },
-                          initialIndex: 1,
-                          onItemFocus: (i) {
-                            print(i);
-                          },
-                          dynamicItemSize: true,
+                          itemCount: snapshot.data.documents.length,
+                          viewportFraction: 0.6,
+                          scale: 0.8,
+                          autoplay: true,
+                          loop: true,
+                          fade: 0.7,
                         );
                     }
                   },
@@ -106,7 +105,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
               }),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 10, top: 10),
+              padding: const EdgeInsets.only(left: 15, top: 10),
               child: GestureDetector(
                 onTap: () =>
                     Modular.get<MenudashboardController>().setProductsPage(),
@@ -132,22 +131,20 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                       case ConnectionState.waiting:
                         return Center(child: new ColorLoader());
                       default:
-                        return ScrollSnapList(
-                          itemSize: 220,
-                          scrollDirection: Axis.horizontal,
-                          itemCount: snapshot.data.documents.length,
-                          itemBuilder: (context, index) {
+                        return Swiper(
+                          itemBuilder: (BuildContext context, int index) {
                             return new HomeTileWidget(
                               document: snapshot.data.documents[index],
                               pageDetailBuild: HomeDetailProductPage(
                                   document: snapshot.data.documents[index]),
                             );
                           },
-                          initialIndex: 1,
-                          onItemFocus: (i) {
-                            print(i);
-                          },
-                          dynamicItemSize: true,
+                          itemCount: snapshot.data.documents.length,
+                          viewportFraction: 0.6,
+                          scale: 0.8,
+                          autoplay: true,
+                          loop: true,
+                          fade: 0.7,
                         );
                     }
                   },

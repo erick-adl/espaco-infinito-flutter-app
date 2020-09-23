@@ -22,41 +22,12 @@ class _ContactPageState extends ModularState<ContactPage, ContactController> {
       "https://api.whatsapp.com/send?phone=5551991928250&text=Ol%C3%A1!%20Gostaria%20de%20mais%20informacões";
   @override
   Widget build(BuildContext context) {
-    final screenSizeHeight = MediaQuery.of(context).size.height;
-    final theme = Theme.of(context);
-
-    return Container(
-      color: theme.primaryColor,
-      height: screenSizeHeight,
-      child: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            buildContainerInfos(context),
-            Container(
-                height: screenSizeHeight * 0.7,
-                decoration: BoxDecoration(
-                    color: theme.backgroundColor,
-                    borderRadius:
-                        BorderRadius.vertical(top: Radius.circular(50))),
-                child: buildContainerSendMessage(context)),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Container buildContent(BuildContext context) {
-    return Container(
-      color: Theme.of(context).primaryColor,
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
-      child: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            buildContainerInfos(context),
-            buildContainerSendMessage(context),
-          ],
-        ),
+    return SingleChildScrollView(
+      child: Column(
+        children: <Widget>[
+          buildContainerInfos(context),
+          buildContainerSendMessage(context),
+        ],
       ),
     );
   }
@@ -68,9 +39,8 @@ class _ContactPageState extends ModularState<ContactPage, ContactController> {
         padding: const EdgeInsets.only(bottom: 20),
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-            color: Theme.of(context).backgroundColor,
-            borderRadius: BorderRadius.vertical(
-                top: Radius.circular(30), bottom: Radius.circular(30))),
+            color: Theme.of(context).dividerColor,
+            borderRadius: BorderRadius.vertical(top: Radius.circular(30))),
         child: Column(
           children: <Widget>[
             Padding(
@@ -78,7 +48,7 @@ class _ContactPageState extends ModularState<ContactPage, ContactController> {
               child: Observer(builder: (context) {
                 return controller.errorText != null
                     ? Text(
-                        controller.errorText,
+                        controller.errorText.value,
                         style: TextStyle(
                           fontSize: 18,
                           fontFamily: "Inter",
@@ -98,7 +68,7 @@ class _ContactPageState extends ModularState<ContactPage, ContactController> {
                   context: context,
                   textHint: "Nome",
                   iconDecoration: null,
-                  onChanged: (value) => controller.nome = value,
+                  onChanged: (value) => controller.nome.value = value,
                   obscureText: false,
                   textInputType: TextInputType.text),
             ),
@@ -108,7 +78,7 @@ class _ContactPageState extends ModularState<ContactPage, ContactController> {
                   context: context,
                   textHint: "E-mail",
                   iconDecoration: null,
-                  onChanged: (value) => controller.email = value,
+                  onChanged: (value) => controller.email.value = value,
                   obscureText: false,
                   textInputType: TextInputType.text),
             ),
@@ -119,7 +89,7 @@ class _ContactPageState extends ModularState<ContactPage, ContactController> {
                 margin: EdgeInsets.only(top: 15),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(10)),
-                  color: Theme.of(context).dividerColor,
+                  color: Colors.white,
                 ),
                 width: MediaQuery.of(context).size.width / 1.2,
                 height: 150,
@@ -127,7 +97,7 @@ class _ContactPageState extends ModularState<ContactPage, ContactController> {
                   maxLines: null,
                   keyboardType: TextInputType.multiline,
                   obscureText: false,
-                  onChanged: (value) => controller.message = value,
+                  onChanged: (value) => controller.message.value = value,
                   decoration: InputDecoration(
                       hintText: "Mensagem", border: InputBorder.none),
                 ),
@@ -162,38 +132,51 @@ class _ContactPageState extends ModularState<ContactPage, ContactController> {
               padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
               child: Text(
                 "Nosso endereço fica na Av. José Loureiro da Silva n° 1799",
-                style: Theme.of(context).accentTextTheme.bodyText2,
+                style: Theme.of(context)
+                    .primaryTextTheme
+                    .bodyText2
+                    .copyWith(fontWeight: FontWeight.normal),
               ),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(30, 0, 30, 10),
               child: Text(
                 "Bairro Centro",
-                style: Theme.of(context).accentTextTheme.bodyText2,
+                style: Theme.of(context)
+                    .primaryTextTheme
+                    .bodyText2
+                    .copyWith(fontWeight: FontWeight.normal),
               ),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(30, 0, 30, 10),
               child: Text(
                 "Gravataí/RS – CEP 94035-240",
-                style: Theme.of(context).accentTextTheme.bodyText2,
+                style: Theme.of(context)
+                    .primaryTextTheme
+                    .bodyText2
+                    .copyWith(fontWeight: FontWeight.normal),
               ),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(30, 0, 30, 10),
               child: Text(
                 "Entre em contato:",
-                style: Theme.of(context).accentTextTheme.subtitle2,
+                style: Theme.of(context)
+                    .primaryTextTheme
+                    .subtitle2
+                    .copyWith(fontWeight: FontWeight.normal),
               ),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(30, 0, 30, 10),
               child: GestureDetector(
                 onTap: () => UrlLauch.launchInBrowser(urlTextWhats1),
-                child: Text(
-                  "051 989071-829",
-                  style: Theme.of(context).accentTextTheme.bodyText2,
-                ),
+                child: Text("051 989071-829",
+                    style: Theme.of(context)
+                        .primaryTextTheme
+                        .bodyText2
+                        .copyWith(fontWeight: FontWeight.normal)),
               ),
             ),
             Padding(
@@ -202,7 +185,10 @@ class _ContactPageState extends ModularState<ContactPage, ContactController> {
                 onTap: () => UrlLauch.launchInBrowser(urlTextWhats2),
                 child: Text(
                   "051 99192-8250",
-                  style: Theme.of(context).accentTextTheme.bodyText2,
+                  style: Theme.of(context)
+                      .primaryTextTheme
+                      .bodyText2
+                      .copyWith(fontWeight: FontWeight.normal),
                 ),
               ),
             )
