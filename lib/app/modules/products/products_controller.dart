@@ -1,50 +1,35 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:get/state_manager.dart';
 
 import 'package:infinito/app/shared/firestore/firestore_database.dart';
-import 'package:mobx/mobx.dart';
 
-part 'products_controller.g.dart';
-
-class ProductsController = _ProductsControllerBase with _$ProductsController;
-
-abstract class _ProductsControllerBase with Store {
+class ProductsController extends GetxController {
   final FirestoreDatabase _firestoreDatabase = Modular.get();
 
-  @observable
-  String searchKey = "";
+  final documentAlreadyAdded = false.obs;
+  final searchKey = "".obs;
+  final searchBarShow = true.obs;
 
-  @observable
-  bool documentAlreadyAdded = false;
+  setSearchkey(value) => searchKey.value = value;
+  setSearchBarShow(value) => searchBarShow.value = value;
 
-  @action
-  setSearchkey(value) => searchKey = value;
-
-  @observable
-  bool searchBarShow = true;
-  @action
-  setSearchBarShow(value) => searchBarShow = value;
-
-  @action
   getDocumentFromFirestore(DocumentSnapshot document) {
     _firestoreDatabase
         .getDocumentFromWishlist(document.documentID)
-        .then((value) => {documentAlreadyAdded = value.exists});
+        .then((value) => {documentAlreadyAdded.value = value.exists});
   }
 
-  @action
   getProductsFromFirestore(String filter) {
     return _firestoreDatabase.getCollection("produtos", filter: filter);
   }
 
-  @action
   addProductToWishList(DocumentSnapshot document) {
     _firestoreDatabase.addProductToWishList(document.documentID, document.data);
 
     getDocumentFromFirestore(document);
   }
 
-  @action
   removeProductToWishList(DocumentSnapshot document) {
     _firestoreDatabase.removeProductFromWishList(
       document.documentID,

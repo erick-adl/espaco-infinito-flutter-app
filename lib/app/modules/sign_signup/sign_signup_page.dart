@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
+
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:infinito/app/modules/sign_signup/sign_signup_controller.dart';
 import 'package:infinito/app/shared/utils/bubble_indication_painter.dart';
 import 'package:infinito/app/shared/widgets/color_loader.dart';
@@ -303,23 +304,21 @@ class _SignSignupPageState
                     ),
                   ),
                 ),
-                Observer(
-                  builder: (BuildContext context) {
-                    return controller.loading
-                        ? Padding(
-                            padding: const EdgeInsets.fromLTRB(20, 200, 20, 0),
-                            child: ColorLoader(),
-                          )
-                        : Padding(
-                            padding: const EdgeInsets.fromLTRB(20, 200, 20, 0),
-                            child: CustomButton(
-                                context: context,
-                                text: "Entrar",
-                                onPressed: () => checkInputInformations(
-                                    PressButtonType.LOGIN)),
-                          );
-                  },
-                )
+                Obx(() => Visibility(
+                      visible: controller.loading.value,
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 200, 20, 0),
+                        child: ColorLoader(),
+                      ),
+                      replacement: Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 200, 20, 0),
+                        child: CustomButton(
+                            context: context,
+                            text: "Entrar",
+                            onPressed: () =>
+                                checkInputInformations(PressButtonType.LOGIN)),
+                      ),
+                    ))
               ],
             ),
             Padding(
@@ -535,21 +534,21 @@ class _SignSignupPageState
                     ),
                   ),
                 ),
-                Observer(builder: (BuildContext context) {
-                  return controller.loading
-                      ? Padding(
-                          padding: const EdgeInsets.fromLTRB(20, 360, 20, 0),
-                          child: ColorLoader(),
-                        )
-                      : Padding(
-                          padding: const EdgeInsets.fromLTRB(20, 360, 20, 0),
-                          child: CustomButton(
-                              context: context,
-                              text: "Registre-se",
-                              onPressed: () => checkInputInformations(
-                                  PressButtonType.REGISTER)),
-                        );
-                }),
+                Obx(() => Visibility(
+                      visible: controller.loading.value,
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 360, 20, 0),
+                        child: ColorLoader(),
+                      ),
+                      replacement: Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 360, 20, 0),
+                        child: CustomButton(
+                            context: context,
+                            text: "Registre-se",
+                            onPressed: () => checkInputInformations(
+                                PressButtonType.REGISTER)),
+                      ),
+                    )),
               ],
             ),
           ],
@@ -619,9 +618,9 @@ class _SignSignupPageState
       default:
     }
 
-    if (controller.errorMessage.isEmpty) return;
+    if (controller.errorMessage.value.isEmpty) return;
 
-    showInSnackBar(controller.errorMessage);
+    showInSnackBar(controller.errorMessage.value);
   }
 }
 

@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:get/get.dart';
 import 'package:infinito/app/modules/products/products_controller.dart';
 import 'package:infinito/app/shared/utils/url_lauch.dart';
 import 'package:infinito/app/shared/widgets/color_loader.dart';
@@ -34,11 +35,12 @@ class _ProductDetailPageState
             style: Theme.of(context).accentTextTheme.bodyText2),
       ),
       body: SlidingSheet(
-        elevation: 4,
-        cornerRadius: 16,
+        elevation: 2,
+        cornerRadius: 10,
         snapSpec: const SnapSpec(
-          snappings: [0.4, 0.6, 1.0],
-          positioning: SnapPositioning.relativeToAvailableSpace,
+          initialSnap: 1,
+          snappings: [0.1, 0.5, 1.0],
+          positioning: SnapPositioning.relativeToSheetHeight,
         ),
         body: buildHeroImageCenter(),
         builder: (context, state) {
@@ -50,14 +52,20 @@ class _ProductDetailPageState
 
   Padding buildProductInfo(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(15),
+      padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.3,
+        height: MediaQuery.of(context).size.height / 2,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(widget.document["nome"],
+            Center(
+              child: Icon(
+                Icons.keyboard_arrow_down,
+                color: Theme.of(context).primaryColor,
+              ),
+            ),
+            Text(widget.document["nome"].toString().trim(),
                 style: Theme.of(context).primaryTextTheme.bodyText2),
             Text("Valor: R\$: ${widget.document["valor"]}",
                 style: Theme.of(context).primaryTextTheme.bodyText2),
@@ -135,23 +143,23 @@ class _ProductDetailPageState
           color: Theme.of(context).primaryColor,
           borderRadius: BorderRadius.all(Radius.circular(50)),
         ),
-        child: Observer(builder: (_) {
-          return controller.documentAlreadyAdded
-              ? MaterialButton(
+        child: Obx(() => Visibility(
+              visible: controller.documentAlreadyAdded.value,
+              child: MaterialButton(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10))),
                   child: Text("Remover a Lista de Desejos",
                       style: Theme.of(context).accentTextTheme.bodyText1),
                   onPressed: () =>
-                      controller.removeProductToWishList(widget.document))
-              : MaterialButton(
+                      controller.removeProductToWishList(widget.document)),
+              replacement: MaterialButton(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10))),
                   child: Text("Adicionar a Lista de Desejos",
                       style: Theme.of(context).accentTextTheme.bodyText1),
                   onPressed: () =>
-                      {controller.addProductToWishList(widget.document)});
-        }),
+                      {controller.addProductToWishList(widget.document)}),
+            )),
       ),
     );
   }

@@ -1,107 +1,95 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:get/state_manager.dart';
 import 'package:infinito/app/shared/auth_firebase/auth_controller.dart';
-import 'package:mobx/mobx.dart';
 
-part 'sign_signup_controller.g.dart';
-
-class SignSignupController = _SignSignupControllerBase
-    with _$SignSignupController;
-
-abstract class _SignSignupControllerBase with Store {
+class SignSignupController extends GetxController {
   AuthController _authController = Modular.get();
 
-  //all
-  @observable
-  bool loading = false;
-  @observable
-  String errorMessage = "";
+  final loading = false.obs;
 
-  @action
-  changeErrorMessage(String value) => errorMessage = value;
+  final errorMessage = "".obs;
+
+  changeErrorMessage(String value) => errorMessage.value = value;
 
   //signUp
-  @observable
-  String signupName = "";
-  @observable
-  String signupEmail = "";
-  @observable
-  String signupPassword = "";
-  @observable
-  String signupPasswordCheck = "";
-  @action
-  signupChangeName(String value) => signupName = value;
-  @action
-  signupChangeEmail(String value) => signupEmail = value;
-  @action
-  signupChangePassword(String value) => signupPassword = value;
-  @action
-  signupChangePasswordCheck(String value) => signupPasswordCheck = value;
+
+  final signupName = "".obs;
+
+  final signupEmail = "".obs;
+
+  final signupPassword = "".obs;
+
+  final signupPasswordCheck = "".obs;
+
+  signupChangeName(String value) => signupName.value = value;
+
+  signupChangeEmail(String value) => signupEmail.value = value;
+
+  signupChangePassword(String value) => signupPassword.value = value;
+
+  signupChangePasswordCheck(String value) => signupPasswordCheck.value = value;
 
   //login
-  @observable
-  String loginEmail = "";
-  @observable
-  String loginPassword = "";
 
-  @action
-  loginChangeEmail(String value) => loginEmail = value;
-  @action
-  loginChangePassword(String value) => loginPassword = value;
+  final loginEmail = "".obs;
+
+  final loginPassword = "".obs;
+
+  loginChangeEmail(String value) => loginEmail.value = value;
+
+  loginChangePassword(String value) => loginPassword.value = value;
 
   void _clean() {
-    signupName = "";
-    signupEmail = "";
-    signupPassword = "";
-    signupPasswordCheck = "";
-    loginEmail = "";
-    loginPassword = "";
+    signupName.value = "";
+    signupEmail.value = "";
+    signupPassword.value = "";
+    signupPasswordCheck.value = "";
+    loginEmail.value = "";
+    loginPassword.value = "";
   }
 
-  @action
   Future register() async {
     try {
-      loading = true;
+      loading.value = true;
       await _authController.createUserWithEmailAndPassword(
-          name: signupName,
-          email: signupEmail.trim(),
-          password: signupPassword.trim());
+          name: signupName.value,
+          email: signupEmail.value.trim(),
+          password: signupPassword.value.trim());
       if (_authController.user != null) {
-        loading = false;
+        loading.value = false;
         Modular.to.pushReplacementNamed('/menu');
       }
     } catch (e) {
-      loading = false;
+      loading.value = false;
       changeErrorMessage(e.message);
     }
   }
 
-  @action
   Future loginWithEmailAndPassword() async {
     try {
-      loading = true;
+      loading.value = true;
       await _authController.loginWithEmailPassword(
-          email: loginEmail.trim(), password: loginPassword.trim());
+          email: loginEmail.value.trim(), password: loginPassword.value.trim());
       if (_authController.user != null) {
-        loading = false;
+        loading.value = false;
         Modular.to.pushReplacementNamed('/menu');
       }
     } catch (e) {
-      loading = false;
+      loading.value = false;
       changeErrorMessage(e.message);
     }
   }
 
-  @action
   Future loginWithGoogle() async {
     try {
-      loading = true;
+      loading.value = true;
       await _authController.loginWithGoogle();
       if (_authController.user != null) {
-        loading = false;
+        loading.value = false;
         Modular.to.pushReplacementNamed('/menu');
       }
     } catch (e) {
-      loading = false;
+      loading.value = false;
       changeErrorMessage(e.message);
     }
   }

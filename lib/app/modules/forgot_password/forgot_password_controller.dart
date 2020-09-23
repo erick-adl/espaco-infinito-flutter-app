@@ -1,15 +1,8 @@
-import 'package:mobx/mobx.dart';
+import 'package:get/state_manager.dart';
 
-part 'forgot_password_controller.g.dart';
-
-class ForgotPasswordController = _ForgotPasswordControllerBase
-    with _$ForgotPasswordController;
-
-abstract class _ForgotPasswordControllerBase with Store {
-  @observable
+class ForgotPasswordController extends GetxController {
   int value = 0;
 
-  @action
   void increment() {
     value++;
   }

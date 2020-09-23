@@ -4,6 +4,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:infinito/app/modules/products/products_controller.dart';
 import 'package:infinito/app/modules/products/products_tile_widget.dart';
 import 'package:infinito/app/shared/widgets/color_loader.dart';
@@ -24,14 +25,14 @@ class _ProductsPageState extends ModularState<ProductsPage, ProductsController>
     _scrollController.addListener(() {
       if (_scrollController.position.userScrollDirection ==
               ScrollDirection.forward &&
-          !controller.searchBarShow) {
-        controller.searchBarShow = true;
+          !controller.searchBarShow.value) {
+        controller.searchBarShow.value = true;
       }
 
       if (_scrollController.position.userScrollDirection ==
               ScrollDirection.reverse &&
-          controller.searchBarShow) {
-        controller.searchBarShow = false;
+          controller.searchBarShow.value) {
+        controller.searchBarShow.value = false;
       }
     });
   }
@@ -61,9 +62,9 @@ class _ProductsPageState extends ModularState<ProductsPage, ProductsController>
           Observer(builder: (_) {
             return AnimatedContainer(
                 duration: Duration(milliseconds: 500),
-                height: controller.searchBarShow ? 60 : 0,
+                height: controller.searchBarShow.value ? 60 : 0,
                 child: Visibility(
-                  visible: controller.searchBarShow,
+                  visible: controller.searchBarShow.value,
                   child: Container(
                     margin: const EdgeInsets.fromLTRB(20, 8, 20, 8),
                     height: 50,
@@ -77,7 +78,8 @@ class _ProductsPageState extends ModularState<ProductsPage, ProductsController>
                     child: Padding(
                       padding: const EdgeInsets.only(left: 10),
                       child: TextField(
-                        onChanged: (value) => controller.searchKey = value,
+                        onChanged: (value) =>
+                            controller.searchKey.value = value,
                         keyboardType: TextInputType.text,
                         style: TextStyle(
                             fontFamily: "WorkSansSemiBold",
@@ -104,10 +106,10 @@ class _ProductsPageState extends ModularState<ProductsPage, ProductsController>
             child: Container(
               color: theme.backgroundColor,
               width: screenSizeWidth,
-              child: Observer(builder: (_) {
+              child: GetX<ProductsController>(builder: (_) {
                 return StreamBuilder<QuerySnapshot>(
-                  stream:
-                      controller.getProductsFromFirestore(controller.searchKey),
+                  stream: controller
+                      .getProductsFromFirestore(controller.searchKey.value),
                   builder: (BuildContext context,
                       AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (snapshot.hasError)
