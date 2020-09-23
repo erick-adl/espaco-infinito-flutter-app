@@ -1,66 +1,52 @@
 import 'package:flutter/material.dart';
+import 'package:get/state_manager.dart';
 import 'package:infinito/app/modules/about/about_module.dart';
 import 'package:infinito/app/modules/contact/contact_module.dart';
 import 'package:infinito/app/modules/home/home_module.dart';
 import 'package:infinito/app/modules/products/products_module.dart';
 import 'package:infinito/app/modules/terapias/terapias_module.dart';
 import 'package:infinito/app/modules/wishlist/wishlist_module.dart';
-import 'package:mobx/mobx.dart';
 
-part 'menudashboard_controller.g.dart';
-
-class MenudashboardController = _MenudashboardControllerBase
-    with _$MenudashboardController;
-
-abstract class _MenudashboardControllerBase with Store {
-  @observable
+class MenudashboardController extends GetxController {
   Widget page = HomeModule();
 
-  @observable
-  int index = 0;
+  final index = 0.obs;
 
-  @observable
-  String pageName = "Home";
+  final pageName = "Home".obs;
 
-  @action
   setHomePage() {
     page = HomeModule();
-    index = 0;
-    pageName = "Home";
+    index.value = 0;
+    pageName.value = "Home";
   }
 
-  @action
   setTerapiasPage() {
     page = TerapiasModule();
-    index = 1;
-    pageName = "Terapias";
+    index.value = 1;
+    pageName.value = "Terapias";
   }
 
-  @action
   setProductsPage() {
     page = ProductsModule();
-    index = 2;
-    pageName = "Produtos";
+    index.value = 2;
+    pageName.value = "Produtos";
   }
 
-  @action
   setContactPage() {
     page = ContactModule();
-    index = 3;
-    pageName = "Contato";
+    index.value = 3;
+    pageName.value = "Contato";
   }
 
-  @action
   setWishListtPage() {
     page = WishlistModule();
-    index = 4;
-    pageName = "Lista de desejos";
+    index.value = 4;
+    pageName.value = "Lista de desejos";
   }
 
-  @action
   setAboutPage() {
     page = AboutModule();
-    index = 5;
-    pageName = "O espaço";
+    index.value = 5;
+    pageName.value = "O espaço";
   }
 }

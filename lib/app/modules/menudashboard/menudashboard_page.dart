@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:get/get.dart';
 
 import 'dashboard.dart';
 import 'menu.dart';
@@ -75,14 +75,14 @@ class _MenudashboardPageState
 
     return Scaffold(
         resizeToAvoidBottomPadding: true,
-        body: Observer(builder: (context) {
+        body: GetX<MenudashboardController>(builder: (_) {
           return SafeArea(
             child: Stack(
               children: <Widget>[
                 Menu(
                   slideAnimation: _slideAnimation,
                   menuAnimation: _menuScaleAnimation,
-                  selectedIndex: controller.index,
+                  selectedIndex: controller.index.value,
                   onMenuItemClicked: onMenuItemClicked,
                 ),
                 Dashboard(
@@ -101,7 +101,7 @@ class _MenudashboardPageState
                             color: Theme.of(context).backgroundColor,
                             child: controller.page,
                           )),
-                      Observer(builder: (context) {
+                      GetX<MenudashboardController>(builder: (_) {
                         return Material(
                           elevation: 20,
                           color: Theme.of(context).textSelectionColor,
@@ -122,7 +122,7 @@ class _MenudashboardPageState
                                     color: Colors.white,
                                     size: 30,
                                   ),
-                                  Text(controller.pageName,
+                                  Text(controller.pageName.value,
                                       style: TextStyle(
                                           fontSize: 24, color: Colors.white)),
                                   SizedBox(

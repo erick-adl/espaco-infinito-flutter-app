@@ -22,8 +22,8 @@ dependencies:
   sliding_sheet: 
   hive:
   photo_view: 
-  flutter_mobx: 
-  mobx: 
+
+
   flutter_modular: 
   shared_preferences: 
   path_provider: 
@@ -39,18 +39,9 @@ dependencies:
   flutter_cache_manager: 
   flutter_staggered_animations: 
   intl:
-
   solid_bottom_sheet: ^0.1.9
-
-
   get: ^3.11.1
   flutter_swiper: ^1.1.6
-
-
-
-
-
-
 
 
   flutter:

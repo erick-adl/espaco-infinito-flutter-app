@@ -1,8 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
+
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:infinito/app/shared/auth_firebase/auth_controller.dart';
 import 'package:infinito/app/shared/widgets/color_loader.dart';
 import 'menudashboard_controller.dart';
@@ -39,8 +40,8 @@ class Menu extends StatelessWidget {
               child: Align(
                 alignment: Alignment.topLeft,
                 child: SingleChildScrollView(
-                  child: Observer(
-                    builder: (context) {
+                  child: GetX<MenudashboardController>(
+                    builder: (_) {
                       return Column(
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -114,40 +115,44 @@ class Menu extends StatelessWidget {
                               ],
                             ),
                           ),
-                          buildMenuTile(context, "Home", indexMenu == 0, () {
+                          buildMenuTile(context, "Home", indexMenu.value == 0,
+                              () {
                             Modular.get<MenudashboardController>()
                                 .setHomePage();
                             onMenuItemClicked();
                           }),
                           SizedBox(height: 30),
-                          buildMenuTile(context, "Terapias", indexMenu == 1,
-                              () {
+                          buildMenuTile(
+                              context, "Terapias", indexMenu.value == 1, () {
                             Modular.get<MenudashboardController>()
                                 .setTerapiasPage();
                             onMenuItemClicked();
                           }),
                           SizedBox(height: 30),
-                          buildMenuTile(context, "Produtos", indexMenu == 2,
-                              () {
+                          buildMenuTile(
+                              context, "Produtos", indexMenu.value == 2, () {
                             Modular.get<MenudashboardController>()
                                 .setProductsPage();
                             onMenuItemClicked();
                           }),
                           SizedBox(height: 30),
-                          buildMenuTile(context, "Contato", indexMenu == 3, () {
+                          buildMenuTile(
+                              context, "Contato", indexMenu.value == 3, () {
                             Modular.get<MenudashboardController>()
                                 .setContactPage();
                             onMenuItemClicked();
                           }),
                           SizedBox(height: 30),
                           buildMenuTile(
-                              context, "Lista de desejo", indexMenu == 4, () {
+                              context, "Lista de desejo", indexMenu.value == 4,
+                              () {
                             Modular.get<MenudashboardController>()
                                 .setWishListtPage();
                             onMenuItemClicked();
                           }),
                           SizedBox(height: 30),
-                          buildMenuTile(context, "Sobre", indexMenu == 5, () {
+                          buildMenuTile(context, "Sobre", indexMenu.value == 5,
+                              () {
                             Modular.get<MenudashboardController>()
                                 .setAboutPage();
                             onMenuItemClicked();

@@ -1,11 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:get/get.dart';
 import 'package:infinito/app/modules/products/products_controller.dart';
 import 'package:infinito/app/shared/utils/url_lauch.dart';
+import 'package:infinito/app/shared/utils/url_utils.dart';
 import 'package:infinito/app/shared/widgets/color_loader.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:sliding_sheet/sliding_sheet.dart';
@@ -21,9 +21,6 @@ class ProductDetailPage extends StatefulWidget {
 
 class _ProductDetailPageState
     extends ModularState<ProductDetailPage, ProductsController> {
-  String urlTextWhats =
-      "https://api.whatsapp.com/send?phone=5551989071829&text=Ol%C3%A1!%20Gostaria%20de%20mais%20informacões.%20sobre%20o%20produto%20";
-
   @override
   Widget build(BuildContext context) {
     controller.getDocumentFromFirestore(widget.document);
@@ -126,8 +123,8 @@ class _ProductDetailPageState
                   style: Theme.of(context).accentTextTheme.bodyText1),
             ],
           ),
-          onPressed: () =>
-              UrlLauch.launchInBrowser(urlTextWhats + widget.document["nome"]),
+          onPressed: () => UrlLauch.launchInBrowser(
+              whatsAppUrlTextProductDetail + widget.document["nome"]),
         ),
       ),
     );

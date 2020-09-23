@@ -1,13 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:infinito/app/modules/wishlist/wishlist_controller.dart';
-import 'package:infinito/app/modules/wishlist/wishlist_tile_widget.dart';
-import 'package:infinito/app/shared/utils/url_lauch.dart';
+import 'package:get/get.dart';
 import 'package:infinito/app/shared/widgets/color_loader.dart';
+import 'package:infinito/app/shared/utils/url_lauch.dart';
+import 'package:infinito/app/modules/wishlist/wishlist_tile_widget.dart';
+import 'package:infinito/app/modules/wishlist/wishlist_controller.dart';
 
 class WishlistPage extends StatefulWidget {
   final String title;
@@ -23,28 +22,9 @@ class _WishlistPageState extends ModularState<WishlistPage, WishlistController>
 
   AsyncSnapshot<QuerySnapshot> _querySnapshot;
 
-  void _setScrollControl() async {
-    _scrollController.addListener(() {
-      if (_scrollController.position.userScrollDirection ==
-              ScrollDirection.forward &&
-          !controller.shareButtonShow) {
-        print("reverse");
-        controller.shareButtonShow = true;
-      }
-
-      if (_scrollController.position.userScrollDirection ==
-              ScrollDirection.reverse &&
-          controller.shareButtonShow) {
-        print("foward");
-        controller.shareButtonShow = false;
-      }
-    });
-  }
-
   @override
   void initState() {
     super.initState();
-    _setScrollControl();
   }
 
   @override
@@ -61,7 +41,7 @@ class _WishlistPageState extends ModularState<WishlistPage, WishlistController>
         Expanded(
           // color: theme.backgroundColor,
           // width: screenSizeWidth,
-          child: Observer(builder: (_) {
+          child: GetX<WishlistController>(builder: (_) {
             return StreamBuilder<QuerySnapshot>(
               stream: controller.getWishlistFromFirestore(),
               builder: (BuildContext context,

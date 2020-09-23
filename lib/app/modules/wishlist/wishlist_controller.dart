@@ -1,43 +1,33 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:get/state_manager.dart';
 import 'package:infinito/app/shared/firestore/firestore_database.dart';
-import 'package:mobx/mobx.dart';
 
-part 'wishlist_controller.g.dart';
-
-class WishlistController = _WishlistControllerBase with _$WishlistController;
-
-abstract class _WishlistControllerBase with Store {
+class WishlistController extends GetxController {
   final FirestoreDatabase _firestoreDatabase = Modular.get();
 
-  @observable
-  bool documentAlreadyAdded = false;
+  final documentAlreadyAdded = false.obs;
 
-  @observable
-  bool shareButtonShow = true;
-  @action
-  setShareButtonShow(value) => shareButtonShow = value;
+  final shareButtonShow = true.obs;
 
-  @action
+  setShareButtonShow(value) => shareButtonShow.value = value;
+
   getDocumentFromFirestore(DocumentSnapshot document) {
     _firestoreDatabase
         .getDocumentFromWishlist(document.documentID)
-        .then((value) => {documentAlreadyAdded = value.exists});
+        .then((value) => {documentAlreadyAdded.value = value.exists});
   }
 
-  @action
   getWishlistFromFirestore() {
     return _firestoreDatabase.getWishList();
   }
 
-  @action
   addProductToWishList(DocumentSnapshot document) {
     _firestoreDatabase.addProductToWishList(document.documentID, document.data);
 
     getDocumentFromFirestore(document);
   }
 
-  @action
   removeProductToWishList(DocumentSnapshot document) {
     _firestoreDatabase.removeProductFromWishList(
       document.documentID,

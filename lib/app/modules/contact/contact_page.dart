@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:get/get.dart';
 import 'package:infinito/app/modules/contact/contact_controller.dart';
 import 'package:infinito/app/shared/utils/url_lauch.dart';
+import 'package:infinito/app/shared/utils/url_utils.dart';
 
 import 'package:infinito/app/shared/widgets/custom_button.widget.dart';
 import 'package:infinito/app/shared/widgets/custom_textfield.widget.dart';
@@ -16,10 +17,6 @@ class ContactPage extends StatefulWidget {
 }
 
 class _ContactPageState extends ModularState<ContactPage, ContactController> {
-  String urlTextWhats1 =
-      "https://api.whatsapp.com/send?phone=5551989071829&text=Ol%C3%A1!%20Gostaria%20de%20mais%20informacões";
-  String urlTextWhats2 =
-      "https://api.whatsapp.com/send?phone=5551991928250&text=Ol%C3%A1!%20Gostaria%20de%20mais%20informacões";
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -44,10 +41,10 @@ class _ContactPageState extends ModularState<ContactPage, ContactController> {
         child: Column(
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: Observer(builder: (context) {
-                return controller.errorText != null
-                    ? Text(
+                padding: const EdgeInsets.only(top: 10),
+                child: Obx(() => Visibility(
+                      visible: controller.errorText.value != null,
+                      child: Text(
                         controller.errorText.value,
                         style: TextStyle(
                           fontSize: 18,
@@ -55,13 +52,12 @@ class _ContactPageState extends ModularState<ContactPage, ContactController> {
                           color: Colors.red,
                           fontWeight: FontWeight.bold,
                         ),
-                      )
-                    : Text(
+                      ),
+                      replacement: Text(
                         "Entre em contato",
                         style: Theme.of(context).primaryTextTheme.bodyText2,
-                      );
-              }),
-            ),
+                      ),
+                    ))),
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
               child: CustomTextFieldWidget(
@@ -122,8 +118,7 @@ class _ContactPageState extends ModularState<ContactPage, ContactController> {
     return Padding(
       padding: const EdgeInsets.only(top: 12.0),
       child: InkWell(
-        onTap: () => UrlLauch.launchInBrowser(
-            "https://www.google.com/maps/place/Espa%C3%A7o+infinito+-+Terapias+Alternativas+E+Produtos+Hol%C3%ADsticos/@-29.9514781,-50.9957021,15z/data=!4m5!3m4!1s0x0:0xbaf2539391a38a9c!8m2!3d-29.9514781!4d-50.9957021"),
+        onTap: () => UrlLauch.launchInBrowser(googleLocationMap),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -171,7 +166,7 @@ class _ContactPageState extends ModularState<ContactPage, ContactController> {
             Padding(
               padding: const EdgeInsets.fromLTRB(30, 0, 30, 10),
               child: GestureDetector(
-                onTap: () => UrlLauch.launchInBrowser(urlTextWhats1),
+                onTap: () => UrlLauch.launchInBrowser(whatsAppUrlTextContact1),
                 child: Text("051 989071-829",
                     style: Theme.of(context)
                         .primaryTextTheme
@@ -182,7 +177,7 @@ class _ContactPageState extends ModularState<ContactPage, ContactController> {
             Padding(
               padding: const EdgeInsets.fromLTRB(30, 0, 30, 10),
               child: GestureDetector(
-                onTap: () => UrlLauch.launchInBrowser(urlTextWhats2),
+                onTap: () => UrlLauch.launchInBrowser(whatsAppUrlTextContact2),
                 child: Text(
                   "051 99192-8250",
                   style: Theme.of(context)

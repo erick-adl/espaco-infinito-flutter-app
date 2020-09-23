@@ -1,11 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
+
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:get/get.dart';
 import 'package:infinito/app/modules/wishlist/wishlist_controller.dart';
 
 import 'package:infinito/app/shared/utils/url_lauch.dart';
+import 'package:infinito/app/shared/utils/url_utils.dart';
 import 'package:infinito/app/shared/widgets/color_loader.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:sliding_sheet/sliding_sheet.dart';
@@ -20,9 +22,6 @@ class WishlistDetailPage extends StatefulWidget {
 }
 
 class _WishlistDetailPageState extends State<WishlistDetailPage> {
-  String urlTextWhats =
-      "https://api.whatsapp.com/send?phone=5551989071829&text=Ol%C3%A1!%20Gostaria%20de%20mais%20informacões.%20sobre%20o%20produto%20";
-
   final WishlistController _wishlistsController = Modular.get();
 
   @override
@@ -120,8 +119,8 @@ class _WishlistDetailPageState extends State<WishlistDetailPage> {
                   style: Theme.of(context).accentTextTheme.bodyText1),
             ],
           ),
-          onPressed: () =>
-              UrlLauch.launchInBrowser(urlTextWhats + widget.document["nome"]),
+          onPressed: () => UrlLauch.launchInBrowser(
+              whatsAppUrlTextProductDetail + widget.document["nome"]),
         ),
       ),
     );
@@ -130,31 +129,30 @@ class _WishlistDetailPageState extends State<WishlistDetailPage> {
   Center buildAddItemToWishList(BuildContext context) {
     return Center(
       child: Container(
-        margin: EdgeInsets.only(top: 10.0),
-        width: MediaQuery.of(context).size.width / 1.3,
-        height: 50,
-        decoration: new BoxDecoration(
-          color: Theme.of(context).primaryColor,
-          borderRadius: BorderRadius.all(Radius.circular(50)),
-        ),
-        child: Observer(builder: (_) {
-          return _wishlistsController.documentAlreadyAdded
-              ? MaterialButton(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  child: Text("Remover a Lista de Desejos",
-                      style: Theme.of(context).accentTextTheme.bodyText1),
-                  onPressed: () => _wishlistsController
-                      .removeProductToWishList(widget.document))
-              : MaterialButton(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  child: Text("Adicionar a Lista de Desejos",
-                      style: Theme.of(context).accentTextTheme.bodyText1),
-                  onPressed: () => _wishlistsController
-                      .addProductToWishList(widget.document));
-        }),
-      ),
+          margin: EdgeInsets.only(top: 10.0),
+          width: MediaQuery.of(context).size.width / 1.3,
+          height: 50,
+          decoration: new BoxDecoration(
+            color: Theme.of(context).primaryColor,
+            borderRadius: BorderRadius.all(Radius.circular(50)),
+          ),
+          child: Obx(() => Visibility(
+                visible: _wishlistsController.documentAlreadyAdded.value,
+                child: MaterialButton(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    child: Text("Remover a Lista de Desejos",
+                        style: Theme.of(context).accentTextTheme.bodyText1),
+                    onPressed: () => _wishlistsController
+                        .removeProductToWishList(widget.document)),
+                replacement: MaterialButton(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    child: Text("Adicionar a Lista de Desejos",
+                        style: Theme.of(context).accentTextTheme.bodyText1),
+                    onPressed: () => _wishlistsController
+                        .addProductToWishList(widget.document)),
+              ))),
     );
   }
 }
