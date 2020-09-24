@@ -11,3 +11,5 @@ const String googleLocationMap =
 
 const String whatsAppUrlTextProductDetail =
     "https://api.whatsapp.com/send?phone=5551989071829&text=Ol%C3%A1!%20Gostaria%20de%20mais%20informacões.%20sobre%20o%20produto%20";
+const String whatsAppUrlTextWishList =
+    "https://api.whatsapp.com/send?phone=5551989071829&text=Ol%C3%A1!%20Gostaria%20de%20comprar%20os%20seguintes%20itens:%0A";

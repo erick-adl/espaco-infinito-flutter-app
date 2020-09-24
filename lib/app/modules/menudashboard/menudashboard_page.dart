@@ -126,7 +126,7 @@ class _MenudashboardPageState
                                       style: TextStyle(
                                           fontSize: 24, color: Colors.white)),
                                   SizedBox(
-                                    width: 40,
+                                    width: 30,
                                   ),
                                 ],
                               ),

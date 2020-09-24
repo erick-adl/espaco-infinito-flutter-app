@@ -18,8 +18,6 @@ import 'modules/sign_signup/sign_signup_module.dart';
 class AppModule extends MainModule {
   @override
   List<Bind> get binds => [
-        //  Bind((i) => LocalStorageHive()),
-
         Bind<IAuthFirebase>((i) => AuthFirebase()),
         Bind<IFirestoreDatabase>((i) => FirestoreDatabase()),
         Bind((i) => AuthController()),

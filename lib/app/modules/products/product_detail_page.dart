@@ -49,7 +49,7 @@ class _ProductDetailPageState
 
   Padding buildProductInfo(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+      padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
       child: Container(
         height: MediaQuery.of(context).size.height / 2,
         child: Column(
@@ -60,6 +60,7 @@ class _ProductDetailPageState
               child: Icon(
                 Icons.keyboard_arrow_down,
                 color: Theme.of(context).primaryColor,
+                size: 30,
               ),
             ),
             Text(widget.document["nome"].toString().trim(),
@@ -145,7 +146,7 @@ class _ProductDetailPageState
               child: MaterialButton(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10))),
-                  child: Text("Remover a Lista de Desejos",
+                  child: Text("Remover da Lista de Desejos",
                       style: Theme.of(context).accentTextTheme.bodyText1),
                   onPressed: () =>
                       controller.removeProductToWishList(widget.document)),

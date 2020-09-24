@@ -16,9 +16,9 @@ class AuthController extends GetxController {
     status.value = user == null ? AuthStatus.logoff : AuthStatus.login;
   }
 
-  _AuthControllerBase() {
+  AuthController() {
     _authFirebase.getUser().then(setUser).catchError((e) {
-      print('ERRORRRRRR');
+      print('#######   #######  ERRORRRRRR  #######   #######');
     });
   }
 

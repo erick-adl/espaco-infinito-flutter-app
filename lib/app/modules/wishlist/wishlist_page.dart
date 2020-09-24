@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:get/get.dart';
+import 'package:infinito/app/shared/utils/url_utils.dart';
 import 'package:infinito/app/shared/widgets/color_loader.dart';
 import 'package:infinito/app/shared/utils/url_lauch.dart';
 import 'package:infinito/app/modules/wishlist/wishlist_tile_widget.dart';
@@ -29,7 +30,6 @@ class _WishlistPageState extends ModularState<WishlistPage, WishlistController>
 
   @override
   void dispose() {
-    _scrollController.removeListener(() {});
     super.dispose();
   }
 
@@ -39,35 +39,31 @@ class _WishlistPageState extends ModularState<WishlistPage, WishlistController>
       children: <Widget>[
         _buildWhatsAppRequestInfo(context),
         Expanded(
-          // color: theme.backgroundColor,
-          // width: screenSizeWidth,
-          child: GetX<WishlistController>(builder: (_) {
-            return StreamBuilder<QuerySnapshot>(
-              stream: controller.getWishlistFromFirestore(),
-              builder: (BuildContext context,
-                  AsyncSnapshot<QuerySnapshot> snapshot) {
-                if (snapshot.hasError)
-                  return new Text('Error: ${snapshot.error}');
-                switch (snapshot.connectionState) {
-                  case ConnectionState.waiting:
-                    return Center(child: new ColorLoader());
-                  default:
-                    _querySnapshot = snapshot;
-                    return new GridView(
-                      controller: _scrollController,
-                      children: snapshot.data.documents
-                          .map((DocumentSnapshot document) {
-                        return new WishlistTileWidget(
-                          document: document,
-                        );
-                      }).toList(),
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2, childAspectRatio: 0.7),
-                    );
-                }
-              },
-            );
-          }),
+          child: StreamBuilder<QuerySnapshot>(
+            stream: controller.getWishlistFromFirestore(),
+            builder:
+                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (snapshot.hasError)
+                return new Text('Error: ${snapshot.error}');
+              switch (snapshot.connectionState) {
+                case ConnectionState.waiting:
+                  return Center(child: new ColorLoader());
+                default:
+                  _querySnapshot = snapshot;
+                  return new GridView(
+                    controller: _scrollController,
+                    children: snapshot.data.documents
+                        .map((DocumentSnapshot document) {
+                      return new WishlistTileWidget(
+                        document: document,
+                      );
+                    }).toList(),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2, childAspectRatio: 0.7),
+                  );
+              }
+            },
+          ),
         ),
         SizedBox(
           height: 30,
@@ -78,18 +74,7 @@ class _WishlistPageState extends ModularState<WishlistPage, WishlistController>
 
   _buildWhatsAppRequestInfo(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        String urlTextWhats =
-            "https://api.whatsapp.com/send?phone=5551989071829&text=Ol%C3%A1!%20Gostaria%20de%20comprar%20os%20seguintes%20itens:%0A";
-        var listName = _querySnapshot.data.documents
-            .map((e) => '${e["nome"]}%0A')
-            .toList()
-            .join();
-        listName = listName.substring(1, listName.length);
-
-        print(listName);
-        UrlLauch.launchInBrowser(urlTextWhats + listName);
-      },
+      onTap: _shareWishList,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -145,5 +130,16 @@ class _WishlistPageState extends ModularState<WishlistPage, WishlistController>
         ],
       ),
     );
+  }
+
+  _shareWishList() {
+    var listName = _querySnapshot.data.documents
+        .map((e) => '${e["nome"]}%0A')
+        .toList()
+        .join();
+    listName = listName.substring(1, listName.length);
+
+    print(listName);
+    UrlLauch.launchInBrowser(whatsAppUrlTextWishList + listName);
   }
 }
