@@ -130,7 +130,7 @@ class _HomeDetailTerapiaPageState extends State<HomeDetailTerapiaPage>
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      widget.document["resumo"] ?? "Produto sem descrição",
+                      widget.document["resumo"] ?? "Sem descrição",
                       style: TextStyle(
                           shadows: <Shadow>[
                             Shadow(

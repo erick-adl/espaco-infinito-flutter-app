@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:infinito/app/modules/home/home_detail_cursos.dart';
 import 'package:infinito/app/modules/home/home_detail_product_page.dart';
 import 'package:infinito/app/modules/home/home_detail_terapia_page.dart';
 import 'package:infinito/app/modules/menudashboard/menudashboard_controller.dart';
@@ -24,6 +25,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Container(
+      color: Colors.grey[100],
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,7 +65,52 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
               child: GestureDetector(
                 onTap: () =>
                     Modular.get<MenudashboardController>().setTerapiasPage(),
-                child: Text("Terapias",
+                child: Text("Cursos e Palestras",
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: Color(0xFF23185f),
+                        fontFamily: "Inter",
+                        fontWeight: FontWeight.bold)),
+              ),
+            ),
+            SizedBox(height: 10),
+            Container(
+              height: 200,
+              child: StreamBuilder<QuerySnapshot>(
+                stream: controller.getCursosPalestrasFromFirestore(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (snapshot.hasError)
+                    return new Text('Error: ${snapshot.error}');
+                  switch (snapshot.connectionState) {
+                    case ConnectionState.waiting:
+                      return Center(child: new ColorLoader());
+                    default:
+                      return Swiper(
+                        itemBuilder: (BuildContext context, int index) {
+                          return new HomeTileWidget(
+                            document: snapshot.data.documents[index],
+                            pageDetailBuild: HomeDetailCursosPage(
+                                document: snapshot.data.documents[index]),
+                          );
+                        },
+                        itemCount: snapshot.data.documents.length,
+                        viewportFraction: 0.6,
+                        scale: 0.8,
+                        autoplay: true,
+                        loop: true,
+                        fade: 0.7,
+                      );
+                  }
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 15, top: 30),
+              child: GestureDetector(
+                onTap: () =>
+                    Modular.get<MenudashboardController>().setTerapiasPage(),
+                child: Text("Conheça nossas terapias",
                     style: TextStyle(
                         fontSize: 20,
                         color: Color(0xFF23185f),
@@ -108,7 +155,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
               child: GestureDetector(
                 onTap: () =>
                     Modular.get<MenudashboardController>().setProductsPage(),
-                child: Text("Produtos",
+                child: Text("Produtos holisticos",
                     style: TextStyle(
                         fontSize: 20,
                         color: Color(0xFF23185f),

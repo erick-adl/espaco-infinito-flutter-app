@@ -14,4 +14,8 @@ class HomeController extends GetxController {
   getProductsFromFirestore() {
     return _firestoreDatabase.getCollection("produtos");
   }
+
+  getCursosPalestrasFromFirestore() {
+    return _firestoreDatabase.getCollection("cursos");
+  }
 }

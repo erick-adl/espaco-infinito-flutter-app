@@ -49,11 +49,11 @@ class HomeTileWidget extends StatelessWidget {
                               Shadow(
                                 offset: Offset(1.0, 1.0),
                                 blurRadius: 3.0,
-                                color: Colors.white,
+                                color: Color(0xFF23185f),
                               ),
                             ],
                             fontSize: 18,
-                            color: Color(0xFF23185f),
+                            color: Colors.white,
                             fontFamily: "Inter",
                             fontWeight: FontWeight.bold)),
                   ),
