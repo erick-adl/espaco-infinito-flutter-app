@@ -30,9 +30,19 @@ class _WishlistDetailPageState extends State<WishlistDetailPage> {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.white),
-        title: Text("Detalhes",
-            style: Theme.of(context).accentTextTheme.bodyText2),
+        title: Center(
+          child: Image(
+            image: AssetImage('assets/images/logo_infinito.png'),
+            height: 60,
+            width: 60,
+          ),
+        ),
+        actions: <Widget>[
+          SizedBox(
+            width: 60,
+          )
+        ],
+        iconTheme: Theme.of(context).iconTheme,
       ),
       body: SlidingSheet(
         elevation: 4,

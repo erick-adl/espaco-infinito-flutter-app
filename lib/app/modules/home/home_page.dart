@@ -2,10 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:foldable_sidebar/foldable_sidebar.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:infinito/app/modules/custom_drawer/custom_drawer.dart';
 import 'package:infinito/app/modules/home/home_detail_cursos.dart';
 import 'package:infinito/app/modules/home/home_detail_product_page.dart';
 import 'package:infinito/app/modules/home/home_detail_terapia_page.dart';
-import 'package:infinito/app/modules/menudashboard/menudashboard_controller.dart';
+
 import 'package:infinito/app/shared/utils/url_lauch.dart';
 import 'package:infinito/app/shared/utils/url_utils.dart';
 import 'package:infinito/app/shared/widgets/color_loader.dart';
@@ -21,9 +24,78 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends ModularState<HomePage, HomeController> {
+  FSBStatus status;
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    return Scaffold(
+      appBar: AppBar(
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            IconButton(
+              padding: EdgeInsets.only(left: 0),
+              alignment: Alignment.centerLeft,
+              onPressed: () {
+                setState(() {
+                  status = status == FSBStatus.FSB_OPEN
+                      ? FSBStatus.FSB_CLOSE
+                      : FSBStatus.FSB_OPEN;
+                });
+              },
+              icon: Icon(
+                Icons.menu,
+                color: Colors.white,
+              ),
+            ),
+            Image(
+              image: AssetImage('assets/images/logo_infinito.png'),
+              height: 60,
+              width: 60,
+            ),
+            IconButton(
+              padding: EdgeInsets.only(right: 0),
+              alignment: Alignment.centerRight,
+              onPressed: () {},
+              icon: Icon(
+                FontAwesomeIcons.questionCircle,
+                color: Colors.white,
+              ),
+            )
+          ],
+        ),
+      ),
+      body: FoldableSidebarBuilder(
+        screenContents:
+            HomeScreenContents(theme: theme, controller: controller),
+        drawer: CustomDrawer(
+          closeDrawer: () {
+            setState(() {
+              status = status == FSBStatus.FSB_OPEN
+                  ? FSBStatus.FSB_CLOSE
+                  : FSBStatus.FSB_OPEN;
+            });
+          },
+        ),
+        status: status,
+      ),
+    );
+  }
+}
+
+class HomeScreenContents extends StatelessWidget {
+  const HomeScreenContents({
+    Key key,
+    @required this.theme,
+    @required this.controller,
+  }) : super(key: key);
+
+  final ThemeData theme;
+  final HomeController controller;
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       color: Colors.grey[100],
       child: SingleChildScrollView(
@@ -63,8 +135,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
             Padding(
               padding: const EdgeInsets.only(left: 15, top: 30),
               child: GestureDetector(
-                onTap: () =>
-                    Modular.get<MenudashboardController>().setTerapiasPage(),
+                onTap: () => Modular.to.pushNamed("/cursos"),
                 child: Text("Cursos e Palestras",
                     style: TextStyle(
                         fontSize: 20,
@@ -108,8 +179,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
             Padding(
               padding: const EdgeInsets.only(left: 15, top: 30),
               child: GestureDetector(
-                onTap: () =>
-                    Modular.get<MenudashboardController>().setTerapiasPage(),
+                onTap: () => Modular.to.pushNamed("/terapias"),
                 child: Text("Conheça nossas terapias",
                     style: TextStyle(
                         fontSize: 20,
@@ -153,8 +223,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
             Padding(
               padding: const EdgeInsets.only(left: 15, top: 10),
               child: GestureDetector(
-                onTap: () =>
-                    Modular.get<MenudashboardController>().setProductsPage(),
+                onTap: () => Modular.to.pushNamed("/produtos"),
                 child: Text("Produtos holisticos",
                     style: TextStyle(
                         fontSize: 20,

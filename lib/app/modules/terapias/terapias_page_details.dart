@@ -16,6 +16,18 @@ class TerapiasPageDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Center(
+          child: Image(
+            image: AssetImage('assets/images/logo_infinito.png'),
+            height: 60,
+            width: 60,
+          ),
+        ),
+        actions: <Widget>[
+          SizedBox(
+            width: 60,
+          )
+        ],
         iconTheme: Theme.of(context).iconTheme,
       ),
       body: SingleChildScrollView(

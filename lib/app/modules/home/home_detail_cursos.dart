@@ -170,7 +170,7 @@ class _HomeDetailCursosPageState extends State<HomeDetailCursosPage>
             Padding(
               padding: const EdgeInsets.only(left: 15),
               child: Text(
-                "Entre em contato em inscreva-se",
+                "Entre em contato e inscreva-se",
                 style: TextStyle(
                     shadows: <Shadow>[
                       Shadow(

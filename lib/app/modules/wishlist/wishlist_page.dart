@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:get/get.dart';
 import 'package:infinito/app/shared/utils/url_utils.dart';
 import 'package:infinito/app/shared/widgets/color_loader.dart';
 import 'package:infinito/app/shared/utils/url_lauch.dart';
@@ -11,7 +10,8 @@ import 'package:infinito/app/modules/wishlist/wishlist_controller.dart';
 
 class WishlistPage extends StatefulWidget {
   final String title;
-  const WishlistPage({Key key, this.title = "Wishlist"}) : super(key: key);
+  const WishlistPage({Key key, this.title = "Lista de desejos"})
+      : super(key: key);
 
   @override
   _WishlistPageState createState() => _WishlistPageState();
@@ -35,40 +35,51 @@ class _WishlistPageState extends ModularState<WishlistPage, WishlistController>
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        _buildWhatsAppRequestInfo(context),
-        Expanded(
-          child: StreamBuilder<QuerySnapshot>(
-            stream: controller.getWishlistFromFirestore(),
-            builder:
-                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-              if (snapshot.hasError)
-                return new Text('Error: ${snapshot.error}');
-              switch (snapshot.connectionState) {
-                case ConnectionState.waiting:
-                  return Center(child: new ColorLoader());
-                default:
-                  _querySnapshot = snapshot;
-                  return new GridView(
-                    controller: _scrollController,
-                    children: snapshot.data.documents
-                        .map((DocumentSnapshot document) {
-                      return new WishlistTileWidget(
-                        document: document,
-                      );
-                    }).toList(),
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2, childAspectRatio: 0.7),
-                  );
-              }
-            },
+    return Scaffold(
+      appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.white),
+        title: Text(widget.title,
+            style: TextStyle(
+                fontSize: 18,
+                color: Colors.white,
+                fontFamily: "Inter",
+                fontWeight: FontWeight.bold)),
+      ),
+      body: Column(
+        children: <Widget>[
+          _buildWhatsAppRequestInfo(context),
+          Expanded(
+            child: StreamBuilder<QuerySnapshot>(
+              stream: controller.getWishlistFromFirestore(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (snapshot.hasError)
+                  return new Text('Error: ${snapshot.error}');
+                switch (snapshot.connectionState) {
+                  case ConnectionState.waiting:
+                    return Center(child: new ColorLoader());
+                  default:
+                    _querySnapshot = snapshot;
+                    return new GridView(
+                      controller: _scrollController,
+                      children: snapshot.data.documents
+                          .map((DocumentSnapshot document) {
+                        return new WishlistTileWidget(
+                          document: document,
+                        );
+                      }).toList(),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2, childAspectRatio: 0.7),
+                    );
+                }
+              },
+            ),
           ),
-        ),
-        SizedBox(
-          height: 30,
-        )
-      ],
+          SizedBox(
+            height: 30,
+          )
+        ],
+      ),
     );
   }
 

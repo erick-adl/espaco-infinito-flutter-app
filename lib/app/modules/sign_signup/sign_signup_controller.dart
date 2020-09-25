@@ -57,7 +57,7 @@ class SignSignupController extends GetxController {
           password: signupPassword.value.trim());
       if (_authController.user != null) {
         loading.value = false;
-        Modular.to.pushReplacementNamed('/menu');
+        Modular.to.pushReplacementNamed('/home');
       }
     } catch (e) {
       loading.value = false;
@@ -72,7 +72,7 @@ class SignSignupController extends GetxController {
           email: loginEmail.value.trim(), password: loginPassword.value.trim());
       if (_authController.user != null) {
         loading.value = false;
-        Modular.to.pushReplacementNamed('/menu');
+        Modular.to.pushReplacementNamed('/home');
       }
     } catch (e) {
       loading.value = false;
@@ -86,7 +86,7 @@ class SignSignupController extends GetxController {
       await _authController.loginWithGoogle();
       if (_authController.user != null) {
         loading.value = false;
-        Modular.to.pushReplacementNamed('/menu');
+        Modular.to.pushReplacementNamed('/home');
       }
     } catch (e) {
       loading.value = false;

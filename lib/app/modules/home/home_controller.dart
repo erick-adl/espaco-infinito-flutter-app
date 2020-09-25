@@ -3,9 +3,12 @@ import 'package:infinito/app/shared/firestore/firestore_database.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
 
-@Injectable()
 class HomeController extends GetxController {
   FirestoreDatabase _firestoreDatabase = Modular.get();
+
+  getCursosPalestrasFromFirestore() {
+    return _firestoreDatabase.getCollection("cursos");
+  }
 
   getTerapiasFromFirestore() {
     return _firestoreDatabase.getCollection("terapias");
@@ -13,9 +16,5 @@ class HomeController extends GetxController {
 
   getProductsFromFirestore() {
     return _firestoreDatabase.getCollection("produtos");
-  }
-
-  getCursosPalestrasFromFirestore() {
-    return _firestoreDatabase.getCollection("cursos");
   }
 }
