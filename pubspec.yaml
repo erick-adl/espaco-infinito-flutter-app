@@ -20,10 +20,7 @@ dependencies:
   firebase_crashlytics: ^0.1.3+3
   flutter_bloc: 
   sliding_sheet: 
-  hive:
   photo_view: 
-
-
   flutter_modular: 
   shared_preferences: 
   path_provider: 
@@ -42,6 +39,8 @@ dependencies:
   solid_bottom_sheet: ^0.1.9
   get: ^3.11.1
   flutter_swiper: ^1.1.6
+  foldable_sidebar: 1.0.0
+
 
 
   flutter:

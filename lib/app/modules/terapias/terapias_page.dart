@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:foldable_sidebar/foldable_sidebar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:infinito/app/modules/custom_drawer/custom_drawer.dart';
 import 'package:infinito/app/modules/terapias/terapias_controller.dart';
 import 'package:infinito/app/modules/terapias/terapias_tile_widget.dart';
 import 'package:infinito/app/shared/widgets/color_loader.dart';
@@ -23,8 +25,6 @@ class TerapiasPage extends StatefulWidget {
 class _TerapiasPageState extends ModularState<TerapiasPage, TerapiasController>
     with SingleTickerProviderStateMixin {
   ScrollController _scrollController = new ScrollController();
-
-  // final TerapiasController controller = Get.put(TerapiasController());
 
   void _setScrollControl() async {
     _scrollController.addListener(() {
@@ -54,11 +54,31 @@ class _TerapiasPageState extends ModularState<TerapiasPage, TerapiasController>
     super.dispose();
   }
 
+  FSBStatus status;
+
   @override
   Widget build(BuildContext context) {
     final screenSizeWidth = MediaQuery.of(context).size.width;
     final theme = Theme.of(context);
 
+    return Scaffold(
+      appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.white),
+        title: Text(widget.title,
+            style: TextStyle(
+                fontSize: 18,
+                color: Colors.white,
+                fontFamily: "Inter",
+                fontWeight: FontWeight.bold)),
+      ),
+      body: FoldableSidebarBuilder(
+          status: status,
+          drawer: CustomDrawer(),
+          screenContents: _buildTerapiasScreen(theme, screenSizeWidth)),
+    );
+  }
+
+  Container _buildTerapiasScreen(ThemeData theme, double screenSizeWidth) {
     return Container(
       color: theme.backgroundColor,
       child: Column(

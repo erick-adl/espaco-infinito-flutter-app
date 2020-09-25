@@ -121,30 +121,22 @@ class _HomeDetailTerapiaPageState extends State<HomeDetailTerapiaPage>
                   );
                 },
                 child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.grey[200],
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                  margin: EdgeInsets.symmetric(horizontal: 13),
-                  alignment: Alignment.centerLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      widget.document["resumo"] ?? "Sem descrição",
-                      style: TextStyle(
-                          shadows: <Shadow>[
-                            Shadow(
-                              offset: Offset(1.0, 1.0),
-                              blurRadius: 3.0,
-                              color: Colors.white,
-                            ),
-                          ],
-                          fontSize: 18,
-                          color: Color(0xFF23185f),
-                          fontFamily: "Inter",
-                          fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.justify,
-                    ),
+                  margin: EdgeInsets.all(20),
+                  child: Text(
+                    widget.document["resumo"] ?? "Sem descrição",
+                    style: TextStyle(
+                        shadows: <Shadow>[
+                          Shadow(
+                            offset: Offset(1.0, 1.0),
+                            blurRadius: 3.0,
+                            color: Colors.white,
+                          ),
+                        ],
+                        fontSize: 18,
+                        color: Color(0xFF23185f),
+                        fontFamily: "Inter",
+                        fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.justify,
                   ),
                 ),
               ),

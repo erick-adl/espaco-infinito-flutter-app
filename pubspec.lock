@@ -352,6 +352,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  foldable_sidebar:
+    dependency: "direct main"
+    description:
+      name: foldable_sidebar
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   font_awesome_flutter:
     dependency: "direct main"
     description:
@@ -443,13 +450,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.0"
-  hive:
-    dependency: "direct main"
-    description:
-      name: hive
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.4.1+1"
   html:
     dependency: transitive
     description:
@@ -769,7 +769,7 @@ packages:
       name: sliding_sheet
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.5"
+    version: "0.4.0"
   solid_bottom_sheet:
     dependency: "direct main"
     description:
