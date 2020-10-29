@@ -14,53 +14,65 @@ description: A new Flutter project.
 version: 1.0.0+11
 
 environment:
-  sdk: ">=2.3.0 <3.0.0"
+  sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
-  firebase_crashlytics: ^0.1.3+3
-  flutter_bloc: 
-  sliding_sheet: 
-  photo_view: 
-  flutter_modular: 
-  shared_preferences: 
-  path_provider: 
-  firebase_auth: 
-  google_sign_in: 
-  cloud_firestore: 
-  cached_network_image:
-  url_launcher: 
-  flutter_email_sender: 
-  flare_flutter:
-  font_awesome_flutter: 
-  flutter_launcher_icons: 
-  flutter_cache_manager: 
-  flutter_staggered_animations: 
-  intl:
-  solid_bottom_sheet: ^0.1.9
-  get: ^3.11.1
-  flutter_swiper: ^1.1.6
-  foldable_sidebar: 1.0.0
-
-
-
   flutter:
     sdk: flutter
 
+
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^0.1.3
+  cloud_firestore: ^0.13.6
+  firebase_auth: ^0.16.1
+  firebase_storage: ^3.1.6
+  provider: ^4.1.3
+  carousel_pro: ^1.0.0
+  flutter_staggered_grid_view: ^0.3.0
+  transparent_image: ^1.0.0
+  alphabet_list_scroll_view: ^1.0.6
+  faker: ^1.2.1
+  image_picker: ^0.6.7+1
+  image_cropper: ^1.2.2
+  uuid: ^2.0.4
+  dio: ^3.0.9
+  brasil_fields: ^0.2.0
+  geolocator: ^5.3.2+2
+  sliding_up_panel: ^1.0.2
+  screenshot: ^0.1.1
+  gallery_saver: ^2.0.1
+  flutter_signin_button: ^1.0.0
+  # flutter_facebook_login: ^3.0.0
+  url_launcher: ^5.4.11
+  map_launcher: ^0.5.0
+  # flip_card: ^0.4.4
+  mask_text_input_formatter: ^1.0.7
+  # credit_card_type_detector: ^1.1.0
+  keyboard_actions: ^3.2.1+1
+  cloud_functions: ^0.5.0
+  # cpf_cnpj_validator: ^1.0.5
+  firebase_messaging: ^6.0.16
+  flushbar: ^1.10.4
+  google_sign_in: 4.5.5
+  cached_network_image:
+
+
+
+
+
 
 dev_dependencies:
-  mockito: ^4.1.1
-  mobx_codegen: ^1.0.3
-  build_runner: ^1.8.0
   flutter_test:
     sdk: flutter
 
+  lint: ^1.2.0
+
 flutter_icons:
-  image_path_android: "assets/images/logo_infinito_orange.png"
-  image_path_ios: "assets/images/logo_infinito_orange.png"
-  android: true # can specify file name here e.g. "ic_launcher"
-  ios: true # can specify file name here e.g. "My-Launcher-Icon"
+  # image_path_android: "assets/images/logo_infinito_orange.png"
+  # image_path_ios: "assets/images/logo_infinito_orange.png"
+  # android: true # can specify file name here e.g. "ic_launcher"
+  # ios: true # can specify file name here e.g. "My-Launcher-Icon"
 
 
 # For information on the generic Dart part of this file, see the
@@ -100,5 +112,3 @@ flutter:
 
 
 
-scripts:
-  mobx: flutter pub run build_runner watch --delete-conflicting-outputs
