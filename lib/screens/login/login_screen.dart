@@ -34,132 +34,134 @@ class LoginScreen extends StatelessWidget {
         ],
       ),
       body: Center(
-        child: Card(
-          margin: const EdgeInsets.symmetric(horizontal: 16),
-          child: Form(
-            key: formKey,
-            child: Consumer<UserManager>(
-              builder: (_, userManager, child) {
-                if (userManager.loadingGoogle) {
-                  return Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation(
-                          Theme.of(context).primaryColor),
-                    ),
-                  );
-                }
+        child: ListView(
+          shrinkWrap: true,
+          children: <Widget>[
+            Image(
+              width: 150,
+              height: 150,
+              image: AssetImage('assets/images/logo_infinito.png'),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Card(
+              margin: const EdgeInsets.symmetric(horizontal: 16),
+              child: Form(
+                key: formKey,
+                child: Consumer<UserManager>(
+                  builder: (_, userManager, child) {
+                    if (userManager.loadingGoogle) {
+                      return Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation(
+                              Theme.of(context).primaryColor),
+                        ),
+                      );
+                    }
 
-                return ListView(
-                  padding: const EdgeInsets.all(16),
-                  shrinkWrap: true,
-                  children: <Widget>[
-                    TextFormField(
-                      controller: emailController,
-                      enabled: !userManager.loading,
-                      decoration: const InputDecoration(hintText: 'E-mail'),
-                      keyboardType: TextInputType.emailAddress,
-                      autocorrect: false,
-                      validator: (email) {
-                        if (!emailValid(email)) return 'E-mail inválido';
-                        return null;
-                      },
+                    return ListView(
+                      padding: const EdgeInsets.all(16),
+                      shrinkWrap: true,
+                      children: <Widget>[
+                        TextFormField(
+                          controller: emailController,
+                          enabled: !userManager.loading,
+                          decoration: const InputDecoration(hintText: 'E-mail'),
+                          keyboardType: TextInputType.emailAddress,
+                          autocorrect: false,
+                          validator: (email) {
+                            if (!emailValid(email)) return 'E-mail inválido';
+                            return null;
+                          },
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        TextFormField(
+                          controller: passController,
+                          enabled: !userManager.loading,
+                          decoration: const InputDecoration(hintText: 'Senha'),
+                          autocorrect: false,
+                          obscureText: true,
+                          validator: (pass) {
+                            if (pass.isEmpty || pass.length < 6)
+                              return 'Senha inválida';
+                            return null;
+                          },
+                        ),
+                        child,
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        RaisedButton(
+                          materialTapTargetSize:
+                              MaterialTapTargetSize.shrinkWrap,
+                          onPressed: userManager.loading
+                              ? null
+                              : () {
+                                  if (formKey.currentState.validate()) {
+                                    userManager.signIn(
+                                        user: User(
+                                            email: emailController.text,
+                                            password: passController.text),
+                                        onFail: (e) {
+                                          scaffoldKey.currentState
+                                              .showSnackBar(SnackBar(
+                                            content:
+                                                Text('Falha ao entrar: $e'),
+                                            backgroundColor: Colors.red,
+                                          ));
+                                        },
+                                        onSuccess: () {
+                                          Navigator.of(context).pop();
+                                        });
+                                  }
+                                },
+                          color: Theme.of(context).primaryColor,
+                          disabledColor:
+                              Theme.of(context).primaryColor.withAlpha(100),
+                          textColor: Colors.white,
+                          child: userManager.loading
+                              ? CircularProgressIndicator(
+                                  valueColor:
+                                      AlwaysStoppedAnimation(Colors.white),
+                                )
+                              : const Text(
+                                  'Entrar',
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                        ),
+                        SignInButton(
+                          Buttons.GoogleDark,
+                          text: 'Entrar com Google',
+                          onPressed: () {
+                            userManager.googleLogin(onFail: (e) {
+                              scaffoldKey.currentState.showSnackBar(SnackBar(
+                                content: Text('Falha ao entrar: $e'),
+                                backgroundColor: Colors.red,
+                              ));
+                            }, onSuccess: () {
+                              Navigator.of(context).pop();
+                            });
+                          },
+                        )
+                      ],
+                    );
+                  },
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: FlatButton(
+                      onPressed: () {},
+                      padding: EdgeInsets.zero,
+                      child: const Text('Esqueci minha senha'),
                     ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    TextFormField(
-                      controller: passController,
-                      enabled: !userManager.loading,
-                      decoration: const InputDecoration(hintText: 'Senha'),
-                      autocorrect: false,
-                      obscureText: true,
-                      validator: (pass) {
-                        if (pass.isEmpty || pass.length < 6)
-                          return 'Senha inválida';
-                        return null;
-                      },
-                    ),
-                    child,
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    RaisedButton(
-                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      onPressed: userManager.loading
-                          ? null
-                          : () {
-                              if (formKey.currentState.validate()) {
-                                userManager.signIn(
-                                    user: User(
-                                        email: emailController.text,
-                                        password: passController.text),
-                                    onFail: (e) {
-                                      scaffoldKey.currentState
-                                          .showSnackBar(SnackBar(
-                                        content: Text('Falha ao entrar: $e'),
-                                        backgroundColor: Colors.red,
-                                      ));
-                                    },
-                                    onSuccess: () {
-                                      Navigator.of(context).pop();
-                                    });
-                              }
-                            },
-                      color: Theme.of(context).primaryColor,
-                      disabledColor:
-                          Theme.of(context).primaryColor.withAlpha(100),
-                      textColor: Colors.white,
-                      child: userManager.loading
-                          ? CircularProgressIndicator(
-                              valueColor: AlwaysStoppedAnimation(Colors.white),
-                            )
-                          : const Text(
-                              'Entrar',
-                              style: TextStyle(fontSize: 16),
-                            ),
-                    ),
-                    // SignInButton(
-                    //   Buttons.Facebook,
-                    //   text: 'Entrar com Facebook',
-                    //   onPressed: () {
-                    //     userManager.facebookLogin(onFail: (e) {
-                    //       scaffoldKey.currentState.showSnackBar(SnackBar(
-                    //         content: Text('Falha ao entrar: $e'),
-                    //         backgroundColor: Colors.red,
-                    //       ));
-                    //     }, onSuccess: () {
-                    //       Navigator.of(context).pop();
-                    //     });
-                    //   },
-                    // ),
-                    SignInButton(
-                      Buttons.GoogleDark,
-                      text: 'Entrar com Google',
-                      onPressed: () {
-                        userManager.googleLogin(onFail: (e) {
-                          scaffoldKey.currentState.showSnackBar(SnackBar(
-                            content: Text('Falha ao entrar: $e'),
-                            backgroundColor: Colors.red,
-                          ));
-                        }, onSuccess: () {
-                          Navigator.of(context).pop();
-                        });
-                      },
-                    )
-                  ],
-                );
-              },
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: FlatButton(
-                  onPressed: () {},
-                  padding: EdgeInsets.zero,
-                  child: const Text('Esqueci minha senha'),
+                  ),
                 ),
               ),
             ),
-          ),
+          ],
         ),
       ),
     );

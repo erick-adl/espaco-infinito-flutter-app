@@ -7,51 +7,72 @@ class CustomDrawerHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.fromLTRB(32, 24, 16, 8),
-      height: 180,
-      child: Consumer<UserManager>(
-        builder: (_, userManager, __) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              Text(
-                'Espaço\nInfinito',
-                style: TextStyle(
-                  fontSize: 34,
-                  fontWeight: FontWeight.bold,
+      // padding: const EdgeInsets.fromLTRB(32, 24, 16, 8),
+
+      height: 200,
+
+      child: Stack(
+        children: <Widget>[
+          Container(
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+              colors: [
+                Color.fromARGB(255, 4, 90, 120),
+                Color.fromARGB(255, 4, 125, 141),
+              ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            )),
+          ),
+          Consumer<UserManager>(
+            builder: (_, userManager, __) {
+              return Container(
+                padding: const EdgeInsets.fromLTRB(32, 24, 16, 8),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    Image(
+                      height: 100,
+                      fit: BoxFit.cover,
+                      image: AssetImage('assets/images/logo_infinito.png'),
+                    ),
+                    Text(
+                      'Olá, ${userManager.user?.name ?? ''}',
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        if (userManager.isLoggedIn) {
+                          context.read<PageManager>().setPage(0);
+                          userManager.signOut();
+                        } else {
+                          Navigator.of(context).pushNamed('/login');
+                        }
+                      },
+                      child: Text(
+                        userManager.isLoggedIn
+                            ? 'Sair'
+                            : 'Entre ou cadastre-se >',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              Text(
-                'Olá, ${userManager.user?.name ?? ''}',
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  if (userManager.isLoggedIn) {
-                    context.read<PageManager>().setPage(0);
-                    userManager.signOut();
-                  } else {
-                    Navigator.of(context).pushNamed('/login');
-                  }
-                },
-                child: Text(
-                  userManager.isLoggedIn ? 'Sair' : 'Entre ou cadastre-se >',
-                  style: TextStyle(
-                    color: Theme.of(context).primaryColor,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ],
-          );
-        },
+              );
+            },
+          ),
+        ],
       ),
     );
   }

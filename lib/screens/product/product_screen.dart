@@ -1,7 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
+import 'package:infinito/common/widgets/color_loader.dart';
+import 'package:infinito/helpers/url_lauch.dart';
 import 'package:infinito/models/cart_manager.dart';
 import 'package:infinito/models/product.dart';
+import 'package:infinito/models/stores_manager.dart';
 import 'package:infinito/models/user_manager.dart';
 import 'package:infinito/screens/product/components/size_widget.dart';
 import 'package:provider/provider.dart';
@@ -47,7 +51,19 @@ class ProductScreen extends StatelessWidget {
               aspectRatio: 1,
               child: Carousel(
                 images: product.images.map((url) {
-                  return NetworkImage(url);
+                  return CachedNetworkImage(
+                    imageUrl: url,
+                    imageBuilder: (context, imageProvider) => Container(
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: imageProvider,
+                            fit: BoxFit.cover,
+                          ),
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                    ),
+                    placeholder: (context, url) => Center(child: ColorLoader()),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
+                  );
                 }).toList(),
                 dotSize: 4,
                 dotSpacing: 15,
@@ -149,13 +165,36 @@ class ProductScreen extends StatelessWidget {
                             child: Text(
                               userManager.isLoggedIn
                                   ? 'Adicionar ao Carrinho'
-                                  : 'Entre para Comprar',
+                                  : 'Entre para adicionar ao carrinho',
                               style: const TextStyle(fontSize: 18),
                             ),
                           ),
                         );
                       },
-                    )
+                    ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Consumer<StoresManager>(builder: (_, storeManager, __) {
+                    return SizedBox(
+                      height: 44,
+                      child: RaisedButton(
+                        onPressed: () {
+                          final contactNumber =
+                              storeManager.stores.first.whatsapp;
+
+                          UrlLauch.launchInBrowser(
+                              "https://api.whatsapp.com/send?phone=$contactNumber&text=Ol%C3%A1!%20Gostaria%20de%20mais%20informacões%20sobre%20o%20produto%20${product.name}");
+                        },
+                        color: primaryColor,
+                        textColor: Colors.white,
+                        child: Text(
+                          'Duvidas? Chame no WhatsApp',
+                          style: const TextStyle(fontSize: 18),
+                        ),
+                      ),
+                    );
+                  })
                 ],
               ),
             )

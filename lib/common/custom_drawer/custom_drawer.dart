@@ -24,7 +24,6 @@ class CustomDrawer extends StatelessWidget {
           ListView(
             children: <Widget>[
               CustomDrawerHeader(),
-              const Divider(),
               DrawerTile(
                 iconData: Icons.home,
                 title: 'Início',
@@ -36,9 +35,14 @@ class CustomDrawer extends StatelessWidget {
                 page: 1,
               ),
               DrawerTile(
+                iconData: Icons.star,
+                title: 'Terapias',
+                page: 2,
+              ),
+              DrawerTile(
                 iconData: Icons.location_on,
                 title: 'Nossa loja',
-                page: 2,
+                page: 3,
               ),
               Consumer<UserManager>(
                 builder: (_, userManager, __) {
@@ -49,7 +53,7 @@ class CustomDrawer extends StatelessWidget {
                         DrawerTile(
                           iconData: Icons.settings,
                           title: 'Usuários',
-                          page: 3,
+                          page: 4,
                         ),
                       ],
                     );

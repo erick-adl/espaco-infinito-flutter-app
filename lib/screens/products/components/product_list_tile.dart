@@ -18,7 +18,7 @@ class ProductListTile extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
         child: Container(
-          height: 100,
+          height: 150,
           padding: const EdgeInsets.all(8),
           child: Row(
             children: <Widget>[
@@ -26,6 +26,14 @@ class ProductListTile extends StatelessWidget {
                 aspectRatio: 1,
                 child: CachedNetworkImage(
                   imageUrl: product.images.first,
+                  imageBuilder: (context, imageProvider) => Container(
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: imageProvider,
+                          fit: BoxFit.cover,
+                        ),
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                  ),
                   placeholder: (context, url) => Center(child: ColorLoader()),
                   errorWidget: (context, url, error) => Icon(Icons.error),
                 ),
@@ -41,27 +49,30 @@ class ProductListTile extends StatelessWidget {
                     Text(
                       product.name,
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 18,
                         fontWeight: FontWeight.w800,
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 4),
-                      child: Text(
-                        'A partir de',
-                        style: TextStyle(
-                          color: Colors.grey[400],
-                          fontSize: 12,
-                        ),
-                      ),
-                    ),
-                    Text(
-                      'R\$ ${product.basePrice.toStringAsFixed(2)}',
-                      style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w800,
-                          color: Theme.of(context).primaryColor),
-                    ),
+                        padding: const EdgeInsets.only(top: 4),
+                        child: Row(
+                          children: <Widget>[
+                            Text(
+                              'A partir de ',
+                              style: TextStyle(
+                                color: Colors.grey[400],
+                                fontSize: 16,
+                              ),
+                            ),
+                            Text(
+                              'R\$ ${product.basePrice.toStringAsFixed(2)}',
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w800,
+                                  color: Theme.of(context).primaryColor),
+                            ),
+                          ],
+                        )),
                     if (!product.hasStock)
                       const Padding(
                         padding: EdgeInsets.only(top: 4),

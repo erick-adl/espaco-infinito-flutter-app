@@ -1,24 +1,22 @@
 import 'package:flutter/material.dart';
-
 import 'package:infinito/models/admin_users_manager.dart';
 import 'package:infinito/models/cart_manager.dart';
 import 'package:infinito/models/home_manager.dart';
-import 'package:infinito/models/order.dart';
-
 import 'package:infinito/models/product.dart';
 import 'package:infinito/models/product_manager.dart';
 import 'package:infinito/models/stores_manager.dart';
+import 'package:infinito/models/therapies_manager.dart';
+import 'package:infinito/models/therapy.dart';
 import 'package:infinito/models/user_manager.dart';
-
 import 'package:infinito/screens/base/base_screen.dart';
 import 'package:infinito/screens/cart/cart_screen.dart';
-
-import 'package:infinito/screens/confirmation/confirmation_screen.dart';
 import 'package:infinito/screens/edit_product/edit_product_screen.dart';
+import 'package:infinito/screens/edit_therapy/edit_therapy_screen.dart';
 import 'package:infinito/screens/login/login_screen.dart';
 import 'package:infinito/screens/product/product_screen.dart';
 import 'package:infinito/screens/select_product/select_product_screen.dart';
 import 'package:infinito/screens/signup/signup_screen.dart';
+import 'package:infinito/screens/therapy/therapy_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -36,6 +34,10 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => ProductManager(),
+          lazy: false,
+        ),
+        ChangeNotifierProvider(
+          create: (_) => TherapiesManager(),
           lazy: false,
         ),
         ChangeNotifierProvider(
@@ -76,6 +78,9 @@ class MyApp extends StatelessWidget {
             case '/product':
               return MaterialPageRoute(
                   builder: (_) => ProductScreen(settings.arguments as Product));
+            case '/therapy':
+              return MaterialPageRoute(
+                  builder: (_) => TherapyScreen(settings.arguments as Therapy));
             case '/cart':
               return MaterialPageRoute(
                   builder: (_) => CartScreen(), settings: settings);
@@ -84,12 +89,14 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(
                   builder: (_) =>
                       EditProductScreen(settings.arguments as Product));
-            case '/select_product':
-              return MaterialPageRoute(builder: (_) => SelectProductScreen());
-            case '/confirmation':
+
+            case '/edit_therapy':
               return MaterialPageRoute(
                   builder: (_) =>
-                      ConfirmationScreen(settings.arguments as Order));
+                      EditTherapyScreen(settings.arguments as Therapy));
+            case '/select_product':
+              return MaterialPageRoute(builder: (_) => SelectProductScreen());
+
             case '/':
             default:
               return MaterialPageRoute(

@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +9,7 @@ import 'package:infinito/screens/admin_users/admin_users_screen.dart';
 import 'package:infinito/screens/home/home_screen.dart';
 import 'package:infinito/screens/products/products_screen.dart';
 import 'package:infinito/screens/stores/stores_screen.dart';
+import 'package:infinito/screens/tharapies/therapies_screen.dart';
 import 'package:provider/provider.dart';
 
 class BaseScreen extends StatefulWidget {
@@ -77,6 +77,7 @@ class _BaseScreenState extends State<BaseScreen> {
             children: <Widget>[
               HomeScreen(),
               ProductsScreen(),
+              TherapiesScreen(),
               StoresScreen(),
               if (userManager.adminEnabled) ...[
                 AdminUsersScreen(),
