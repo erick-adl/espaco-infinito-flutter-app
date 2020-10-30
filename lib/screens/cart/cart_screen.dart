@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:infinito/common/empty_card.dart';
 import 'package:infinito/common/login_card.dart';
 import 'package:infinito/common/price_card.dart';
+import 'package:infinito/helpers/url_lauch.dart';
 import 'package:infinito/models/cart_manager.dart';
+import 'package:infinito/models/stores_manager.dart';
 import 'package:infinito/screens/cart/components/cart_tile.dart';
 import 'package:provider/provider.dart';
 
@@ -14,8 +16,8 @@ class CartScreen extends StatelessWidget {
         title: const Text('Carrinho'),
         centerTitle: true,
       ),
-      body: Consumer<CartManager>(
-        builder: (_, cartManager, __) {
+      body: Consumer2<CartManager, StoresManager>(
+        builder: (_, cartManager, storesManager, __) {
           if (cartManager.user == null) {
             return LoginCard();
           }
@@ -36,7 +38,21 @@ class CartScreen extends StatelessWidget {
               ),
               PriceCard(
                   buttonText: 'Finalizar pedido por WhatsApp',
-                  onPressed: (cartManager.isCartValid ? () {} : null)),
+                  onPressed: (cartManager.isCartValid
+                      ? () {
+                          var listName = cartManager.items
+                              .map((e) => '${e.product.name}%0A')
+                              .toList()
+                              .join();
+                          // listName = listName.substring(1, listName.length);
+                          final contactNumber =
+                              storesManager.stores.first.whatsapp;
+
+                          UrlLauch.launchInBrowser(
+                              "https://api.whatsapp.com/send?phone=$contactNumber&text=Ol%C3%A1!%20Gostaria%20de%20comprar%20os%20seguintes%20itens:%0A" +
+                                  listName);
+                        }
+                      : null)),
             ],
           );
         },

@@ -64,8 +64,8 @@ class MyApp extends StatelessWidget {
         title: 'Loja do Erick',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primaryColor: const Color.fromARGB(255, 4, 125, 141),
-          scaffoldBackgroundColor: const Color.fromARGB(255, 4, 125, 141),
+          primaryColor: Color.fromARGB(255, 211, 118, 130),
+          scaffoldBackgroundColor: Color.fromARGB(255, 211, 118, 130),
           appBarTheme: const AppBarTheme(elevation: 0),
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
