@@ -24,44 +24,44 @@ class CustomDrawer extends StatelessWidget {
           ListView(
             children: <Widget>[
               CustomDrawerHeader(),
-              DrawerTile(
-                iconData: Icons.home,
-                title: 'Início',
-                page: 0,
-              ),
-              DrawerTile(
-                iconData: Icons.list,
-                title: 'Produtos',
-                page: 1,
-              ),
-              DrawerTile(
-                iconData: Icons.star,
-                title: 'Terapias',
-                page: 2,
-              ),
-              DrawerTile(
-                iconData: Icons.location_on,
-                title: 'Nossa loja',
-                page: 3,
-              ),
-              Consumer<UserManager>(
-                builder: (_, userManager, __) {
-                  if (userManager.adminEnabled) {
-                    return Column(
-                      children: <Widget>[
-                        const Divider(),
-                        DrawerTile(
-                          iconData: Icons.settings,
-                          title: 'Usuários',
-                          page: 4,
-                        ),
-                      ],
-                    );
-                  } else {
-                    return Container();
-                  }
-                },
-              )
+              // DrawerTile(
+              //   iconData: Icons.home,
+              //   title: 'Início',
+              //   page: 0,
+              // ),
+              // DrawerTile(
+              //   iconData: Icons.list,
+              //   title: 'Produtos',
+              //   page: 1,
+              // ),
+              // DrawerTile(
+              //   iconData: Icons.star,
+              //   title: 'Terapias',
+              //   page: 2,
+              // ),
+              // DrawerTile(
+              //   iconData: Icons.location_on,
+              //   title: 'Nossa loja',
+              //   page: 3,
+              // ),
+              // Consumer<UserManager>(
+              //   builder: (_, userManager, __) {
+              //     if (userManager.adminEnabled) {
+              //       return Column(
+              //         children: <Widget>[
+              //           const Divider(),
+              //           DrawerTile(
+              //             iconData: Icons.settings,
+              //             title: 'Usuários',
+              //             page: 4,
+              //           ),
+              //         ],
+              //       );
+              //     } else {
+              //       return Container();
+              //     }
+              //   },
+              // )
             ],
           ),
         ],

@@ -1,5 +1,3 @@
-import 'package:flutter_signin_button/button_list.dart';
-import 'package:flutter_signin_button/button_view.dart';
 import 'package:infinito/models/user.dart';
 import 'package:infinito/models/user_manager.dart';
 import 'package:provider/provider.dart';
@@ -20,18 +18,6 @@ class LoginScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Entrar'),
         centerTitle: true,
-        actions: <Widget>[
-          FlatButton(
-            onPressed: () {
-              Navigator.of(context).pushReplacementNamed('/signup');
-            },
-            textColor: Colors.white,
-            child: const Text(
-              'CRIAR CONTA',
-              style: TextStyle(fontSize: 14),
-            ),
-          )
-        ],
       ),
       body: Center(
         child: ListView(
@@ -133,20 +119,37 @@ class LoginScreen extends StatelessWidget {
                                   style: TextStyle(fontSize: 16),
                                 ),
                         ),
-                        SignInButton(
-                          Buttons.GoogleDark,
-                          text: 'Entrar com Google',
-                          onPressed: () {
-                            userManager.googleLogin(onFail: (e) {
-                              scaffoldKey.currentState.showSnackBar(SnackBar(
-                                content: Text('Falha ao entrar: $e'),
-                                backgroundColor: Colors.red,
-                              ));
-                            }, onSuccess: () {
-                              Navigator.of(context).pop();
-                            });
-                          },
-                        )
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        RaisedButton(
+                          materialTapTargetSize:
+                              MaterialTapTargetSize.shrinkWrap,
+                          onPressed: () => Navigator.of(context)
+                              .pushReplacementNamed('/signup'),
+                          color: Theme.of(context).primaryColor,
+                          disabledColor:
+                              Theme.of(context).primaryColor.withAlpha(100),
+                          textColor: Colors.white,
+                          child: const Text(
+                            'Criar conta',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ),
+                        // SignInButton(
+                        //   Buttons.GoogleDark,
+                        //   text: 'Entrar com Google',
+                        //   onPressed: () {
+                        //     userManager.googleLogin(onFail: (e) {
+                        //       scaffoldKey.currentState.showSnackBar(SnackBar(
+                        //         content: Text('Falha ao entrar: $e'),
+                        //         backgroundColor: Colors.red,
+                        //       ));
+                        //     }, onSuccess: () {
+                        //       Navigator.of(context).pop();
+                        //     });
+                        //   },
+                        // )
                       ],
                     );
                   },

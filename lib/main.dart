@@ -61,11 +61,12 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        title: 'Loja do Erick',
+        // title: 'Loja do Erick',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primaryColor: Color.fromARGB(255, 211, 118, 130),
-          scaffoldBackgroundColor: Color.fromARGB(255, 211, 118, 130),
+          // primaryColor: Color.fromARGB(255, 42, 30, 101),
+          primaryColor: Color.fromARGB(255, 219, 135, 30),
+          scaffoldBackgroundColor: Color.fromARGB(255, 219, 135, 30),
           appBarTheme: const AppBarTheme(elevation: 0),
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),

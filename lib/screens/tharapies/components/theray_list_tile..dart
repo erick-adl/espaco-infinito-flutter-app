@@ -58,6 +58,8 @@ class TherapyListTile extends StatelessWidget {
                     ),
                     Text(
                       therapy.brief,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 3,
                       style: TextStyle(
                         color: Colors.grey[400],
                         fontSize: 14,

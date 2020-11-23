@@ -24,7 +24,7 @@ class SectionList extends StatelessWidget {
           children: <Widget>[
             SectionHeader(),
             SizedBox(
-              height: 150,
+              height: 200,
               child: Consumer<Section>(
                 builder: (_, section, __) {
                   return ListView.separated(
@@ -36,7 +36,7 @@ class SectionList extends StatelessWidget {
                         return AddTileWidget();
                     },
                     separatorBuilder: (_, __) => const SizedBox(
-                      width: 4,
+                      width: 6,
                     ),
                     itemCount: homeManager.editing
                         ? section.items.length + 1

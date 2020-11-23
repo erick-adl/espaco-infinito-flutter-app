@@ -17,8 +17,8 @@ class HomeScreen extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
                 gradient: LinearGradient(colors: const [
-              Color.fromARGB(255, 211, 118, 130),
-              Color.fromARGB(255, 253, 181, 168)
+              Color.fromARGB(255, 219, 160, 60),
+              Color.fromARGB(255, 219, 135, 30),
             ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
           ),
           CustomScrollView(

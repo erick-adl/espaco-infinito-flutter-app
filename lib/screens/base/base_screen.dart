@@ -68,25 +68,63 @@ class _BaseScreenState extends State<BaseScreen> {
   @override
   Widget build(BuildContext context) {
     return Provider(
-      create: (_) => PageManager(pageController),
-      child: Consumer<UserManager>(
-        builder: (_, userManager, __) {
-          return PageView(
-            controller: pageController,
-            physics: const NeverScrollableScrollPhysics(),
-            children: <Widget>[
-              HomeScreen(),
-              ProductsScreen(),
-              TherapiesScreen(),
-              StoresScreen(),
-              if (userManager.adminEnabled) ...[
-                AdminUsersScreen(),
-                // AdminOrdersScreen(),
-              ]
-            ],
-          );
-        },
+        create: (_) => PageManager(pageController),
+        child: Consumer2<UserManager, PageManager>(
+          builder: (_, userManager, pageManager, __) {
+            return Scaffold(
+              body: PageView(
+                controller: pageController,
+                physics: const NeverScrollableScrollPhysics(),
+                children: <Widget>[
+                  HomeScreen(),
+                  ProductsScreen(),
+                  TherapiesScreen(),
+                  StoresScreen(),
+                  if (userManager.adminEnabled) ...[
+                    AdminUsersScreen(),
+                  ]
+                ],
+              ),
+              bottomNavigationBar: BottomNavigationBar(
+                type: BottomNavigationBarType.fixed,
+                currentIndex: pageManager.page,
+                onTap: (index) {
+                  pageManager.setPage(index);
+                  setState(() {});
+                },
+                items: [
+                  BottomNavigationBarItem(
+                      icon: new Icon(Icons.home), title: new Text('Início')),
+                  BottomNavigationBarItem(
+                    icon: new Icon(Icons.list),
+                    title: new Text('Produtos'),
+                  ),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.star), title: Text('Terapias')),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.location_on), title: Text('Nossa loja')),
+                  if (userManager.adminEnabled)
+                    BottomNavigationBarItem(
+                        icon: Icon(Icons.supervisor_account),
+                        title: Text('Users')),
+                ],
+              ),
+            );
+          },
+        ));
+  }
+
+  List<BottomNavigationBarItem> buildBottomNavBarItems() {
+    return [
+      BottomNavigationBarItem(
+          icon: new Icon(Icons.home), title: new Text('Início')),
+      BottomNavigationBarItem(
+        icon: new Icon(Icons.list),
+        title: new Text('Produtos'),
       ),
-    );
+      BottomNavigationBarItem(icon: Icon(Icons.star), title: Text('Terapias')),
+      BottomNavigationBarItem(
+          icon: Icon(Icons.location_on), title: Text('Nossa loja')),
+    ];
   }
 }
