@@ -1,6 +1,8 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:infinito/common/widgets/color_loader.dart';
 import 'package:infinito/models/home_manager.dart';
 import 'package:infinito/models/product.dart';
 import 'package:infinito/models/product_manager.dart';
@@ -84,6 +86,19 @@ class ItemTile extends StatelessWidget {
                 image: item.image as String,
                 fit: BoxFit.cover,
               )
+            // CachedNetworkImage(
+            //     imageUrl: item.image as String,
+            //     imageBuilder: (context, imageProvider) => Container(
+            //       decoration: BoxDecoration(
+            //           image: DecorationImage(
+            //             image: imageProvider,
+            //             fit: BoxFit.cover,
+            //           ),
+            //           borderRadius: BorderRadius.all(Radius.circular(10))),
+            //     ),
+            //     placeholder: (context, url) => Center(child: ColorLoader()),
+            //     errorWidget: (context, url, error) => Icon(Icons.error),
+            //   )
             : Image.file(
                 item.image as File,
                 fit: BoxFit.cover,

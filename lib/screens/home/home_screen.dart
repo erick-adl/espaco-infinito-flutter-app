@@ -29,13 +29,7 @@ class HomeScreen extends StatelessWidget {
                 elevation: 0,
                 backgroundColor: Colors.transparent,
                 flexibleSpace: const FlexibleSpaceBar(
-                  title: Padding(
-                    padding: const EdgeInsets.only(top: 50),
-                    child: Image(
-                      fit: BoxFit.fill,
-                      image: AssetImage('assets/images/logo_infinito.png'),
-                    ),
-                  ),
+                  title: Text("Espaço-Infinito"),
                   centerTitle: true,
                 ),
                 actions: <Widget>[

@@ -47,26 +47,6 @@ class CustomDrawerHeader extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        if (userManager.isLoggedIn) {
-                          context.read<PageManager>().setPage(0);
-                          userManager.signOut();
-                        } else {
-                          Navigator.of(context).pushNamed('/login');
-                        }
-                      },
-                      child: Text(
-                        userManager.isLoggedIn
-                            ? 'Sair'
-                            : 'Entre ou cadastre-se >',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
                   ],
                 ),
               );

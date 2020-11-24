@@ -43,16 +43,18 @@ class ImageSourceSheet extends StatelessWidget {
           children: <Widget>[
             FlatButton(
               onPressed: () async {
-                final PickedFile file =
-                    await picker.getImage(source: ImageSource.camera);
+                final PickedFile file = await picker.getImage(
+                    source: ImageSource.camera, imageQuality: 20);
                 editImage(file.path, context);
               },
               child: const Text('Câmera'),
             ),
             FlatButton(
               onPressed: () async {
-                final PickedFile file =
-                    await picker.getImage(source: ImageSource.gallery);
+                final PickedFile file = await picker.getImage(
+                  source: ImageSource.gallery,
+                  imageQuality: 20,
+                );
                 editImage(file.path, context);
               },
               child: const Text('Galeria'),
@@ -72,16 +74,20 @@ class ImageSourceSheet extends StatelessWidget {
           CupertinoActionSheetAction(
             isDefaultAction: true,
             onPressed: () async {
-              final PickedFile file =
-                  await picker.getImage(source: ImageSource.camera);
+              final PickedFile file = await picker.getImage(
+                source: ImageSource.camera,
+                imageQuality: 20,
+              );
               editImage(file.path, context);
             },
             child: const Text('Câmera'),
           ),
           CupertinoActionSheetAction(
             onPressed: () async {
-              final PickedFile file =
-                  await picker.getImage(source: ImageSource.gallery);
+              final PickedFile file = await picker.getImage(
+                source: ImageSource.gallery,
+                imageQuality: 20,
+              );
               editImage(file.path, context);
             },
             child: const Text('Galeria'),

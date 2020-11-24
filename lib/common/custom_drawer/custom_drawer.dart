@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:infinito/common/custom_drawer/custom_drawer_header.dart';
 import 'package:infinito/common/custom_drawer/drawer_tile.dart';
+import 'package:infinito/models/page_manager.dart';
 import 'package:infinito/models/user_manager.dart';
 import 'package:provider/provider.dart';
 
@@ -24,10 +25,46 @@ class CustomDrawer extends StatelessWidget {
           ListView(
             children: <Widget>[
               CustomDrawerHeader(),
+
+              Consumer<UserManager>(
+                builder: (_, userManager, __) {
+                  return GestureDetector(
+                    onTap: () {
+                      if (userManager.isLoggedIn) {
+                        context.read<PageManager>().setPage(0);
+                        userManager.signOut();
+                      } else {
+                        Navigator.of(context).pushNamed('/login');
+                      }
+                    },
+                    child: SizedBox(
+                      height: 60,
+                      child: Row(
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            child: Icon(
+                              Icons.exit_to_app,
+                              size: 32,
+                              color: Colors.grey[700],
+                            ),
+                          ),
+                          Text(
+                            userManager.isLoggedIn
+                                ? 'Sair'
+                                : 'Entre ou cadastre-se',
+                            style: TextStyle(
+                                fontSize: 18, color: Colors.grey[700]),
+                          )
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
               // DrawerTile(
-              //   iconData: Icons.home,
+              //   iconData: Icons.exit_to_app,
               //   title: 'Início',
-              //   page: 0,
               // ),
               // DrawerTile(
               //   iconData: Icons.list,

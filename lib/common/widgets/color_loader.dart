@@ -7,9 +7,9 @@ class ColorLoader extends StatefulWidget {
   final Color color3;
 
   ColorLoader({
-    this.color2 = const Color.fromARGB(255, 4, 125, 141),
-    this.color1 = const Color(0xffffffff),
-    this.color3 = const Color.fromARGB(255, 4, 90, 120),
+    this.color3 = const Color.fromARGB(255, 42, 30, 101),
+    this.color1 = const Color.fromARGB(255, 42, 30, 101),
+    this.color2 = const Color.fromARGB(255, 219, 135, 30),
   });
 
   @override
