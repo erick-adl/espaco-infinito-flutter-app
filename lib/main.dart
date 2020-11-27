@@ -12,10 +12,9 @@ import 'package:infinito/screens/base/base_screen.dart';
 import 'package:infinito/screens/cart/cart_screen.dart';
 import 'package:infinito/screens/edit_product/edit_product_screen.dart';
 import 'package:infinito/screens/edit_therapy/edit_therapy_screen.dart';
-import 'package:infinito/screens/login/login_screen.dart';
 import 'package:infinito/screens/product/product_screen.dart';
+import 'package:infinito/screens/register/register_screen.dart';
 import 'package:infinito/screens/select_product/select_product_screen.dart';
-import 'package:infinito/screens/signup/signup_screen.dart';
 import 'package:infinito/screens/therapy/therapy_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -73,9 +72,8 @@ class MyApp extends StatelessWidget {
         onGenerateRoute: (settings) {
           switch (settings.name) {
             case '/login':
-              return MaterialPageRoute(builder: (_) => LoginScreen());
-            case '/signup':
-              return MaterialPageRoute(builder: (_) => SignUpScreen());
+              return MaterialPageRoute(builder: (_) => RegisterScreen());
+
             case '/product':
               return MaterialPageRoute(
                   builder: (_) => ProductScreen(settings.arguments as Product));
